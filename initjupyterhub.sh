@@ -59,8 +59,10 @@ sudo sed -i -- 's/k.html/index.html/g' /etc/apache2/mods-enabled/dir.conf
 #can be ignored
 sudo echo $'<?php\necho \'Hello World\';' > /var/www/html/index.php
 sudo echo $'?>' >> /var/www/html/index.php
-
-
+#change AllowOverride None to AllowOverride FileInfo in /etc/apache2/apache2.conf for /var/www/
+#enable virtual hosts sudo echo "RewriteCond %{HTTP_HOST} ^ip\.goes\.in\.here" >> /var/www/html/.htaccess
+#sudo echo RewriteRule (.*) https://domainName.domain/$1 [R=301,L] >> /var/www/html/.htaccess
+#sudo a2enmod rewrite #to enable .htaccess
 sudo systemctl restart apache2
 sudo systemctl status apache2
 sleep 2
@@ -115,23 +117,26 @@ sudo rm libapache2-mod-ucam-webauth_2.0.3apache24~ubuntu_amd64.deb
 
 #to password protect whole site implement
 
-#http://www-h.eng.cam.ac.uk/help/tpl/network/pin_control.html set up in root dir /etc/apache2/config
+#http://www-h.eng.cam.ac.uk/help/tpl/network/pin_control.html set up in root dir /etc/apache2/apache2.conf
 #openssl rand -base64 32 generate cookie key
 #public keys raven https://raven.cam.ac.uk/project/keys/ in /etc/apache2/conf/webauth_keys
-#https://github.com/cwaldbieser/jhub_remote_user_authenticator
+
 
 cd /home/$user
 git clone https://github.com/pycav/server.git
-cd ./Server/webpages
+cd /home/$user/Server/webpages
 sudo mv * /var/www/html/
 sudo service apache2 restart
-cd ~/server/
+cd /home/$user/Server 
+sudo sed -i -- 's/pycav.ovh/'$site_name'/g' /home/$user/Server/jupyterhub_config.py
+sudo sed -i -- 's/auth_key='\'\''/auth_key='\'$(openssl rand -base64 32)\''/g' /home/$user/Server/jupyterhub_config.py
 chmod u+x *.sh
 cd /home/$user
 git clone https://github.com/PyCav/jupyterhub-raven-auth.git
-#cron job to update docker container's software
+#cron job to update docker container's software or upload to pypi
 sudo pip3 install jupyterhub-raven-auth/
- 
+sudo rm -R jupyterhub-raven-auth/ 
+
 #alter jupyterhub_config.py to use site_name instead of pycav.ovh
 
 echo "to run server in background screen sudo /home/jordan/server/startServer.sh ctrl-a ctrl-d"
