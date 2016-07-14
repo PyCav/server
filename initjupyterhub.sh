@@ -122,7 +122,7 @@ sudo rm libapache2-mod-ucam-webauth_2.0.3apache24~ubuntu_amd64.deb
 
 cd /home/$user
 git clone https://github.com/pycav/server.git
-cd ./server/webpages
+cd ./Server/webpages
 sudo mv * /var/www/html/
 sudo service apache2 restart
 cd ~/server/
