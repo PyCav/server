@@ -1,6 +1,8 @@
 #!/bin/bash
 #install ubuntu 16.04 server http://www.ubuntu.com/download/server
 
+#general server set up followed by custom deployment of jupyterhub
+
 sudo apt-get update
 sudo apt-get -y upgrade
 echo "input username:"
@@ -108,6 +110,7 @@ sudo pip install --upgrade pip
 sudo apt-get -y install npm nodejs nodejs-legacy
 #sudo apt-get install python3-flask
 
+#Here begins the custom deployment
 sudo apt-get -y install docker.io
 sudo npm install -g configurable-http-proxy
 sudo pip3 install jupyterhub  
