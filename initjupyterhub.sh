@@ -89,9 +89,11 @@ rm mycron
 #change AllowOverride None to AllowOverride FileInfo in /etc/apache2/apache2.conf for /var/www/
 sudo sed -i --'s/<Directory /var/www/>'$'\n''Options Indexes FollowSymLinks'$'\n''AllowOverride None/s/<Directory /var/www/>'$'\n''Options Indexes FollowSymLinks'$'\n''AllowOverride FileInfo/g' /etc/apache2/apache2.conf
 #enable virtual hosts?
-sudo echo "RewriteCond %{HTTP_HOST} ^ip\.goes\.in\.here" >> /var/www/html/.htaccess
+ipformatted = $(echo "$i" | sed -s 's/[.]/''\\.''/g')
+sudo echo "RewriteCond %{HTTP_HOST} ^""$ipformatted" >> /var/www/html/.htaccess
 sudo echo "RewriteRule (.*) https://""$site_name""/$1 [R=301,L]" >> /var/www/html/.htaccess
-#sudo a2enmod rewrite #to enable .htaccess
+#to enable .htaccess
+sudo a2enmod rewrite 
 sudo systemctl restart apache2
 sudo systemctl status apache2
 sleep 2
@@ -147,17 +149,18 @@ cd /home/$user/Server/webpages
 sudo sed -i -- 's/8000/'$port'/g' /home/$user/Server/webpages/index.php
 sudo mv * /var/www/html/
 sudo service apache2 restart
-cd /home/$user/Server 
-sudo sed -i -- 's/pycav.ovh/'$site_name'/g' /home/$user/Server/jupyterhub_config.py
-sudo sed -i -- 's/8000/'$port'/g' /home/$user/Server/jupyterhub_config.py
-sudo sed -i -- 's/auth_key='\'\''/auth_key='\'$(openssl rand -base64 32)\''/g' /home/$user/Server/jupyterhub_config.py
-#may need to be run twice? sudo sed -i -- 's/auth_key='\'\''/auth_key='\'$(openssl rand -base64 32)\''/g' /home/$user/Server/jupyterhub_config.py
-chmod u+x *.sh
 cd /home/$user
+chmod a+x /home/$user/*.sh
+
 git clone https://github.com/PyCav/jupyterhub-raven-auth.git
 #cron job to update docker container's software or upload to pypi?
 sudo pip3 install jupyterhub-raven-auth/
 sudo rm -R jupyterhub-raven-auth/ 
+
+sudo sed -i -- 's/pycav.ovh/'$site_name'/g' /home/$user/Server/jupyterhub_config.py
+sudo sed -i -- 's/8000/'$port'/g' /home/$user/Server/jupyterhub_config.py
+sudo sed -i -- 's/auth_key='\'\''/auth_key='\'$(openssl rand -base64 32)\''/g' /home/$user/Server/jupyterhub_config.py
+#may need to be run twice? sudo sed -i -- 's/auth_key='\'\''/auth_key='\'$(openssl rand -base64 32)\''/g' /home/$user/Server/jupyterhub_config.py
 
 
 echo "to run server in background screen sudo /home/jordan/server/startServer.sh ctrl-a ctrl-d"
