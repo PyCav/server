@@ -52,8 +52,7 @@ sleep 2
 sudo sed -i -- 's/index.php/k.html/g' /etc/apache2/mods-enabled/dir.conf
 sudo sed -i -- 's/index.html/index.php/g' /etc/apache2/mods-enabled/dir.conf
 sudo sed -i -- 's/k.html/index.html/g' /etc/apache2/mods-enabled/dir.conf
-#sudo nano /etc/apache2/mods-enabled/dir.conf
-#sudo -i
+
 
 #set up virtual hosts https://www.digitalocean.com/community/tutorials/how-to-set-up-apache-virtual-hosts-on-ubuntu-16-04
 
@@ -105,7 +104,7 @@ sudo pip3 install nbgrader
 #
 #
 
-#allow ports that you wish jupyterhub and binder? to run on input ports?
+#allow ports that you wish jupyterhub and binder to run on. input ports?
 sudo ufw allow 8000
 sudo ufw allow 8081
 cd /home/$user/
@@ -115,6 +114,7 @@ sudo rm libapache2-mod-ucam-webauth_2.0.3apache24~ubuntu_amd64.deb
 
 
 #to password protect whole site implement
+
 #http://www-h.eng.cam.ac.uk/help/tpl/network/pin_control.html set up in root dir /etc/apache2/config
 #openssl rand -base64 32 generate cookie key
 #public keys raven https://raven.cam.ac.uk/project/keys/ in /etc/apache2/conf/webauth_keys
@@ -129,7 +129,7 @@ cd ~/server/
 chmod u+x *.sh
 cd /home/$user
 git clone https://github.com/PyCav/jupyterhub-raven-auth.git
-
+#cron job to update docker container's software
 sudo pip3 install jupyterhub-raven-auth/
  
 #alter jupyterhub_config.py to use site_name instead of pycav.ovh

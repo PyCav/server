@@ -10,7 +10,7 @@ while true; do
 			i=$((i+1))
 			if [ $i -gt $iold ]; then
 				newcontainer=$container
-				sudo docker exec $newcontainer /bin/sh -c "pip3 install vpython;pip install vpython;git clone https://github.com/pycav/demos.git;git clone https://github.com/pycav/investigations.git"
+				sudo docker exec $newcontainer /bin/sh -c "sudo pip3 install --upgrade --force-reinstall git+git://github.com/BruceSherwood/vpython-jupyter.git;sudo pip install --upgrade --force-reinstall git+git://github.com/BruceSherwood/vpython-jupyter.git;"
 				echo $newcontainer
 			fi
 	done
