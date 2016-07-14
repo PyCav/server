@@ -173,7 +173,7 @@ sudo sed -i -- 's/auth_key='\'\''/auth_key='\'$(openssl rand -base64 32)\''/g' /
 #set up publicly viewable and executable hard disk with pycav demos docker virtual disks cron job update
 
 #set up nbgrader
-
+#server across nodes docker.com
 #customise jupyterhub
 
 #add startserver.sh to path
