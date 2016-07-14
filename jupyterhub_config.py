@@ -15,7 +15,8 @@ c.JupyterHub.ssl_key = '/etc/letsencrypt/live/pycav.ovh/privkey.pem'
 c.JupyterHub.ssl_cert = '/etc/letsencrypt/live/pycav.ovh/fullchain.pem'
 
 # Cookies
-c.JupyterHub.proxy_auth_token='1a62fdf469e94681b1138cfc5096f87d8ca9418aa28f58ae37af108a8cbc62d7'
+auth_key=''
+c.JupyterHub.proxy_auth_token=auth_key
 c.JupyterHub.cookie_secret_file = '/home/jordan/jupyterhub_cookie_secret'
 
 # Users
@@ -23,8 +24,8 @@ c.JupyterHub.db_url = '/home/jordan/jupyterhub.sqlite'
 c.LocalAuthenticator.create_system_users = True
 c.JupyterHub.admin_access = True
 
-#c.Authenticator.whitelist = {'jo357','nm523'}
-c.Authenticator.admin_users = {'nm523'}
+#c.Authenticator.whitelist = {''}
+c.Authenticator.admin_users = {''}
 
 raven = True
 remoteauth = False
@@ -53,9 +54,9 @@ c.JupyterHub.hub_ip = docker0_ipv4['addr']
 #c.JupyterHub.spawner_class.container_port=8089
 #c.JupyterHub.spawner_class.container_port=32773
 
-#c.GitHubOAuthenticator.oauth_callback_url = 'https://pycav.ovh:8000/hub/oauth_callback'
-#c.GitHubOAuthenticator.client_id = '206ebe2c7718ed5329ac'
-#c.GitHubOAuthenticator.client_secret = '9c3f9314196a43aaf82a9ea83839e738ae1dbf9b'
+#c.GitHubOAuthenticator.oauth_callback_url = 'https://site_name:jupyterHubPort/hub/oauth_callback'
+#c.GitHubOAuthenticator.client_id = ''
+#c.GitHubOAuthenticator.client_secret = ''
 
 # start single-user notebook servers in ~/assignments,
 # with ~/assignments/Welcome.ipynb as the default landing page
