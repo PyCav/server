@@ -107,7 +107,10 @@ sudo pip3 install nbgrader
 #
 
 #allow ports that you wish jupyterhub and binder to run on. input ports?
-sudo ufw allow 8000
+echo 'port to run jupyterhub on (not 443 or 80):'
+#do a check
+read port
+sudo ufw allow port
 sudo ufw allow 8081
 cd /home/$user/
 wget https://raven.cam.ac.uk/project/apache/files/Debs/libapache2-mod-ucam-webauth_2.0.3apache24~ubuntu_amd64.deb
@@ -129,6 +132,8 @@ sudo mv * /var/www/html/
 sudo service apache2 restart
 cd /home/$user/Server 
 sudo sed -i -- 's/pycav.ovh/'$site_name'/g' /home/$user/Server/jupyterhub_config.py
+sudo sed -i -- 's/8000/'$port'/g' /home/$user/Server/jupyterhub_config.py
+sudo sed -i -- 's/auth_key='\'\''/auth_key='\'$(openssl rand -base64 32)\''/g' /home/$user/Server/jupyterhub_config.py
 sudo sed -i -- 's/auth_key='\'\''/auth_key='\'$(openssl rand -base64 32)\''/g' /home/$user/Server/jupyterhub_config.py
 chmod u+x *.sh
 cd /home/$user
@@ -137,7 +142,6 @@ git clone https://github.com/PyCav/jupyterhub-raven-auth.git
 sudo pip3 install jupyterhub-raven-auth/
 sudo rm -R jupyterhub-raven-auth/ 
 
-#alter jupyterhub_config.py to use site_name instead of pycav.ovh
 
 echo "to run server in background screen sudo /home/jordan/server/startServer.sh ctrl-a ctrl-d"
 #in server folder  webpages/ startserver.sh, cleanupcontainers.sh, setupcontainers.sh, admin.sh, jupyterhub_config.py
