@@ -68,6 +68,7 @@ sudo mysql_secure_installation
 sudo apt-get -y install php libapache2-mod-php php-mcrypt php-mysql
 echo "Move index.php to just after DirectoryIndex"
 sleep 2
+
 sudo sed -i -- 's/index.php/k.html/g' /etc/apache2/mods-enabled/dir.conf
 sudo sed -i -- 's/index.html/index.php/g' /etc/apache2/mods-enabled/dir.conf
 sudo sed -i -- 's/k.html/index.html/g' /etc/apache2/mods-enabled/dir.conf
@@ -101,7 +102,7 @@ rm mycron
 sudo sed -i -- 's/AllowOverride None/AllowOverride FileInfo/g' /etc/apache2/apache2.conf
 #enable virtual hosts?
 #enable virtual hosts?
-ipformatted = $(echo "$i" | sed -s 's/[.]/''\\.''/g')
+ipformatted=$(echo "$ip" | sed -s 's/[.]/''\\.''/g')
 sudo echo "RewriteCond %{HTTP_HOST} ^""$ipformatted" >> /var/www/html/.htaccess
 sudo echo "RewriteRule (.*) https://""$site_name""/$1 [R=301,L]" >> /var/www/html/.htaccess
 #to enable .htaccess
@@ -123,13 +124,15 @@ sudo apt-get -y install npm nodejs nodejs-legacy libjs-mathjax
 #Here begins the custom deployment
 sudo apt-get -y install docker.io
 sudo npm install -g configurable-http-proxy
-sudo pip3 install jupyterhub  
+sudo pip3 install --upgrade jupyterhub  
 sudo pip3 install --upgrade notebook 
-sudo pip3 install oauthenticator
+sudo pip3 install --upgrade oauthenticator
 
-sudo pip3 install dockerspawner netifaces
+sudo pip3 install --upgrade dockerspawner netifaces
 sudo docker pull jupyterhub/singleuser
-sudo pip3 install nbgrader
+#sudo docker build -t jupyterhub/customsingleuser .   ?
+
+sudo pip3 install --upgrade nbgrader
 
 
 
@@ -137,7 +140,7 @@ sudo pip3 install nbgrader
 echo 'port to run jupyterhub on (not 443 or 80) default 8000:'
 #do a check
 read port
-sudo ufw allow port
+sudo ufw allow $port
 sudo ufw allow 8081
 cd /home/public/
 wget https://raven.cam.ac.uk/project/apache/files/Debs/libapache2-mod-ucam-webauth_2.0.3apache24~ubuntu_amd64.deb
@@ -152,23 +155,23 @@ sudo rm libapache2-mod-ucam-webauth_2.0.3apache24~ubuntu_amd64.deb
 #public keys raven https://raven.cam.ac.uk/project/keys/ in /etc/apache2/conf/webauth_keys
 
 
-cd /home/public
+cd /home/public/
 git clone https://github.com/pycav/server.git
-cd /home/public/Server/webpages
-sudo sed -i -- 's/8000/'$port'/g' /home/public/Server/webpages/index.php
+cd /home/public/server/webpages
+sudo sed -i -- 's/8000/'$port'/g' /home/public/server/webpages/index.php
 sudo mv * /var/www/html/
 sudo service apache2 restart
 cd /home/public
-chmod a+x /home/public/Server/*.sh
+chmod a+x /home/public/server/*.sh
 
 git clone https://github.com/PyCav/jupyterhub-raven-auth.git
 #cron job to update docker container's software or upload to pypi?
-sudo pip3 install jupyterhub-raven-auth/
+sudo pip3 install --upgrade jupyterhub-raven-auth/
 sudo rm -R jupyterhub-raven-auth/ 
 
-sudo sed -i -- 's/pycav.ovh/'$site_name'/g' /home/public/Server/jupyterhub_config.py
-sudo sed -i -- 's/8000/'$port'/g' /home/public/Server/jupyterhub_config.py
-sudo sed -i -- 's/auth_key='\'\''/auth_key='\'$(openssl rand -base64 32)\''/g' /home/public/Server/jupyterhub_config.py
+sudo sed -i -- 's/pycav.ovh/'$site_name'/g' /home/public/server/jupyterhub_config.py
+sudo sed -i -- 's/8000/'$port'/g' /home/public/server/jupyterhub_config.py
+sudo sed -i -- 's/auth_key='\'\''/auth_key='\'$(openssl rand -base64 32)\''/g' /home/public/server/jupyterhub_config.py
 #may need to be run twice? sudo sed -i -- 's/auth_key='\'\''/auth_key='\'$(openssl rand -base64 32)\''/g' /home/$user/Server/jupyterhub_config.py
 
 #set up publicly viewable and executable hard disk with pycav demos docker virtual disks cron job update
@@ -187,7 +190,7 @@ rm mycron
 
 #add startserver.sh to path
 
-sudo cp /home/public/Server/startserver.sh /usr/local/bin/startServer
+sudo cp /home/public/server/startserver.sh /usr/local/bin/startServer
 source .bashrc
 
 #so user can edit website without sudo? also part of general set up?

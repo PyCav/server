@@ -47,6 +47,7 @@ elif raven:
 from dockerspawner import DockerSpawner
 c.JupyterHub.spawner_class = DockerSpawner
 c.DockerSpawner.read_only_volumes={'/home/public/demos':'/home/jovyan/work/demos'}
+#c.DockerSpawner.container_image = ''
 
 import netifaces
 docker0 = netifaces.ifaddresses('docker0')

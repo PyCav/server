@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 cd /home/public/Server
 function run {
 			   sudo updatecontainers.sh &
