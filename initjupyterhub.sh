@@ -129,8 +129,7 @@ sudo pip3 install --upgrade notebook
 sudo pip3 install --upgrade oauthenticator
 
 sudo pip3 install --upgrade dockerspawner netifaces
-sudo docker pull jupyterhub/singleuser
-#sudo docker build -t jupyterhub/customsingleuser .   ?
+#sudo docker pull jupyterhub/singleuser
 
 sudo pip3 install --upgrade nbgrader
 
@@ -163,6 +162,9 @@ sudo mv * /var/www/html/
 sudo service apache2 restart
 cd /home/public
 chmod a+x /home/public/server/*.sh
+
+cd home/public/server
+sudo docker build -t jupyterhub/customsingleuser .
 
 git clone https://github.com/PyCav/jupyterhub-raven-auth.git
 #cron job to update docker container's software or upload to pypi?
