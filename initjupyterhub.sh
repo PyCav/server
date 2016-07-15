@@ -88,13 +88,18 @@ read site_name
 sudo letsencrypt --apache -d $site_name
 export EDITOR=/bin/nano
 
+
+#set up crons
 crontab -l > mycron
 echo "07 04 * * * letsencrypt renew" >> mycron
 crontab mycron
 rm mycron
 
 #change AllowOverride None to AllowOverride FileInfo in /etc/apache2/apache2.conf for /var/www/
-sudo sed -i --'s/<Directory /var/www/>'$'\n''Options Indexes FollowSymLinks'$'\n''AllowOverride None/s/<Directory /var/www/>'$'\n''Options Indexes FollowSymLinks'$'\n''AllowOverride FileInfo/g' /etc/apache2/apache2.conf
+#needs fixing?
+#sudo sed -i --'s/<Directory /var/www/>'$'\n'$'\t''Options Indexes FollowSymLinks'$'\n'$'\t''AllowOverride None/s/<Directory /var/www/>'$'\n'$'\t''Options Indexes FollowSymLinks'$'\n'$'\t''AllowOverride FileInfo/g' /etc/apache2/apache2.conf
+sudo sed -i --'s/AllowOverride None/s/AllowOverride FileInfo/g' /etc/apache2/apache2.conf
+#enable virtual hosts?
 #enable virtual hosts?
 ipformatted = $(echo "$i" | sed -s 's/[.]/''\\.''/g')
 sudo echo "RewriteCond %{HTTP_HOST} ^""$ipformatted" >> /var/www/html/.htaccess
@@ -126,11 +131,7 @@ sudo pip3 install dockerspawner netifaces
 sudo docker pull jupyterhub/singleuser
 sudo pip3 install nbgrader
 
-#Install binder code for demos needs virtual hosts
-#
-#
-#
-#
+
 
 #allow ports that you wish jupyterhub and binder to run on.
 echo 'port to run jupyterhub on (not 443 or 80) default 8000:'
@@ -158,7 +159,7 @@ sudo sed -i -- 's/8000/'$port'/g' /home/public/Server/webpages/index.php
 sudo mv * /var/www/html/
 sudo service apache2 restart
 cd /home/public
-chmod a+x /home/public/*.sh
+chmod a+x /home/public/Server/*.sh
 
 git clone https://github.com/PyCav/jupyterhub-raven-auth.git
 #cron job to update docker container's software or upload to pypi?
@@ -171,12 +172,20 @@ sudo sed -i -- 's/auth_key='\'\''/auth_key='\'$(openssl rand -base64 32)\''/g' /
 #may need to be run twice? sudo sed -i -- 's/auth_key='\'\''/auth_key='\'$(openssl rand -base64 32)\''/g' /home/$user/Server/jupyterhub_config.py
 
 #set up publicly viewable and executable hard disk with pycav demos docker virtual disks cron job update
+cd /home/public
+git clone https://github.com/pycav/demos.git
 
-#set up nbgrader
-#server across nodes docker.com
-#customise jupyterhub
+crontab -l > mycron
+echo "10 04 * * * git clone https://github.com/pycav/demos.git /home/public" >> mycron
+crontab mycron
+rm mycron
+
+#set up nbgrader?
+#server across nodes docker.com?
+#customise jupyterhub?
 
 #add startserver.sh to path
+
 sudo cp /home/public/Server/startserver.sh /usr/local/bin/startServer
 source .bashrc
 
