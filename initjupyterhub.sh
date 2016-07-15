@@ -176,13 +176,14 @@ cd /home/public
 git clone https://github.com/pycav/demos.git
 
 crontab -l > mycron
-echo "10 04 * * * git clone https://github.com/pycav/demos.git /home/public" >> mycron
+echo "10 04 * * * rm -R /home/public/demos && git clone https://github.com/pycav/demos.git /home/public" >> mycron
 crontab mycron
 rm mycron
 
 #set up nbgrader?
 #server across nodes docker.com?
 #customise jupyterhub?
+#create persistant userdata docker volumes so containers can be updated as necessary
 
 #add startserver.sh to path
 
