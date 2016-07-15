@@ -41,10 +41,12 @@ elif raven:
     from raven_auth.raven_auth import RavenAuthenticator
     c.JupyterHub.authenticator_class = RavenAuthenticator
     c.RavenAuthenticator.description = "pyCav"
+    c.RavenAuthenticator.login_logo = './logo.png' 
 
 # Docker
 from dockerspawner import DockerSpawner
 c.JupyterHub.spawner_class = DockerSpawner
+c.DockerSpawner.read_only_volumes={'/home/public/demos':'/home/jovyan/work'}
 
 import netifaces
 docker0 = netifaces.ifaddresses('docker0')
