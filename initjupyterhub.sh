@@ -99,6 +99,7 @@ rm mycron
 #change AllowOverride None to AllowOverride FileInfo in /etc/apache2/apache2.conf for /var/www/
 #needs fixing?
 #sudo sed -i -- 's/<Directory /var/www/>'$'\n'$'\t''Options Indexes FollowSymLinks'$'\n'$'\t''AllowOverride None/<Directory /var/www/>'$'\n'$'\t''Options Indexes FollowSymLinks'$'\n'$'\t''AllowOverride FileInfo/g' /etc/apache2/apache2.conf
+#add a counter to only change /var/www/ ?
 sudo sed -i -- 's/AllowOverride None/AllowOverride FileInfo/g' /etc/apache2/apache2.conf
 #enable virtual hosts?
 #enable virtual hosts?
@@ -164,7 +165,7 @@ cd /home/public
 chmod a+x /home/public/server/*.sh
 
 cd /home/public/server
-sudo docker build -t jupyterhubcustom/singleuser:latest .
+sudo docker build -t jordanosborn/pycav:latest .
 #set up automated builds docker pull pycav/singleuser must edit config also
 
 git clone https://github.com/PyCav/jupyterhub-raven-auth.git
