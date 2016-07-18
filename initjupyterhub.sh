@@ -164,7 +164,7 @@ cd /home/public
 chmod a+x /home/public/server/*.sh
 
 cd /home/public/server
-sudo docker build -t jupyterhub/customsingleuser .
+sudo docker build -t jupyterhubcustom/singleuser:latest .
 
 git clone https://github.com/PyCav/jupyterhub-raven-auth.git
 #cron job to update docker container's software or upload to pypi?
