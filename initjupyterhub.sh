@@ -163,7 +163,7 @@ sudo service apache2 restart
 cd /home/public
 chmod a+x /home/public/server/*.sh
 
-cd home/public/server
+cd /home/public/server
 sudo docker build -t jupyterhub/customsingleuser .
 
 git clone https://github.com/PyCav/jupyterhub-raven-auth.git
