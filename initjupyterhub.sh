@@ -164,7 +164,7 @@ cd /home/public
 chmod a+x /home/public/server/*.sh
 
 cd /home/public/server
-sudo docker build -t jupyterhubcustom/singleuser:latest .
+sudo docker build -t jordanosborn/pycav:latest .
 #set up automated builds docker pull pycav/singleuser must edit config also
 
 git clone https://github.com/PyCav/jupyterhub-raven-auth.git
