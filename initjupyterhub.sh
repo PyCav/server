@@ -167,6 +167,7 @@ chmod a+x /home/public/server/*.sh
 cd /home/public/server
 sudo docker pull jordanosborn/pycav
 #sudo docker build -t jordanosborn/pycav:latest .
+#https://hub.docker.com/r/jordanosborn/pycav/
 
 #cron job to update docker image?
 
