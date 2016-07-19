@@ -17,10 +17,10 @@ c.JupyterHub.ssl_cert = '/etc/letsencrypt/live/pycav.ovh/fullchain.pem'
 # Cookies
 auth_key=''
 c.JupyterHub.proxy_auth_token=auth_key
-c.JupyterHub.cookie_secret_file = '/home/jordan/jupyterhub_cookie_secret'
+c.JupyterHub.cookie_secret_file = '/home/public/jupyterhub_cookie_secret'
 
 # Users
-c.JupyterHub.db_url = '/home/jordan/jupyterhub.sqlite'
+c.JupyterHub.db_url = '/home/public/jupyterhub.sqlite'
 c.LocalAuthenticator.create_system_users = True
 c.JupyterHub.admin_access = True
 
@@ -47,13 +47,20 @@ elif raven:
 # Docker
 from dockerspawner import DockerSpawner
 c.JupyterHub.spawner_class = DockerSpawner
+
+c.DockerSpawner.volumes={'/home/public/users/{username}':'/home/jovyan/work','/srv/nbgrader/exchange':'/srv/nbgrader/exchange'}
 c.DockerSpawner.read_only_volumes={'/home/public/demos':'/home/jovyan/work/demos'}
+c.DockerSpawner.notebook_dir = '/home/jovyan/work/{username}'
+c.DockerSpawner.remove_containers=True
 c.DockerSpawner.container_image = "jordanosborn/pycav"
 
 import netifaces
 docker0 = netifaces.ifaddresses('docker0')
 docker0_ipv4 = docker0[netifaces.AF_INET][0]
 c.JupyterHub.hub_ip = docker0_ipv4['addr']
+
+# start single-user notebook servers in ~/persistent,
+# with ~/assignments/Welcome.ipynb as the default landing page
 
 #c.JupyterHub.spawner_class.container_port=8089
 #c.JupyterHub.spawner_class.container_port=32773
@@ -62,7 +69,6 @@ c.JupyterHub.hub_ip = docker0_ipv4['addr']
 #c.GitHubOAuthenticator.client_id = ''
 #c.GitHubOAuthenticator.client_secret = ''
 
-# start single-user notebook servers in ~/assignments,
-# with ~/assignments/Welcome.ipynb as the default landing page
+
 # this config could also be put in
 # /etc/ipython/ipython_notebook_config.py

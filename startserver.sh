@@ -1,9 +1,9 @@
 #!/bin/bash
-cd /home/public/Server
+cd /home/public/server
 function run {
 			   sudo updatecontainers.sh &
-			   sudo setupcontainers.sh &
 			   sudo killidlecontainers.sh &
+			   sudo serverstats.sh &
                sudo jupyterhub
            }
 
