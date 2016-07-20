@@ -2,7 +2,7 @@
 cd /home/public/server
 function run {
 			   sudo updatecontainers.sh &
-			   sudo killidlecontainers.sh &
+			   sudo killidle.sh &
 			   sudo serverstats.sh &
                sudo jupyterhub
            }
