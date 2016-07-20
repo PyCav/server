@@ -49,8 +49,11 @@ class processes:
 				except IndexError:
 					pass
 			if isNew:
-				self.processes.append(ps[i])
-				self.idleTime.append(0.0)
+				try:
+					self.processes.append(ps[i])
+					self.idleTime.append(0.0)
+				except IndexError:
+					pass
 		for i in range(0,len(self.processes)):
 			stillRunning=False
 			for j in range(0,len(ps)):
@@ -61,8 +64,11 @@ class processes:
 				except IndexError:
 					pass
 			if(not stillRunning):
-				del self.processes[i]
-				del self.idleTime[i]
+				try:
+					del self.processes[i]
+					del self.idleTime[i]
+				except IndexError:
+					pass
 	#increment idle time reset to 0 if we get a usage spike over t period increment if not
 	def _idleCheck(self):
 		pass
