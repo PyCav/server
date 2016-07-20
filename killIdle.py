@@ -1,9 +1,10 @@
 import subprocess as sp
 import time as t
 
+#print output to logs?
 TIMEOUT=15*60 #in seconds
 INCREMENT_TIME=3 #in seconds
-RM=False
+RM=False #remove containers after stopping them
 
 class processes:
 	def __init__(self):
@@ -11,33 +12,33 @@ class processes:
 		self.idleTime=[]
 		self.time0=0
 		self.time=0
-
-	def getTime(self):
+	def _getTime(self):
 		self.time=t.time()-self.time0
-
+#seperate formatting from code
+	def _formatting(self):
+		pass
 	def _getRunning(self):
-			dockerps=sp.Popen(["docker","ps","-f","\"status=running\""],stdout=sp.PIPE)
-			dockerps= str(dockerps.stdout.read()).replace("\'", "").replace("\\n","\n")[1:]
-			ps=[]
-			for c in range(0,len(dockerps)):
-					if(dockerps[c]=="\n"):
-							dockerps=dockerps[c+1:]
-							break
-			start=0
-			for c in range(0,len(dockerps)):
-					if(dockerps[c]=="\n"):
-							ps.append([dockerps[start:c]])
-							start=c+1
-			for i in range(0,len(ps)):
-					ps[i][0]=ps[i][0][ps[i][0].find("jupyter"):len(ps[i][0])]
-					ps[i].append(sp.Popen(["docker", "inspect", "--format","\'{{ .State.Pid }}\'",ps[i][0]],stdout=sp.PIPE))
-					ps[i][1]=int(''.join(filter(lambda x: x.isdigit(),str(ps[i][1].stdout.read()))))
-			return ps
-	def processesCheck(self):
+		dockerps=sp.Popen(["docker","ps","-f","\"status=running\""],stdout=sp.PIPE)
+		dockerps=str(dockerps.stdout.read()).replace("\'", "").replace("\\n","\n")[1:]
+		ps=[]
+		for c in range(0,len(dockerps)):
+				if(dockerps[c]=="\n"):
+						dockerps=dockerps[c+1:]
+						break
+		start=0
+		for c in range(0,len(dockerps)):
+				if(dockerps[c]=="\n"):
+						ps.append([dockerps[start:c]])
+						start=c+1
+		for i in range(0,len(ps)):
+				ps[i][0]=ps[i][0][ps[i][0].find("jupyter"):len(ps[i][0])]
+				ps[i].append(sp.Popen(["docker", "inspect", "--format","\'{{ .State.Pid }}\'",ps[i][0]],stdout=sp.PIPE))
+				ps[i][1]=int(''.join(filter(lambda x: x.isdigit(),str(ps[i][1].stdout.read()))))
+		return ps
+	def _processesCheck(self):
 		ps=self._getRunning()
 		isNew= True
 		StillRunning=False
-		#remove exited containers from processes
 		for i in range(0,len(ps)):	
 			isNew= True
 			for j in range(0,len(self.processes)):
@@ -63,9 +64,9 @@ class processes:
 				del self.processes[i]
 				del self.idleTime[i]
 	#increment idle time reset to 0 if we get a usage spike over t period increment if not
-	def idleCheck(self):
+	def _idleCheck(self):
 		pass
-	def kill(self):
+	def _kill(self):
 		for i in range(0,len(self.processes)):
 			if(self.idleTime[i]>=TIMEOUT):
 				sp.call("docker","stop",self.processes[i][0])
@@ -74,9 +75,10 @@ class processes:
 	def run(self):
 		self.time0=t.time()
 		while True:	
-			self.processesCheck()
-			self.idleCheck()
-			self.kill()
+			self._processesCheck()
+			self._idleCheck()
+			self._kill()
+			self._getTime()
 			print(self.processes)
 			print(self.idleTime)
 			t.sleep(INCREMENT_TIME)
