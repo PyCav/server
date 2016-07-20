@@ -1,20 +1,22 @@
 import subprocess as sp
 import time as t
 
-MAX_IDLE_TIME=15*60 #in seconds
+TIMEOUT=15*60 #in seconds
 INCREMENT_TIME=3 #in seconds
+RM=False
 
 class processes:
 	def __init__(self):
 		self.processes=[]
 		self.idleTime=[]
-		self.time0=t.time()
+		self.time0=0
+		self.time=0
 
-	def time(self):
-		return t.time()-self.time0
+	def getTime(self):
+		self.time=t.time()-self.time0
 
-	def getRunning(self):
-			dockerps=sp.Popen(["docker","ps","-a","-f","\"status=running\""],stdout=sp.PIPE)
+	def _getRunning(self):
+			dockerps=sp.Popen(["docker","ps","-f","\"status=running\""],stdout=sp.PIPE)
 			dockerps= str(dockerps.stdout.read()).replace("\'", "").replace("\\n","\n")[1:]
 			ps=[]
 			for c in range(0,len(dockerps)):
@@ -32,24 +34,31 @@ class processes:
 					ps[i][1]=int(''.join(filter(lambda x: x.isdigit(),str(ps[i][1].stdout.read()))))
 			return ps
 	def processesCheck(self):
-		ps=getRunning()
+		ps=self._getRunning()
 		isNew= True
 		StillRunning=False
 		#remove exited containers from processes
-		for i in range(0,len(self.ps)):	
+		for i in range(0,len(ps)):	
 			isNew= True
 			for j in range(0,len(self.processes)):
-				if(ps[j][1]==self.processes[i][1]):
-					isNew=0
-					break
+				try:
+					if(ps[j][1]==self.processes[i][1]):
+						isNew=False
+						break
+				except IndexError:
+					pass
 			if isNew:
 				self.processes.append(ps[i])
 				self.idleTime.append(0.0)
 		for i in range(0,len(self.processes)):
 			stillRunning=False
-			for j in range(0,len(self.ps)):
-				if(ps[j][1]==self.processes[i][1]):
-					stillRunning=True
+			for j in range(0,len(ps)):
+				try:
+					if(ps[j][1]==self.processes[i][1]):
+						stillRunning=True
+						break
+				except IndexError:
+					pass
 			if(not stillRunning):
 				del self.processes[i]
 				del self.idleTime[i]
@@ -57,15 +66,21 @@ class processes:
 	def idleCheck(self):
 		pass
 	def kill(self):
-		#if idle:
-			#kill
-		pass
+		for i in range(0,len(self.processes)):
+			if(self.idleTime[i]>=TIMEOUT):
+				sp.call("docker","stop",self.processes[i][0])
+				if RM:
+					sp.call("docker","rm",self.processes[i][0])
 	def run(self):
-		pass
+		self.time0=t.time()
+		while True:	
+			self.processesCheck()
+			self.idleCheck()
+			self.kill()
+			print(self.processes)
+			print(self.idleTime)
+			t.sleep(INCREMENT_TIME)
 def main():
 	PS=processes()
-	while True:
-		PS.run()	
-
-	
+	PS.run()
 main()
