@@ -116,6 +116,7 @@ sleep 2
 #set up internal
 sudo apt-get -y install git htop
 sudo apt-get -y install python3-pip python-pip
+sudo apt-get -y install sysstat
 sudo pip3 install --upgrade pip
 sudo pip install --upgrade pip
 

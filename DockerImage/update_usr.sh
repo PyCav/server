@@ -1,3 +1,4 @@
-#!/bin/sh
-set -e
-exec usermod -l $JPY_USER jovyan
+#!/bin/bash
+
+exec sh /srv/pycav/pycav-crsid.sh
+exec sh /srv/singleuser/singleuser.sh
