@@ -4,9 +4,10 @@ c = get_config()
 c.NotebookApp.open_browser = False
 
 import os
+#from pycav_tis import tis
 
 # Enable Logging
-#c.JupyterHub.log_level = 'DEBUG'
+c.JupyterHub.log_level = 'DEBUG'
 
 c.JupyterHub.port = 8000
 
@@ -25,7 +26,15 @@ c.LocalAuthenticator.create_system_users = True
 c.JupyterHub.admin_access = True
 
 #c.Authenticator.whitelist = {''}
-c.Authenticator.admin_users = {''}
+#c.Authenticator.admin_users = {''}
+
+#tis_config = '/home/public/tis_config'
+#tis_csv = '/home/public/tis.csv'
+#tis_conn = tis.pycavTisDictReader(tis_csv)
+
+#c.Authenticator.admin_users = tis_conn.get_admins()
+#c.Authenticator.whitelist = tis_conn.get_users()
+
 
 raven = True
 remoteauth = False
@@ -47,10 +56,14 @@ elif raven:
 # Docker
 from dockerspawner import DockerSpawner
 c.JupyterHub.spawner_class = DockerSpawner
+c.Spawner.debug = True
 
 c.DockerSpawner.volumes={'/home/public/users/{username}':'/home/jovyan/work','/srv/nbgrader/exchange':'/srv/nbgrader/exchange'}
 c.DockerSpawner.read_only_volumes={'/home/public/demos':'/home/jovyan/work/demos'}
 c.DockerSpawner.notebook_dir = '/home/jovyan/work/{username}'
+c.DockerSpawner.extra_create_kwargs.update({
+    'command': 'sh /srv/crsidify/start-singleuser.sh'
+})
 c.DockerSpawner.remove_containers=True
 c.DockerSpawner.container_image = "jordanosborn/pycav"
 

@@ -1,6 +1,6 @@
 import subprocess as sp
 import time as t
-
+#kill resource intensive containers
 #print output to logs?
 TIMEOUT=15*60 #in seconds
 INCREMENT_TIME=3 #in seconds
