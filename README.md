@@ -8,11 +8,9 @@ Todo:
 
 nbgrader
 
-whitelisting by course 
+whitelisting by course tis library
 
 admin access to /home/public/users top level customise dockerSpawner.py
-
-change usernames on docker container creation to CRSids
 
 update.sh updating software script(docker pull jordanosborn/pycav periodically and https://github.com/pycav/demos.git)
 
