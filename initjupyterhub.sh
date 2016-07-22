@@ -162,7 +162,7 @@ if [ "$jup" == "y" ]; then
 	echo "Installed dockerspawner and netifaces"
 
 	echo "Installing nbgrader"
-	sudo pip3 install --upgrade nbgrader
+	sudo pip3 install --upgrade nbgrader >> server.log
 	echo "Installed nbgrader"
 
 
@@ -170,8 +170,8 @@ if [ "$jup" == "y" ]; then
 	echo "Port to run jupyterhub on (not 443 or 80) default 8000:"
 	#do a check
 	read port
-	sudo ufw allow $port
-	sudo ufw allow 8081
+	sudo ufw allow $port >> server.log
+	sudo ufw allow 8081 >> server.log
 
 	#enclose in if statements if git auth wanted
 	echo "Installing ucam-webauth for Raven authentication"
@@ -204,9 +204,9 @@ if [ "$jup" == "y" ]; then
 	if [ "$answer" == "y" ]; then
 		echo "Where is your dockerfile (path)?"
 		read path
-		sudo docker -t build docker build -t $user/singleuser:latest $path >> server.log
+		sudo docker -t build docker build -t $user/singleuser:latest $path 
 	else
-		sudo docker pull jordanosborn/pycav >> server.log
+		sudo docker pull jordanosborn/pycav 
 	fi
 	echo "Docker image downloaded"
 	#sudo docker build -t jordanosborn/pycav:latest .
@@ -228,7 +228,7 @@ if [ "$jup" == "y" ]; then
 	#set up publicly viewable and executable hard disk with pycav demos docker virtual disks cron job update
 	echo "Creating a publically readable folder containing the demos from the pycav/demos github repository"
 	cd /home/public
-	git clone https://github.com/pycav/demos.git
+	git clone https://github.com/pycav/demos.git >> server.log
 
 	#does this need to be here
 	crontab -l > mycron
@@ -244,7 +244,6 @@ if [ "$jup" == "y" ]; then
 
 	#add startserver.sh to path
 	sudo cp /home/public/server/startserver.sh /usr/local/bin/startServer
-	source .bashrc
 	echo "To run server in background: screen; sudo startServer; ctrl-a; ctrl-d;"
 fi
 #so user can edit website without sudo? also part of general set up?
