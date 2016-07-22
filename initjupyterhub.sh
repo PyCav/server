@@ -67,7 +67,7 @@ ping -c 3 $ip
 echo "Installed Apache"
 
 echo "Installing MySQL"
-sudo apt-get install mysql-server
+sudo apt-get -y install mysql-server
 echo "Follow MySQL secure Installation set up instructions below"
 sleep 1
 sudo mysql_secure_installation
