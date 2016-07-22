@@ -103,6 +103,7 @@ export EDITOR=/bin/nano
 
 #set up crons
 echo "Setting up automated renewal of SSL certificate"
+crontab -e
 crontab -l > mycron
 echo "07 04 * * * letsencrypt renew" >> mycron
 crontab mycron
@@ -147,7 +148,7 @@ echo "Installed javascript dependencies"
 #Here begins the custom deployment change to allow custom authenticators github...
 echo "Would you like to install jupyterhub and nbgrader with raven authentication?"
 read jup
-if ["$jup" =="y"]; then
+if [ "$jup" == "y" ]; then
 	echo "Installing Docker and its dependencies"
 	sudo apt-get -y install docker.io >> server.log
 	echo "Installed docker.io"
