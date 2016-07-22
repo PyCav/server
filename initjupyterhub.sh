@@ -166,7 +166,15 @@ cd /home/public
 chmod a+x /home/public/server/*.sh
 
 cd /home/public/server
-sudo docker pull jordanosborn/pycav
+echo "Do you wish to use a custom dockerfile (no)?"
+read answer
+if [ "$answer" == "y" ]; then
+	echo "where is your dockerfile (path)?"
+	read path
+	sudo docker -t build docker build -t $user/singleuser:latest $path
+else
+	sudo docker pull jordanosborn/pycav
+fi
 #sudo docker build -t jordanosborn/pycav:latest .
 #https://hub.docker.com/r/jordanosborn/pycav/
 
