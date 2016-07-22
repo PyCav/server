@@ -1,10 +1,10 @@
 #!/bin/bash
 cd /home/public/server
 function run {
-			   sudo updatecontainers.sh &
-			   sudo killidle.sh &
-			   sudo serverstats.sh &
-               sudo jupyterhub
+			   sudo ./updatecontainers.sh &
+			   sudo ./killidle.sh &
+			   sudo ./serverstats.sh &
+               sudo ./jupyterhub
            }
 
 until run; do
