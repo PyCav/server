@@ -27,3 +27,5 @@ jupyterhub customisation (logos)
 documentation
 
 output to logfiles
+
+finish start server script
