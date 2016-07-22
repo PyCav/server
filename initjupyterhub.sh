@@ -4,6 +4,7 @@
 #general server set up followed by custom deployment of jupyterhub using fresh ubuntu 16.04 install with root user
 echo "Output from script saved in working directory as server.log"
 echo "Updating software sources"
+sudo dpkg --configure -a
 sudo apt-get update >> server.log
 echo "Upgrading server software"
 sudo apt-get -y upgrade >> server.log
@@ -66,7 +67,7 @@ ping -c 3 $ip
 echo "Installed Apache"
 
 echo "Installing MySQL"
-sudo apt-get -y install mysql-server
+sudo apt-get install mysql-server
 echo "Follow MySQL secure Installation set up instructions below"
 sleep 1
 sudo mysql_secure_installation
