@@ -57,10 +57,10 @@ elif raven:
 from dockerspawner import DockerSpawner
 c.JupyterHub.spawner_class = DockerSpawner
 c.Spawner.debug = True
-
-c.DockerSpawner.volumes={'/home/public/users/{username}':'/home/jovyan/work','/srv/nbgrader/exchange':'/srv/nbgrader/exchange'}
+#'/home/public/users/{username}':'/home/jovyan/work' persistent storage
+c.DockerSpawner.volumes={'/srv/nbgrader/exchange':'/srv/nbgrader/exchange','/home/public/server/crsidify':"/srv/crsidify"}
 c.DockerSpawner.read_only_volumes={'/home/public/demos':'/home/jovyan/work/demos'}
-c.DockerSpawner.notebook_dir = '/home/jovyan/work/{username}'
+#c.DockerSpawner.notebook_dir = '/home/jovyan/work/{username}'
 c.DockerSpawner.extra_create_kwargs.update({
     'command': 'sh /srv/crsidify/start-singleuser.sh'
 })
