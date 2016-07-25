@@ -8,8 +8,7 @@ RM=False #remove containers after stopping them
 
 class processes:
 	def __init__(self):
-		self.processes=[]
-		self.idleTime=[]
+		self.processes=[] #index: 0=container_name, 1=container_id, 2=idle_time, 3=cpu_time
 		self.time0=0
 		self.time=0
 	def _getTime(self):
@@ -32,8 +31,9 @@ class processes:
 						start=c+1
 		for i in range(0,len(ps)):
 				ps[i][0]=ps[i][0][ps[i][0].find("jupyter"):len(ps[i][0])]
-				ps[i].append(sp.Popen(["docker", "inspect", "--format","\'{{ .State.Pid }}\'",ps[i][0]],stdout=sp.PIPE))
-				ps[i][1]=int(''.join(filter(lambda x: x.isdigit(),str(ps[i][1].stdout.read()))))
+				dockerid=(sp.Popen(["docker" ,"inspect","--format","\'{{.Id}}\'",ps[i][0]],stdout=sp.PIPE))
+				dockerid=str(dockerid.stdout.read())[3:-4]
+				ps[i].append(dockerid)
 		return ps
 	def _processesCheck(self):
 		ps=self._getRunning()
@@ -51,7 +51,8 @@ class processes:
 			if isNew:
 				try:
 					self.processes.append(ps[i])
-					self.idleTime.append(0.0)
+					self.processes.append(0.0)
+					self.processes.append(0.0)
 				except IndexError:
 					pass
 		for i in range(0,len(self.processes)):
@@ -66,15 +67,18 @@ class processes:
 			if(not stillRunning):
 				try:
 					del self.processes[i]
-					del self.idleTime[i]
 				except IndexError:
 					pass
 	#increment idle time reset to 0 if we get a usage spike over t period increment if not
 	def _idleCheck(self):
-		pass
+		for ps in self.processes:
+			cpuFile=open("/sys/fs/cgroup/cpuacct/docker/"+ps[1]+"cpuacct.usage",'r')
+			
+			cpuFile.close()
+
 	def _kill(self):
 		for i in range(0,len(self.processes)):
-			if(self.idleTime[i]>=TIMEOUT):
+			if(self.processes[2]>=TIMEOUT):
 				sp.call("docker","stop",self.processes[i][0])
 				if RM:
 					sp.call("docker","rm",self.processes[i][0])
@@ -86,7 +90,6 @@ class processes:
 			self._kill()
 			self._getTime()
 			print(self.processes)
-			print(self.idleTime)
 			t.sleep(INCREMENT_TIME)
 def main():
 	PS=processes()
