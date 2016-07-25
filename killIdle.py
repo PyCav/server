@@ -1,12 +1,25 @@
 import subprocess as sp
+import sys
 import time as t
-#print output to logs?
 TIMEOUT=15*60 #in seconds
 INCREMENT_TIME=3 #in seconds
 CPU_MIN_THRESHOLD=None
 CPU_MAX_THRESHOLD=None
 REMOVE_AFTER_STOP=False
-
+try:
+	if(sys.argv[1]=="-l"):
+		log=True
+		logfile=open(".killidleDocker.log",'w')
+	else:
+		log=False
+except IndexError:
+	log = False
+def printlog(string):
+	if log:
+		logfile.write(string+"\n")
+		print(string)
+	else:
+		print(string)
 class processes:
 	def __init__(self):
 		self.processes=[] #index: 0=container_name, 1=container_id, 2=idle_time, 3=maxing_time, 4=cpu_time
@@ -72,9 +85,9 @@ class processes:
 	def _usageCheck(self):
 		for ps in self.processes:
 			with open("/sys/fs/cgroup/cpuacct/docker/"+ps[1]+"cpuacct.stat",'r') as f:
-    			cpu = f.readlines()
-			cpu[0]=int(''.join(filter(lambda x: x.isdigit(),var[0])))
-			cpu[1]=int(''.join(filter(lambda x: x.isdigit(),var[1])))
+    			cpuUsage=f.readlines()
+			cpuUsage[0]=int(''.join(filter(lambda x: x.isdigit(),var[0])))
+			cpuUsage[1]=int(''.join(filter(lambda x: x.isdigit(),var[1])))
 
 	def _kill(self):
 		for i in range(0,len(self.processes)):
