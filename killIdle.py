@@ -8,6 +8,7 @@ INCREMENT_TIME=3.0 #in seconds
 CPU_MIN_THRESHOLD=None #decide thresholds?
 CPU_MAX_THRESHOLD=None #decide thresholds?
 REMOVE_AFTER_STOP=False #add flag?
+
 #add logging statements?
 try:
 	if(sys.argv[1]=="-l"):
@@ -15,6 +16,7 @@ try:
 		logfile=open(".killidleDocker.log",'w')
 	else:
 		log=False
+
 except IndexError:
 	log = False
 
@@ -30,6 +32,7 @@ class processes:
 		self.processes=[] #index: 0=container_name, 1=container_id, 2=idle_time, 3=maxing_time, 4=cpu_time 0=user 1=system
 		self.time0=0
 		self.time=0
+
 	def _getTime(self):
 		self.time=t.time()-self.time0
 
@@ -37,11 +40,11 @@ class processes:
 		dockerps=sp.Popen(["docker","ps","-f","\"status=running\""],stdout=sp.PIPE)
 		dockerps=str(dockerps.stdout.read()).replace("\'", "").replace("\\n","\n")[1:]
 		ps=[]
+		start=0
 		for c in range(0,len(dockerps)):
 				if(dockerps[c]=="\n"):
 						dockerps=dockerps[c+1:]
 						break
-		start=0
 		for c in range(0,len(dockerps)):
 				if(dockerps[c]=="\n"):
 						ps.append([dockerps[start:c]])
@@ -52,6 +55,7 @@ class processes:
 				dockerid=str(dockerid.stdout.read())[3:-4]
 				ps[i].append(dockerid)
 		return ps
+
 	def _processesCheck(self):
 		ps=self._getRunning()
 		isNew= True
@@ -87,6 +91,7 @@ class processes:
 					del self.processes[i]
 				except IndexError:
 					pass
+
 	#use system or user cpu usage?
 	def _usageCheck(self):
 		for ps in self.processes:
@@ -116,6 +121,7 @@ class processes:
 				if REMOVE_AFTER_STOP:
 					sp.call("docker","rm",self.processes[i][0])
 				del self.processes[i]
+
 	def run(self):
 		self.time0=t.time()
 		while True:	
@@ -129,5 +135,6 @@ class processes:
 def main():
 	PS=processes()
 	PS.run()
+
 if __name__=="__main__":
 	main()
