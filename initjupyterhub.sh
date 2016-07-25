@@ -191,6 +191,7 @@ if [ "$jup" == "y" ]; then
 	git clone https://github.com/pycav/server.git
 	cd /home/public/server/webpages
 	sudo sed -i -- 's/8000/'$port'/g' /home/public/server/webpages/index.php
+	sudo sed -i -- 's/evolve.ovh/'$site_name'/g' /home/public/server/webpages/index.php
 	sudo mv * /var/www/html/
 	sudo service apache2 restart
 	cd /home/public
