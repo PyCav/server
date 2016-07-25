@@ -1,21 +1,20 @@
 import subprocess as sp
 import time as t
-#kill resource intensive containers
 #print output to logs?
 TIMEOUT=15*60 #in seconds
 INCREMENT_TIME=3 #in seconds
-RM=False #remove containers after stopping them
+CPU_MIN_THRESHOLD=None
+CPU_MAX_THRESHOLD=None
+REMOVE_AFTER_STOP=False
 
 class processes:
 	def __init__(self):
-		self.processes=[] #index: 0=container_name, 1=container_id, 2=idle_time, 3=cpu_time
+		self.processes=[] #index: 0=container_name, 1=container_id, 2=idle_time, 3=maxing_time, 4=cpu_time
 		self.time0=0
 		self.time=0
 	def _getTime(self):
 		self.time=t.time()-self.time0
-#seperate formatting from code
-	def _formatting(self):
-		pass
+
 	def _getRunning(self):
 		dockerps=sp.Popen(["docker","ps","-f","\"status=running\""],stdout=sp.PIPE)
 		dockerps=str(dockerps.stdout.read()).replace("\'", "").replace("\\n","\n")[1:]
@@ -53,6 +52,7 @@ class processes:
 					self.processes.append(ps[i])
 					self.processes.append(0.0)
 					self.processes.append(0.0)
+					self.processes.append(0)
 				except IndexError:
 					pass
 		for i in range(0,len(self.processes)):
@@ -69,24 +69,24 @@ class processes:
 					del self.processes[i]
 				except IndexError:
 					pass
-	#increment idle time reset to 0 if we get a usage spike over t period increment if not
-	def _idleCheck(self):
+	def _usageCheck(self):
 		for ps in self.processes:
-			cpuFile=open("/sys/fs/cgroup/cpuacct/docker/"+ps[1]+"cpuacct.stat",'r')
-
-			cpuFile.close()
+			with open("/sys/fs/cgroup/cpuacct/docker/"+ps[1]+"cpuacct.stat",'r') as f:
+    			cpu = f.readlines()
+			cpu[0]=int(''.join(filter(lambda x: x.isdigit(),var[0])))
+			cpu[1]=int(''.join(filter(lambda x: x.isdigit(),var[1])))
 
 	def _kill(self):
 		for i in range(0,len(self.processes)):
 			if(self.processes[2]>=TIMEOUT):
 				sp.call("docker","stop",self.processes[i][0])
-				if RM:
+				if REMOVE_AFTER_STOP:
 					sp.call("docker","rm",self.processes[i][0])
 	def run(self):
 		self.time0=t.time()
 		while True:	
 			self._processesCheck()
-			self._idleCheck()
+			self._usageCheck()
 			self._kill()
 			self._getTime()
 			print(self.processes)
