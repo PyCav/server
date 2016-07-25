@@ -87,7 +87,7 @@ class processes:
 					del self.processes[i]
 				except IndexError:
 					pass
-#use system or user cpu usage?
+	#use system or user cpu usage?
 	def _usageCheck(self):
 		for ps in self.processes:
 			with open("/sys/fs/cgroup/cpuacct/docker/"+ps[1]+"cpuacct.stat",'r') as f:
@@ -129,5 +129,5 @@ class processes:
 def main():
 	PS=processes()
 	PS.run()
-
-main()
+if __name__=="__main__":
+	main()
