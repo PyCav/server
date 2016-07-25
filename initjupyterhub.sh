@@ -168,8 +168,10 @@ if [ "$jup" == "y" ]; then
 
 	echo "Setting up firewall to allow access to jupyterhub"
 	echo "Port to run jupyterhub on (not 443 or 80) default 8000:"
-	#do a check
 	read port
+	if [ "$port" == "" ]; then
+		port=8000
+	fi
 	sudo ufw allow $port >> server.log
 	sudo ufw allow 8081 >> server.log
 
