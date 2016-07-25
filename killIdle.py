@@ -72,8 +72,8 @@ class processes:
 	#increment idle time reset to 0 if we get a usage spike over t period increment if not
 	def _idleCheck(self):
 		for ps in self.processes:
-			cpuFile=open("/sys/fs/cgroup/cpuacct/docker/"+ps[1]+"cpuacct.usage",'r')
-			
+			cpuFile=open("/sys/fs/cgroup/cpuacct/docker/"+ps[1]+"cpuacct.stat",'r')
+
 			cpuFile.close()
 
 	def _kill(self):
