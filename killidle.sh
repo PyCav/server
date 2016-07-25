@@ -1,6 +1,6 @@
 #!/bin/bash
 function run {
-			   sudo python3 killidle.py
+			   sudo python3 killidle.py $1
            }
 
 until run; do

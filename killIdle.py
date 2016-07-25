@@ -1,21 +1,38 @@
+#must test?
 import subprocess as sp
+import sys
 import time as t
-#kill resource intensive containers
-#print output to logs?
-TIMEOUT=15*60 #in seconds
-INCREMENT_TIME=3 #in seconds
-RM=False #remove containers after stopping them
+
+TIMEOUT=15.0*60.0 #in seconds
+INCREMENT_TIME=3.0 #in seconds
+CPU_MIN_THRESHOLD=None #decide thresholds?
+CPU_MAX_THRESHOLD=None #decide thresholds?
+REMOVE_AFTER_STOP=False #add flag?
+#add logging statements?
+try:
+	if(sys.argv[1]=="-l"):
+		log=True
+		logfile=open(".killidleDocker.log",'w')
+	else:
+		log=False
+except IndexError:
+	log = False
+
+def printlog(string):
+	if log:
+		logfile.write(string+"\n")
+		print(string)
+	else:
+		print(string)
 
 class processes:
 	def __init__(self):
-		self.processes=[] #index: 0=container_name, 1=container_id, 2=idle_time, 3=cpu_time
+		self.processes=[] #index: 0=container_name, 1=container_id, 2=idle_time, 3=maxing_time, 4=cpu_time 0=user 1=system
 		self.time0=0
 		self.time=0
 	def _getTime(self):
 		self.time=t.time()-self.time0
-#seperate formatting from code
-	def _formatting(self):
-		pass
+
 	def _getRunning(self):
 		dockerps=sp.Popen(["docker","ps","-f","\"status=running\""],stdout=sp.PIPE)
 		dockerps=str(dockerps.stdout.read()).replace("\'", "").replace("\\n","\n")[1:]
@@ -53,6 +70,7 @@ class processes:
 					self.processes.append(ps[i])
 					self.processes.append(0.0)
 					self.processes.append(0.0)
+					self.processes.append([0,0])
 				except IndexError:
 					pass
 		for i in range(0,len(self.processes)):
@@ -69,29 +87,47 @@ class processes:
 					del self.processes[i]
 				except IndexError:
 					pass
-	#increment idle time reset to 0 if we get a usage spike over t period increment if not
-	def _idleCheck(self):
+#use system or user cpu usage?
+	def _usageCheck(self):
 		for ps in self.processes:
-			cpuFile=open("/sys/fs/cgroup/cpuacct/docker/"+ps[1]+"cpuacct.stat",'r')
-
-			cpuFile.close()
+			with open("/sys/fs/cgroup/cpuacct/docker/"+ps[1]+"cpuacct.stat",'r') as f:
+    			stats=f.readlines()
+			user=int(''.join(filter(lambda x: x.isdigit(),stats[0])))
+			system=int(''.join(filter(lambda x: x.isdigit(),stats[1])))
+			if abs(user-ps[4][0])<=CPU_MIN_THRESHOLD:
+				ps[2]+=INCREMENT_TIME
+			else:
+				ps[2]==0.0
+			if abs(user-ps[4][0])>=CPU_MAX_THRESHOLD:
+				ps[3]+=INCREMENT_TIME
+			else:
+				ps[3]==0.0
+			ps[4]=[user,system]
 
 	def _kill(self):
 		for i in range(0,len(self.processes)):
 			if(self.processes[2]>=TIMEOUT):
 				sp.call("docker","stop",self.processes[i][0])
-				if RM:
+				if REMOVE_AFTER_STOP:
 					sp.call("docker","rm",self.processes[i][0])
+				del self.processes[i]
+			elif(self.processes[3]>=TIMEOUT):
+				sp.call("docker","stop",self.processes[i][0])
+				if REMOVE_AFTER_STOP:
+					sp.call("docker","rm",self.processes[i][0])
+				del self.processes[i]
 	def run(self):
 		self.time0=t.time()
 		while True:	
 			self._processesCheck()
-			self._idleCheck()
+			self._usageCheck()
 			self._kill()
 			self._getTime()
 			print(self.processes)
 			t.sleep(INCREMENT_TIME)
+
 def main():
 	PS=processes()
 	PS.run()
+
 main()
