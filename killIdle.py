@@ -94,20 +94,20 @@ class processes:
 
 	#use system or user cpu usage?
 	def _usageCheck(self):
-		for ps in self.processes:
-			with open("/sys/fs/cgroup/cpuacct/docker/"+ps[1]+"cpuacct.stat",'r') as f:
+		for process in self.processes:
+			with open("/sys/fs/cgroup/cpuacct/docker/"+process[1]+"cpuacct.stat",'r') as f:
     			stats=f.readlines()
 			user=int(''.join(filter(lambda x: x.isdigit(),stats[0])))
 			system=int(''.join(filter(lambda x: x.isdigit(),stats[1])))
-			if abs(user-ps[4][0])<=CPU_MIN_THRESHOLD:
-				ps[2]+=INCREMENT_TIME
+			if abs(user-process[4][0])<=CPU_MIN_THRESHOLD:
+				process[2]+=INCREMENT_TIME
 			else:
-				ps[2]==0.0
-			if abs(user-ps[4][0])>=CPU_MAX_THRESHOLD:
-				ps[3]+=INCREMENT_TIME
+				process[2]==0.0
+			if abs(user-process[4][0])>=CPU_MAX_THRESHOLD:
+				process[3]+=INCREMENT_TIME
 			else:
-				ps[3]==0.0
-			ps[4]=[user,system]
+				process[3]==0.0
+			process[4]=[user,system]
 
 	def _kill(self):
 		for i in range(0,len(self.processes)):
