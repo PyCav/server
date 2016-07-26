@@ -4,7 +4,8 @@ import os
 import sys
 import time as t
 
-TIMEOUT=30.0 #in seconds
+TIMEOUT_MIN=30.0 #in seconds
+TIMEOUT_MAX=30.0
 INCREMENT_TIME=3.0 #in seconds
 CPU_MIN_THRESHOLD=10 #decide thresholds? in 1/100 of a second of cpu time x86
 CPU_MAX_THRESHOLD=100 #decide thresholds?
@@ -31,8 +32,8 @@ def printlog(string):
 class processes:
 	def __init__(self):
 		self.processes=[] #index: 0=container_name, 1=container_id, 2=idle_time, 3=maxing_time, 4=cpu_time user, 5= cpu_time system
-		self.time0=0
-		self.time=0
+		self.time0=0.0
+		self.time=0.0
 
 	def _getTime(self):
 		self.time=t.time()-self.time0
@@ -77,6 +78,7 @@ class processes:
 					self.processes[len(self.processes)-1].append(0.0)
 					self.processes[len(self.processes)-1].append(0.0)
 					self.processes[len(self.processes)-1].append(0.0)
+					printlog(self.time + ": Container "+self.processes[i][0]+" is now running.")
 				except IndexError:
 					pass
 		for i in range(0,len(self.processes)):
@@ -90,6 +92,7 @@ class processes:
 					pass
 			if(not stillRunning):
 				try:
+					printlog(str(self.time) + ": Container "+self.processes[i][0]+" is not running any more.")
 					del self.processes[i]
 				except IndexError:
 					pass
@@ -118,22 +121,35 @@ class processes:
 	def _kill(self):
 		for i in range(0,len(self.processes)):
 			try:
-				if(self.processes[i][2]>=TIMEOUT):
+				if(self.processes[i][2]>=TIMEOUT_MIN):
 					sp.call(["docker","stop",self.processes[i][0]], stdout=FNULL, stderr=sp.STDOUT)
+					printlog(str(self.time) + ": Container "+self.processes[i][0]+" has been stopped for being idle for " + str(TIMEOUT_MIN/60.0) + " minutes.")
 					if REMOVE_AFTER_STOP:
 						sp.call(["docker","rm",self.processes[i][0]], stdout=FNULL, stderr=sp.STDOUT)
+						printlog(str(self.time) + ": Container "+self.processes[i][0]+" has been deleted.")
 					del self.processes[i]
-				elif(self.processes[i][3]>=TIMEOUT):
+				elif(self.processes[i][3]>=TIMEOUT_MAX):
 					sp.call(["docker","stop",self.processes[i][0]], stdout=FNULL, stderr=sp.STDOUT)
+					printlog(str(self.time) + ": Container "+self.processes[i][0]+" has been stopped for exceeding max cpu use for " + str(TIMEOUT_MAX/60.0) + " minutes.")
 					if REMOVE_AFTER_STOP:
 						sp.call(["docker","rm",self.processes[i][0]], stdout=FNULL, stderr=sp.STDOUT)
+						printlog(str(self.time) + ": Container "+self.processes[i][0]+" has been deleted.")
 					del self.processes[i]
 			except IndexError:
 				pass
+	def _usersRunning(self):
+		userList=str(self.time)+": "
+		for i in range(0,self.processes):
+			if i+1==len(self.processes):
+				userList+=(self.processes[i][0])[7:]+"."
+			else:
+				userList+=(self.processes[i][0])[7:]+", "
+		printlog(userList)
 
 	def run(self):
 		self.time0=t.time()
-		while True:	
+		while True:
+			self._usersRunning()
 			self._processesCheck()
 			self._usageCheck()
 			self._kill()
