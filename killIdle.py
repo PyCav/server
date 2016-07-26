@@ -111,22 +111,22 @@ class processes:
 						self.processes[i][3]=0.0
 				self.processes[i][4]=user
 				self.processes[i][5]=system
-            except IndexError:
-                pass
+			except IndexError:
+				pass
 
 	def _kill(self):
 		for i in range(0,len(self.processes)):
 			try:
-                if(self.processes[i][2]>=TIMEOUT):
-                    sp.call(["docker","stop",self.processes[i][0]])
-                    if REMOVE_AFTER_STOP:
-                        sp.call(["docker","rm",self.processes[i][0]])
-                    del self.processes[i]
-                elif(self.processes[i][3]>=TIMEOUT):
-                    sp.call(["docker","stop",self.processes[i][0]])
-                    if REMOVE_AFTER_STOP:
-                        sp.call(["docker","rm",self.processes[i][0]])
-                    del self.processes[i]
+				if(self.processes[i][2]>=TIMEOUT):
+					sp.call(["docker","stop",self.processes[i][0]])
+					if REMOVE_AFTER_STOP:
+						sp.call(["docker","rm",self.processes[i][0]])
+					del self.processes[i]
+				elif(self.processes[i][3]>=TIMEOUT):
+					sp.call(["docker","stop",self.processes[i][0]])
+					if REMOVE_AFTER_STOP:
+						sp.call(["docker","rm",self.processes[i][0]])
+					del self.processes[i]
 			except IndexError:
 				pass
 
