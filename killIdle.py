@@ -29,7 +29,7 @@ def printlog(string):
 
 class processes:
 	def __init__(self):
-		self.processes=[] #index: 0=container_name, 1=container_id, 2=idle_time, 3=maxing_time, 4=cpu_time 0=user 1=system
+		self.processes=[] #index: 0=container_name, 1=container_id, 2=idle_time, 3=maxing_time, 4=cpu_time user, 5= cpu_time system
 		self.time0=0
 		self.time=0
 
@@ -72,9 +72,11 @@ class processes:
 			if isNew:
 				try:
 					self.processes.append(ps[i])
-					self.processes.append(0.0)
-					self.processes.append(0.0)
-					self.processes.append([0,0])
+					self.processes[len(self.processes)].append(0.0)
+					self.processes[len(self.processes)].append(0.0)
+					self.processes[len(self.processes)].append(0.0)
+					self.processes[len(self.processes)].append(0.0)
+					print(self.processes)
 				except IndexError:
 					pass
 		for i in range(0,len(self.processes)):
@@ -94,20 +96,22 @@ class processes:
 
 	#use system or user cpu usage?
 	def _usageCheck(self):
-		for process in self.processes:
-			with open("/sys/fs/cgroup/cpuacct/docker/"+process[1]+"cpuacct.stat",'r') as f:
+		for i in range (0,len(self.processes)):
+			with open("/sys/fs/cgroup/cpuacct/docker/"+process[1]+"/cpuacct.stat",'r') as f:
     			stats=f.readlines()
+
 			user=int(''.join(filter(lambda x: x.isdigit(),stats[0])))
 			system=int(''.join(filter(lambda x: x.isdigit(),stats[1])))
-			if abs(user-process[4][0])<=CPU_MIN_THRESHOLD:
+			if abs(user-self.processes[i][4])<=CPU_MIN_THRESHOLD:
 				process[2]+=INCREMENT_TIME
 			else:
 				process[2]==0.0
-			if abs(user-process[4][0])>=CPU_MAX_THRESHOLD:
+			if abs(user-self.processes[i][4])>=CPU_MAX_THRESHOLD:
 				process[3]+=INCREMENT_TIME
 			else:
 				process[3]==0.0
-			process[4]=[user,system]
+			process[4]=user
+			process[5]system]
 
 	def _kill(self):
 		for i in range(0,len(self.processes)):
@@ -127,7 +131,7 @@ class processes:
 		while True:	
 			self._processesCheck()
 			self._usageCheck()
-			self._kill()
+			#self._kill()
 			self._getTime()
 			print(self.processes)
 			t.sleep(INCREMENT_TIME)
