@@ -215,7 +215,7 @@ if [ "$jup" == "y" ]; then
 	#sudo docker build -t jordanosborn/pycav:latest .
 	#https://hub.docker.com/r/jordanosborn/pycav/
 
-	echo "Cloning jupyterhub-raven-auth from gtihub"
+	echo "Cloning jupyterhub-raven-auth from github"
 	git clone https://github.com/PyCav/jupyterhub-raven-auth.git
 	# upload to pypi?
 	sudo pip3 install --upgrade jupyterhub-raven-auth/ >> server.log
