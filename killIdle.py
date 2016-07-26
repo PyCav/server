@@ -72,11 +72,10 @@ class processes:
 			if isNew:
 				try:
 					self.processes.append(ps[i])
-					self.processes[len(self.processes)].append(0.0)
-					self.processes[len(self.processes)].append(0.0)
-					self.processes[len(self.processes)].append(0.0)
-					self.processes[len(self.processes)].append(0.0)
-					print(self.processes)
+					self.processes[len(self.processes)-1].append(0.0)
+					self.processes[len(self.processes)-1].append(0.0)
+					self.processes[len(self.processes)-1].append(0.0)
+					self.processes[len(self.processes)-1].append(0.0)
 				except IndexError:
 					pass
 		for i in range(0,len(self.processes)):
@@ -97,41 +96,46 @@ class processes:
 	#use system or user cpu usage?
 	def _usageCheck(self):
 		for i in range (0,len(self.processes)):
-			with open("/sys/fs/cgroup/cpuacct/docker/"+process[1]+"/cpuacct.stat",'r') as f:
-    			stats=f.readlines()
-
+			with open("/sys/fs/cgroup/cpuacct/docker/"+self.processes[i][1]+"/cpuacct.stat",'r') as f:
+				stats=f.readlines()
 			user=int(''.join(filter(lambda x: x.isdigit(),stats[0])))
 			system=int(''.join(filter(lambda x: x.isdigit(),stats[1])))
-			if abs(user-self.processes[i][4])<=CPU_MIN_THRESHOLD:
-				process[2]+=INCREMENT_TIME
-			else:
-				process[2]==0.0
-			if abs(user-self.processes[i][4])>=CPU_MAX_THRESHOLD:
-				process[3]+=INCREMENT_TIME
-			else:
-				process[3]==0.0
-			process[4]=user
-			process[5]system]
+			try:
+				if abs(user-self.processes[i][4])<=CPU_MIN_THRESHOLD:
+						self.processes[i][2]+=INCREMENT_TIME
+				else:
+						self.processes[i][2]=0.0
+				if abs(user-self.processes[i][4])>=CPU_MAX_THRESHOLD:
+						self.processes[i][3]+=INCREMENT_TIME
+				else:
+						self.processes[i][3]=0.0
+				self.processes[i][4]=user
+				self.processes[i][5]=system
+            except IndexError:
+                pass
 
 	def _kill(self):
 		for i in range(0,len(self.processes)):
-			if(self.processes[2]>=TIMEOUT):
-				sp.call("docker","stop",self.processes[i][0])
-				if REMOVE_AFTER_STOP:
-					sp.call("docker","rm",self.processes[i][0])
-				del self.processes[i]
-			elif(self.processes[3]>=TIMEOUT):
-				sp.call("docker","stop",self.processes[i][0])
-				if REMOVE_AFTER_STOP:
-					sp.call("docker","rm",self.processes[i][0])
-				del self.processes[i]
+			try:
+                if(self.processes[i][2]>=TIMEOUT):
+                    sp.call(["docker","stop",self.processes[i][0]])
+                    if REMOVE_AFTER_STOP:
+                        sp.call(["docker","rm",self.processes[i][0]])
+                    del self.processes[i]
+                elif(self.processes[i][3]>=TIMEOUT):
+                    sp.call(["docker","stop",self.processes[i][0]])
+                    if REMOVE_AFTER_STOP:
+                        sp.call(["docker","rm",self.processes[i][0]])
+                    del self.processes[i]
+			except IndexError:
+				pass
 
 	def run(self):
 		self.time0=t.time()
 		while True:	
 			self._processesCheck()
 			self._usageCheck()
-			#self._kill()
+			self._kill()
 			self._getTime()
 			print(self.processes)
 			t.sleep(INCREMENT_TIME)
