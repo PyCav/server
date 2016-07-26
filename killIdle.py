@@ -119,14 +119,14 @@ class processes:
 		for i in range(0,len(self.processes)):
 			try:
 				if(self.processes[i][2]>=TIMEOUT):
-					sp.call(["docker","stop",self.processes[i][0]], stdout=FNULL, stderr=subprocess.STDOUT)
+					sp.call(["docker","stop",self.processes[i][0]], stdout=FNULL, stderr=sp.STDOUT)
 					if REMOVE_AFTER_STOP:
-						sp.call(["docker","rm",self.processes[i][0]], stdout=FNULL, stderr=subprocess.STDOUT)
+						sp.call(["docker","rm",self.processes[i][0]], stdout=FNULL, stderr=sp.STDOUT)
 					del self.processes[i]
 				elif(self.processes[i][3]>=TIMEOUT):
-					sp.call(["docker","stop",self.processes[i][0]], stdout=FNULL, stderr=subprocess.STDOUT)
+					sp.call(["docker","stop",self.processes[i][0]], stdout=FNULL, stderr=sp.STDOUT)
 					if REMOVE_AFTER_STOP:
-						sp.call(["docker","rm",self.processes[i][0]], stdout=FNULL, stderr=subprocess.STDOUT)
+						sp.call(["docker","rm",self.processes[i][0]], stdout=FNULL, stderr=sp.STDOUT)
 					del self.processes[i]
 			except IndexError:
 				pass
