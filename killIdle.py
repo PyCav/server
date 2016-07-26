@@ -3,11 +3,11 @@ import subprocess as sp
 import sys
 import time as t
 
-TIMEOUT=15.0*60.0 #in seconds
+TIMEOUT=30.0 #in seconds
 INCREMENT_TIME=3.0 #in seconds
-CPU_MIN_THRESHOLD=None #decide thresholds?
-CPU_MAX_THRESHOLD=None #decide thresholds?
-REMOVE_AFTER_STOP=False #add flag?
+CPU_MIN_THRESHOLD=10 #decide thresholds? in 1/100 of a second of cpu time x86
+CPU_MAX_THRESHOLD=100 #decide thresholds?
+REMOVE_AFTER_STOP=True #add flag?
 
 #add logging statements?
 try:
@@ -118,14 +118,14 @@ class processes:
 		for i in range(0,len(self.processes)):
 			try:
 				if(self.processes[i][2]>=TIMEOUT):
-					sp.call(["docker","stop",self.processes[i][0]])
+					sp.call(["docker","stop",self.processes[i][0]], stdout=FNULL, stderr=subprocess.STDOUT)
 					if REMOVE_AFTER_STOP:
-						sp.call(["docker","rm",self.processes[i][0]])
+						sp.call(["docker","rm",self.processes[i][0]], stdout=FNULL, stderr=subprocess.STDOUT)
 					del self.processes[i]
 				elif(self.processes[i][3]>=TIMEOUT):
-					sp.call(["docker","stop",self.processes[i][0]])
+					sp.call(["docker","stop",self.processes[i][0]], stdout=FNULL, stderr=subprocess.STDOUT)
 					if REMOVE_AFTER_STOP:
-						sp.call(["docker","rm",self.processes[i][0]])
+						sp.call(["docker","rm",self.processes[i][0]], stdout=FNULL, stderr=subprocess.STDOUT)
 					del self.processes[i]
 			except IndexError:
 				pass
