@@ -1,6 +1,6 @@
 # Server
 
-[Link to Server Setup Guide](https://github.com/PyCav/Server/blob/master/guide.md)
+[Link to Server Setup Guide](https://github.com/PyCav/Server/blob/master/server_setup_guide.md)
 
 
 ## Todo:
