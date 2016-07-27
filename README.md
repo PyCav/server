@@ -9,15 +9,19 @@ Improve usability of set up script, error handling, and checking if successful. 
 
 Todo:
 
+Finish guide.md
+
+folder restructuring
+
 nbgrader
 
 whitelisting by course tis library
 
 admin access to /home/public/users top level customise dockerSpawner.py
 
-update.sh updating software script(remove containers, docker pull jordanosborn/pycav periodically and https://github.com/pycav/demos.git)
+updating software script(remove containers, docker pull jordanosborn/pycav periodically and https://github.com/pycav/demos.git) update.sh
 
-backup of /home/public/users, 
+backup of /home/public/users backup.sh
 
 make server stats easier to view
 
