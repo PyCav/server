@@ -2,8 +2,12 @@
 	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
 <!--  SELinux nano /etc/selinux/config  edit sudo apt-get install policycoreutils selinux reboot touch /.autorelabel -->
-$$\rho \gamma c \alpha \nu$$
-# **Server Setup Guide**
+<p align="center">
+<img src="pycav_latex.png"></img>
+</p>
+
+# **JupyterHub Server Setup Guide**
+#### *Using Docker Containers, Online Authentication Services and NbGrader*
 
 ## **Requirements**
 1. Server with a fresh copy of Ubuntu 16.04 Server installed [Download here](http://www.ubuntu.com/download/server).
@@ -25,7 +29,8 @@ $$\rho \gamma c \alpha \nu$$
 2. On Mac and Linux SSH into your server by running the command ssh root@[ip] in your terminal, replacing [ip] with your
 	servers ip address. On Windows you can carry out the same process using the putty gui.
 
-3. Your ssh client will then prompt you to input the server's root password, input the root users password to gain access to your server.
+3. Your ssh client will then prompt you to input the server's root password, input the root users password to 
+	gain access to your server.
 
 4. It is good practice to change the root users password to something more secure, you can do this by running the command
 	
@@ -237,5 +242,15 @@ $$\rho \gamma c \alpha \nu$$
 	```bash
 	apt-get -y install npm nodejs nodejs-legacy libjs-mathjax
 	```
+#
+### **Jupyterhub and Docker**
+In this next section we shall set up a Jupyterhub Server that isolates users using docker containers.
 
-### **Setting up Jupyterhub**
+### **Authentication**
+In this section we will describe how to set up a variety of authentication methods (Raven, Github, Local User) which prevent unauthorised users from accessing your JupyterHub server.
+
+### **NbGrader**
+This section will discuss how to set up NbGrader up on your server, so that you can create assignments for users to complete and hand in. It will also show you how to set up NbGrader so that assignments are automatically marked.
+
+### **Running The Server**
+In this final section you will find out about the various scripts that come from the PyCav project which will help to maintain your server. You will also find out how to start your server.
