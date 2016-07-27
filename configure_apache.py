@@ -18,5 +18,6 @@ try:
 
 	print("Apache config file successfully edited.")
 
-except:
+except Exception as e:
 	print("Couldn't edit Apache config file.'")
+	print("Error type: ",type(e))
