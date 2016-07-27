@@ -206,7 +206,7 @@
 	ipformatted=$(echo "$(curl http://icanhazip.com)" | sed -s 's/[.]/''\\.''/g')
 	echo "RewriteCond %{HTTP_HOST} ^""$ipformatted" >> /var/www/html/.htaccess
 	rm ipformatted
-	echo "RewriteRule (.*) https://""[domain""/$1 [R=301,L]" >> /var/www/html/.htaccess
+	echo "RewriteRule (.*) https://[domain]/$1 [R=301,L]" >> /var/www/html/.htaccess
 	```
 
 	We now need to restart apache for these changes to take effect. To do this run
