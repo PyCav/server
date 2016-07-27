@@ -108,6 +108,7 @@ rm mycron
 #sudo sed -i -- 's/<Directory /var/www/>'$'\n'$'\t''Options Indexes FollowSymLinks'$'\n'$'\t''AllowOverride None/<Directory /var/www/>'$'\n'$'\t''Options Indexes FollowSymLinks'$'\n'$'\t''AllowOverride FileInfo/g' /etc/apache2/apache2.conf
 #add a counter to only change /var/www/ ?
 
+#change to use configure_apache.py
 echo "Preventing access to server by IP address (domain access only)"
 sudo sed -i -- 's/AllowOverride None/AllowOverride FileInfo/g' /etc/apache2/apache2.conf
 #enable virtual hosts?
