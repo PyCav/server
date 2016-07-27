@@ -120,6 +120,12 @@ $$\rho \gamma c \alpha \nu$$
 	ufw allow in "Apache Full"
 	```
 
+	You can print the status of Apache by running the command (although it doesn't need to be run to proceed)
+
+	```bash 
+	systemctl status apache2
+	```
+
 	we will now install the database software **MySQL**, on screen prompts will appear after running each of the commands below, make sure to follow the instructions that appear on screen
 	
 	```bash
@@ -127,7 +133,7 @@ $$\rho \gamma c \alpha \nu$$
 	mysql_secure_installation
 	```
 
-	now to install the final component a scripting language **PHP**, run the following command to install
+	now to install the final component, a scripting language **PHP**, run the following command
 	
 	```bash
 	apt-get -y install php libapache2-mod-php php-mcrypt php-mysql
@@ -157,7 +163,7 @@ $$\rho \gamma c \alpha \nu$$
 	apt-get -y install python-letsencrypt-apache
 	```
 
-	Now run the following command making sure to replace [domain] with the domain name that points to your server's ip address
+	Now run the following command making sure to replace [domain] with the domain name (in the format example.com) that points to your server's ip address
 
 	```bash
 	letsencrypt --apache -d [domain]
@@ -175,6 +181,61 @@ $$\rho \gamma c \alpha \nu$$
 	rm mycron
 	```
 
-	The syntax above tells cron to run letsencrypt renew at 00 minutes, 04 hours, every day, every month and every day of the week.
+	The commands above create a cron job that runs letsencrypt renew at 00 minutes, 04 hours, every day, every month and every day of the week.
 
-17. SELinux nano /etc/selinux/config  edit sudo apt-get install policycoreutils selinux reboot touch /.autorelabel
+<!-- 17. SELinux nano /etc/selinux/config  edit sudo apt-get install policycoreutils selinux reboot touch /.autorelabel -->
+17. The following commands will prevent users from accessing your server via its IP address and force them to access your site through https at your domain.
+	First we need to download a python script that will alter the apache config file so that redirects are allowed. Before this though we will back up a working copy of the config file.
+
+	```bash
+	cp /etc/apache2/apache2.conf /etc/apache2/apache2.conf.working
+	curl https://raw.githubusercontent.com/PyCav/Server/master/configure_apache.py
+	python3 configure_apache.py
+	rm configure_apache.py
+	```
+
+	Now we need to format your server's public IP address so that it is laid out how apache expects, we can use the website http://icanhazip.com to determine your server's IP address. Run the following 
+	commands to do this making sure you replace [domain] with your server's domain name (in the format example.com) in the final command.
+
+	```bash
+	ipformatted=$(echo "$(curl http://icanhazip.com)" | sed -s 's/[.]/''\\.''/g')
+	echo "RewriteCond %{HTTP_HOST} ^""$ipformatted" >> /var/www/html/.htaccess
+	rm ipformatted
+	echo "RewriteRule (.*) https://""[domain""/$1 [R=301,L]" >> /var/www/html/.htaccess
+	```
+
+	We now need to restart apache for these changes to take effect. To do this run
+
+	```bash
+	a2enmod rewrite
+	systemctl restart apache2
+	```
+18. Now on to the final part of preliminary setup, installing useful libraries.
+	We need to install git so that we can clone git repos, to do this run the command
+
+	```bash
+	apt-get -y install git
+	```
+
+	We can also install the program htop which is a useful tool for managing running processes on your server, to install run the command
+
+	```bash
+	apt-get install htop
+	```
+
+	Another useful piece of software is the python tool pip, which allows you to install python libraries and all their dependencies very easily using commands such as "pip3 install numpy". To set up pip for both
+	python2 and python3 you need to run the next 3 commands
+
+	```bash
+	apt-get -y install python3-pip python-pip
+	pip3 install --upgrade pip
+	pip install --upgrade pip
+	```
+
+	Finally we can install many useful javascript libraries using the command below
+
+	```bash
+	apt-get -y install npm nodejs nodejs-legacy libjs-mathjax
+	```
+
+### **Setting up Jupyterhub**
