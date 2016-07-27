@@ -179,7 +179,7 @@ if [ "$jup" == "y" ]; then
 	sudo ufw allow $port >> server.log
 	sudo ufw allow 8081 >> server.log
 
-	#enclose in if statements if git auth wanted
+	#enclose in if statements if git auth wanted might not be needed?
 	echo "Installing ucam-webauth for Raven authentication"
 	cd /home/public/
 	wget https://raven.cam.ac.uk/project/apache/files/Debs/libapache2-mod-ucam-webauth_2.0.3apache24~ubuntu_amd64.deb >> server.log
