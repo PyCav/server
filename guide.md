@@ -1,6 +1,7 @@
 <script type="text/javascript" async
 	src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
 </script>
+<!--  SELinux nano /etc/selinux/config  edit sudo apt-get install policycoreutils selinux reboot touch /.autorelabel -->
 $$\rho \gamma c \alpha \nu$$
 # **Server Setup Guide**
 
@@ -183,7 +184,6 @@ $$\rho \gamma c \alpha \nu$$
 
 	The commands above create a cron job that runs letsencrypt renew at 00 minutes, 04 hours, every day, every month and every day of the week.
 
-<!--  SELinux nano /etc/selinux/config  edit sudo apt-get install policycoreutils selinux reboot touch /.autorelabel -->
 17. The following commands will prevent users from accessing your server via its IP address and force them to access your site through https at your domain.
 	First we need to download a python script that will alter the apache config file so that redirects are allowed. Before this though we will back up a working copy of the config file.
 
