@@ -3,7 +3,7 @@
 
 #add to cron ? with $1= jordanosborn/pycav default
 #stop server before running
-./removeall.sh
+/home/public/server/removeallcontainers.sh
 docker rmi $1
 # $1 build flag -b / image name on dockerhub, $2 docker image name, $3 /path/to/Dockerfile
 if [ "$1" -eq "-b" ]; then
