@@ -1,7 +1,7 @@
 #!/bin/bash
 cd /home/public/server
 function run {
-			   sudo ./updatecontainers.sh &
+			   sudo ./fixpermissions.sh &
 			   sudo ./killidle.sh &
 			   sudo ./serverstats.sh &
                sudo ./jupyterhub
