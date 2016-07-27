@@ -144,6 +144,8 @@ echo "Installing javascript dependencies"
 sudo apt-get -y install npm nodejs nodejs-legacy libjs-mathjax >> server.log
 echo "Installed javascript dependencies"
 
+#git clone https://github.com/mathjax/MathJax.git /var/www/html/MathJax
+
 #Here begins the custom deployment change to allow custom authenticators github...
 echo "Would you like to install jupyterhub and nbgrader with raven authentication?"
 read jup
