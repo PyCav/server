@@ -1,11 +1,7 @@
 # Server
 
-[Link to Guide](https://github.com/PyCav/Server/blob/master/guide.md)
+[Link to Server Setup Guide](https://github.com/PyCav/Server/blob/master/guide.md)
 
-
-Auto set up demonstration server.
-
-Improve usability of set up script, error handling, and checking if successful. Suppress output of certain commands and echo success statements
 
 ## Todo:
 
@@ -25,7 +21,9 @@ backup of /home/public/users backup.sh
 
 make server stats easier to view
 
-improve website
+improve demo website
+
+improve Auto set up demonstration server  script
 
 ~~finish idlechecks and checks for containers exceeding fair use in killidle.py~~
 
@@ -36,3 +34,5 @@ documentation
 output to logfiles
 
 finish start server script
+
+
