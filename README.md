@@ -23,7 +23,7 @@ make server stats easier to view
 
 improve website
 
-finish idlechecks and checks for containers exceeding fair use in killidle.py
+~~inish idlechecks and checks for containers exceeding fair use in killidle.py~~
 
 jupyterhub customisation (logos)
 

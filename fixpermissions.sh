@@ -9,7 +9,7 @@ function run {
            }
 
 until run; do
-    echo "UpdateContainers crashed with exit code $?.  Respawning.." >&2
+    echo "FixPermissions crashed with exit code $?.  Respawning.." >&2
     sleep 1
 done
 
