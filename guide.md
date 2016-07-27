@@ -57,7 +57,7 @@ $$\rho \gamma c \alpha \nu$$
    usermod -aG sudo [username]
    ```
 
-   where [username] is replaced by the name of the user that you created earlier.
+   where [username] is replaced by the name of the user that you just created.
 
 8. To aid security we will now prevent unauthorized computers from logging in to your server. To do this we must create an ssh key on your local machine.
    To do this on Mac or Linux open a local terminal and run the command
