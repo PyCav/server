@@ -103,14 +103,12 @@ echo "07 04 * * * letsencrypt renew" >> mycron
 crontab mycron
 rm mycron
 
-#change AllowOverride None to AllowOverride FileInfo in /etc/apache2/apache2.conf for /var/www/
-#needs fixing?
-#sudo sed -i -- 's/<Directory /var/www/>'$'\n'$'\t''Options Indexes FollowSymLinks'$'\n'$'\t''AllowOverride None/<Directory /var/www/>'$'\n'$'\t''Options Indexes FollowSymLinks'$'\n'$'\t''AllowOverride FileInfo/g' /etc/apache2/apache2.conf
-#add a counter to only change /var/www/ ?
 
-#change to use configure_apache.py
 echo "Preventing access to server by IP address (domain access only)"
-sudo sed -i -- 's/AllowOverride None/AllowOverride FileInfo/g' /etc/apache2/apache2.conf
+cp /etc/apache2/apache2.conf /etc/apache2/apache2.conf.working
+curl https://raw.githubusercontent.com/PyCav/Server/master/configure_apache.py
+python3 configure_apache.py
+rm configure_apache.py
 #enable virtual hosts?
 ipformatted=$(echo "$ip" | sed -s 's/[.]/''\\.''/g')
 sudo echo "RewriteCond %{HTTP_HOST} ^""$ipformatted" >> /var/www/html/.htaccess
