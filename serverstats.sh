@@ -3,7 +3,7 @@
 
 function run {
 	echo `sudo docker stats --no-stream` > ./stats.txt
-	python3 serverstats.py
+	python3 ./python/serverstats.py
 	sleep 5
            }
 
