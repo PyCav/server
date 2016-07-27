@@ -106,7 +106,7 @@ rm mycron
 
 echo "Preventing access to server by IP address (domain access only)"
 cp /etc/apache2/apache2.conf /etc/apache2/apache2.conf.working
-curl https://raw.githubusercontent.com/PyCav/Server/master/configure_apache.py
+curl https://raw.githubusercontent.com/PyCav/Server/master/python/configure_apache.py
 python3 configure_apache.py
 rm configure_apache.py
 #enable virtual hosts?
