@@ -7,7 +7,7 @@
 </p>
 
 # **JupyterHub Server Setup Guide**
-#### *Using Docker Containers, Online Authentication Services and NbGrader*
+#### *Using Docker Containers, Authentication Services and NbGrader*
 
 ## **Requirements**
 1. Server with a fresh copy of Ubuntu 16.04 Server installed [Download here](http://www.ubuntu.com/download/server).
@@ -242,15 +242,22 @@
 	```bash
 	apt-get -y install npm nodejs nodejs-legacy libjs-mathjax
 	```
-#
+
 ### **Jupyterhub and Docker**
 In this next section we shall set up a Jupyterhub Server that isolates users using docker containers.
 
 ### **Authentication**
 In this section we will describe how to set up a variety of authentication methods (Raven, Github, Local User) which prevent unauthorised users from accessing your JupyterHub server.
+#### **Raven**
+
+#### **Github**
+
+#### **Local User**
 
 ### **NbGrader**
 This section will discuss how to set up NbGrader up on your server, so that you can create assignments for users to complete and hand in. It will also show you how to set up NbGrader so that assignments are automatically marked.
+
+### **JupyterHub Config File**
 
 ### **Running The Server**
 In this final section you will find out about the various scripts that come from the PyCav project which will help to maintain your server. You will also find out how to start your server.
