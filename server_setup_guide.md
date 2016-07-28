@@ -302,15 +302,45 @@ In this next section we shall set up a Jupyterhub Server that isolates users usi
 	chmod a+x /home/public/server/*.sh
 	chmod a+x /home/public/server/cron/*.sh
 	```
+	To tell JupyterHub to use docker and our custom image we need to customise the jupyterhub_config.py file explanation for how to do this will be in the Final Configuration section of this document.
 
 ### **Authentication**
-In this section we will describe how to set up a variety of authentication methods (Raven, Github, Local User) which prevent unauthorised users from accessing your JupyterHub server.
+In this section we will describe how to install a variety of authentication methods (Raven, Github, Local User) which will help to prevent unauthorised users from accessing your JupyterHub server.
 #### **Raven**
+1. Firstly you need to install the PyCav Raven Authenticator plugin, this can be done by running the command
 
-#### **Github**
-1. oauthenticator install
+	```bash
+	pip3 install --upgrade git+git://github.com/PyCav/jupyterhub-raven-auth.git
+	```
+
+2. Before Raven authentication is available you must enable it in the jupyterhub_config.py file to do this you just need to run the following command
+
+	```bash
+	sed -i -- 's/raven = False/raven = True/g' /home/public/server/jupyterhub_config.py
+	```
+
+#### **GitHub**
+1. Firstly you need to install oauthenticator as GitHub uses oauth to authorise users, to install oauthenticator run
+
+	```bash
+	pip3 install --upgrade oauthenticator
+	```
+
+2. Secondly you need to set up an oauth application on GitHub, to do this log in to GitHub and [Create a GitHub Oauth Application](https://github.com/settings/developers). Using a sensible application name
+	, set the homepage url as **https://[domain]:[jupyterhubport]** and set the callback url as **https://[domain]:[jupyterhubport]/hub/oauth_callback** , make sure you replace [domain] with the domain name of your server
+	(in the format example.com) and also make sure to replace [jupyterhubport] with the port you decided to run jupyterhub on (default 8000).
+ 
+3. Finally, before GitHub authentication is available you must enable it in the jupyterhub_config.py file to do this you just need to run the following command
+
+	```bash
+	sed -i -- 's/github = False/github = True/g' /home/public/server/jupyterhub_config.py
+	```
 
 #### **Local User**
+1. If however you would like to authenticate using system users, then all you need to do is run the command below
+
+	```bash
+	sed -i -- 's/local = False/local = True/g' /home/public/server/jupyterhub_config.py
 
 ### **NbGrader**
 This section will discuss how to set up NbGrader up on your server, so that you can create assignments for users to complete and hand in. It will also show you how to set up NbGrader so that assignments are automatically marked.
@@ -322,7 +352,15 @@ This section will discuss how to set up NbGrader up on your server, so that you 
 	```
 
 ### **Final Configuration**
-This section will show you how to customise the jupyterhub_config.py file to fit your needs. demos download and cron and 
+This section will show you how to customise your installation, how to set up updates of software and how to set up periodic backups of user data.
+
+#### **Setting up a Basic Webpage**
+
+#### **Setting up Updates and Backups**
+
+#### **JupyterHub Configuration**
+
+#### **NbGrader Configuration**
 
 ### **Running The Server**
 In this final section you will find out about the various scripts that come from the PyCav project which will help to maintain your server. You will also find out how to start your server.

@@ -24,13 +24,13 @@
       <div class="large-4 medium-4 columns">
         <div class="callout">
           <h5>Launch JupyterHub</h5>
-          <a href="https://evolve.ovh:8000" class="small button">Log in with Raven</a>
+          <a href="https://[domain]:8000" class="small button">Log in with Raven</a>
         </div>
       </div>
       <div class="large-4 medium-4 columns">
         <div class="callout">
           <h5>Server Stats</h5>
-          <a href="https://evolve.ovh/stats.php" class="small button">View Server Stats</a>
+          <a href="https://[domain]/stats.php" class="small button">View Server Stats</a>
         </div>
       </div>
     </div>

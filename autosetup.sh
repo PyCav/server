@@ -197,7 +197,7 @@ if [ "$jup" == "y" ]; then
 	git clone https://github.com/pycav/server.git
 	cd /home/public/server/webpages
 	sudo sed -i -- 's/8000/'$port'/g' /home/public/server/webpages/index.php
-	sudo sed -i -- 's/evolve.ovh/'$site_name'/g' /home/public/server/webpages/index.php
+	sudo sed -i -- 's/[domain]/'$site_name'/g' /home/public/server/webpages/index.php
 	sudo mv * /var/www/html/
 	sudo service apache2 restart
 	cd /home/public
@@ -221,15 +221,14 @@ if [ "$jup" == "y" ]; then
 	#sudo docker build -t jordanosborn/pycav:latest .
 	#https://hub.docker.com/r/jordanosborn/pycav/
 
-	echo "Cloning jupyterhub-raven-auth from github"
-	git clone https://github.com/PyCav/jupyterhub-raven-auth.git
+	echo "Installing latest jupyterhub-raven-auth from github"
 	# upload to pypi?
-	sudo pip3 install --upgrade jupyterhub-raven-auth/ >> server.log
-	sudo rm -R jupyterhub-raven-auth/ 
+	pip3 install --upgrade git+git://github.com/PyCav/jupyterhub-raven-auth.git >> server.log
 	echo "jupyterhub-raven-auth installed"
 
 	echo "Setting up jupyterhub_config file"
-	sudo sed -i -- 's/pycav.ovh/'$site_name'/g' /home/public/server/jupyterhub_config.py
+	sudo sed -i -- 's/raven = False/raven = True/g' /home/public/server/jupyterhub_config.py
+	sudo sed -i -- 's/[domain]/'$site_name'/g' /home/public/server/jupyterhub_config.py
 	sudo sed -i -- 's/8000/'$port'/g' /home/public/server/jupyterhub_config.py
 	sudo sed -i -- 's/auth_key='\'\''/auth_key='\'$(openssl rand -base64 32)\''/g' /home/public/server/jupyterhub_config.py
 	#may need to be run twice? sudo sed -i -- 's/auth_key='\'\''/auth_key='\'$(openssl rand -base64 32)\''/g' /home/$user/Server/jupyterhub_config.py
