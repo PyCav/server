@@ -314,6 +314,7 @@ In this section we will describe how to set up a variety of authentication metho
 
 ### **NbGrader**
 This section will discuss how to set up NbGrader up on your server, so that you can create assignments for users to complete and hand in. It will also show you how to set up NbGrader so that assignments are automatically marked.
+
 1. Firstly we need to install nbgrader, we can do this by running
 
 	```bash
