@@ -30,6 +30,8 @@
 |[PyCav Github](https://github.com/pycav)| | |
 
 ### **Preliminary setup**
+In this section you will complete the basic set up required for any new server.
+
 1. If your computer is running windows please download putty.exe and puttygen.exe [from here](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html)
 	if however you are running Linux, or Mac OS then you can ssh into your server from the terminal.
 
