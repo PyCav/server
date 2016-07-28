@@ -22,6 +22,13 @@
 
 5. A computer that you can use to ssh into your server.
 
+## **Useful Resources**
+| | | |
+|-|-|-|
+|[JupyterHub Documentation](http://jupyterhub-tutorial.readthedocs.io/en/latest/)|[Docker Documentation](https://docs.docker.com)|[NbGrader Documentation](http://nbgrader.readthedocs.io/en/stable/)|
+|[Python3 Documentation](https://docs.python.org/3/)|[NumPy & SciPy Documentation](http://docs.scipy.org/doc/)|[Matplotlib Documentation](http://matplotlib.org/1.5.1/contents.html)|
+|[Pycav Github](https://github.com/pycav)| | |
+
 ### **Preliminary setup**
 1. If your computer is running windows please download putty.exe and puttygen.exe [from here](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html)
 	if however you are running Linux, or Mac OS then you can ssh into your server from the terminal.
@@ -318,3 +325,5 @@ This section will show you how to customise the jupyterhub_config.py file to fit
 
 ### **Running The Server**
 In this final section you will find out about the various scripts that come from the PyCav project which will help to maintain your server. You will also find out how to start your server.
+
+###### **v1.0 PyCav 2016 - Jordan Osborn**
