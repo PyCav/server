@@ -35,5 +35,7 @@ documentation
 
 output to logfiles
 
+remove references to we in server_setup_guide.md
+
 
 
