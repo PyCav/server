@@ -341,6 +341,7 @@ In this section we will describe how to install a variety of authentication meth
 
 	```bash
 	sed -i -- 's/local = False/local = True/g' /home/public/server/jupyterhub_config.py
+	```
 
 ### **NbGrader**
 This section will discuss how to set up NbGrader up on your server, so that you can create assignments for users to complete and hand in. It will also show you how to set up NbGrader so that assignments are automatically marked.
