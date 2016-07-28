@@ -252,8 +252,8 @@ if [ "$jup" == "y" ]; then
 	#customise jupyterhub?
 
 	#add startserver.sh to path
-	sudo cp /home/public/server/startserver.sh /usr/local/bin/startServer
-	echo "To run server in background: screen; sudo startServer; ctrl-a; ctrl-d;"
+	sudo cp /home/public/server/startserver.sh /usr/local/bin/startserver
+	echo "To run server in background: screen; sudo startserver; ctrl-a; ctrl-d;"
 fi
 #so user can edit website without sudo? also part of general set up?
 #chgrp $user -R /var/www/html
