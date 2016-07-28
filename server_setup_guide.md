@@ -305,9 +305,19 @@ In this next section we shall set up a Jupyterhub Server that isolates users usi
 	To tell JupyterHub to use docker and our custom image we need to customise the jupyterhub_config.py file explanation for how to do this will be in the Final Configuration section of this document.
 
 ### **Authentication**
-In this section we will describe how to set up a variety of authentication methods (Raven, Github, Local User) which will help to prevent unauthorised users from accessing your JupyterHub server.
+In this section we will describe how to install a variety of authentication methods (Raven, Github, Local User) which will help to prevent unauthorised users from accessing your JupyterHub server.
 #### **Raven**
-1. Firstly 
+1. Firstly you need to install the PyCav Raven Authenticator plugin, this can be done by running the command
+
+	```bash
+	pip3 install --upgrade git+git://github.com/PyCav/jupyterhub-raven-auth.git
+	```
+
+2. Before Raven authentication is available you must enable it in the jupyterhub_config.py file to do this you just need to run the following command
+
+	```bash
+	sed -i -- 's/raven = False/raven = True/g' /home/public/server/jupyterhub_config.py
+	```
 
 #### **GitHub**
 1. Firstly you need to install oauthenticator as GitHub uses oauth to authorise users, to install oauthenticator run
@@ -320,10 +330,17 @@ In this section we will describe how to set up a variety of authentication metho
 	, set the homepage url as **https://[domain]:[jupyterhubport]** and set the callback url as **https://[domain]:[jupyterhubport]/hub/oauth_callback** , make sure you replace [domain] with the domain name of your server
 	(in the format example.com) and also make sure to replace [jupyterhubport] with the port you decided to run jupyterhub on (default 8000).
  
-Github authentication will now be usable, all you need to do is customise the **jupyterhub_config.py** file to tell JupyterHub to use GitHub authentication. How to do this will be explained in the Final Configuration section at the
-end of this document.
+3. Finally, before GitHub authentication is available you must enable it in the jupyterhub_config.py file to do this you just need to run the following command
+
+	```bash
+	sed -i -- 's/github = False/github = True/g' /home/public/server/jupyterhub_config.py
+	```
 
 #### **Local User**
+1. If however you would like to authenticate using system users, then all you need to do is run the command below
+
+	```bash
+	sed -i -- 's/local = False/local = True/g' /home/public/server/jupyterhub_config.py
 
 ### **NbGrader**
 This section will discuss how to set up NbGrader up on your server, so that you can create assignments for users to complete and hand in. It will also show you how to set up NbGrader so that assignments are automatically marked.
@@ -342,14 +359,6 @@ This section will show you how to customise your installation, how to set up upd
 #### **Setting up Updates and Backups**
 
 #### **JupyterHub Configuration**
-
-##### **GitHub Authentication**
-
-##### **Raven Authentication**
-
-##### **Local Authentication**
-
-#### **General Configuration**
 
 #### **NbGrader Configuration**
 
