@@ -246,18 +246,75 @@
 ### **Jupyterhub and Docker**
 In this next section we shall set up a Jupyterhub Server that isolates users using docker containers.
 
+1. Firstly we will make a new directory where all the server files and each Jupyterhub user's home directories live called public
+
+	```bash
+	mkdir /home/public
+	mkdir /home/public/users
+	chmod a+rxw -R /home/public
+	```
+
+2. Now we need to install Jupyterhub, Docker and all the required dependencies. To do this run the following commands
+
+	```bash
+	apt-get -y install docker.io
+	npm install -g configurable-http-proxy
+	pip3 install --upgrade jupyterhub
+	pip3 install --upgrade notebook
+	pip3 install --upgrade dockerspawner netifaces
+	```
+
+3. We now need to allow users access to JupyterHub and Docker through your server's firewall, the default ports used are 8000 and 8081 these can be changed in the jupyterhub_config.py file if you wish,
+	 we can allow access to ports 8000 and 8081 using the following commands (if you decide to use different ports change the commands below to the ports you want to use)
+
+	```bash
+	ufw allow 8000
+	ufw allow 8081
+	```
+
+4. This next step sets up the image that docker containers will use and can be customised to meet your needs. Docker images are images that are used to create containers with specific software installed.
+	To install the PyCav docker image (recommended) run the following command (note this is a large download several GBs and may take some time to complete)
+
+	```bash
+	docker pull jordanosborn/pycav
+	```
+
+	If you need to customise what libraries are installed you can edit the Dockerfile and build the image yourself by following the steps below (note build will download several GBs of data and will then build the image this may take a long time)
+	
+	```bash
+	git clone https://github.com/PyCav/jupyterhub.git
+	nano jupyterhub/Dockerfile
+	docker -t build docker build -t jordanosborncustom/pycav:latest jupyterhub/.
+	rm -R jupyterhub
+	```
+
+5. Finally we will download the pycav server scripts repo, this contains a jupyterhub_config.py file, and several shell scripts that will help you to manage your installation. To download and make all shell scripts executable run the commands below
+
+	```bash
+	git clone https://github.com/pycav/server.git /home/public/server
+	chmod a+x /home/public/server/*.sh
+	chmod a+x /home/public/server/cron/*.sh
+	```
+
 ### **Authentication**
 In this section we will describe how to set up a variety of authentication methods (Raven, Github, Local User) which prevent unauthorised users from accessing your JupyterHub server.
 #### **Raven**
 
 #### **Github**
+1. oauthenticator install
 
 #### **Local User**
 
 ### **NbGrader**
 This section will discuss how to set up NbGrader up on your server, so that you can create assignments for users to complete and hand in. It will also show you how to set up NbGrader so that assignments are automatically marked.
+1. Firstly we need to install nbgrader, we can do this by running
 
-### **JupyterHub Config File**
+	```bash
+	pip3 install --upgrade nbgrader
+	```
+
+### **Final Configuration**
+This section will show you how to customise the jupyterhub_config.py file to fit your needs. demos download and cron and 
 
 ### **Running The Server**
 In this final section you will find out about the various scripts that come from the PyCav project which will help to maintain your server. You will also find out how to start your server.
