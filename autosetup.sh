@@ -241,7 +241,8 @@ if [ "$jup" == "y" ]; then
 
 	#does this need to be here
 	crontab -l > mycron
-	echo "10 04 * * * rm -R /home/public/demos && git clone https://github.com/pycav/demos.git /home/public" >> mycron
+	echo "10 04 * * * rm -R /home/public/demos" >> mycron 
+	echo "12 04 * * * git clone https://github.com/pycav/demos.git /home/public" >> mycron
 	crontab mycron
 	rm mycron
 
