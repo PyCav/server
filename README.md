@@ -7,7 +7,9 @@
 
 Finish guide.md
 
-folder restructuring
+~~folder restructuring~~
+
+~~make jupyterhub_config.py authentication type flaggable~~ (not tested)
 
 nbgrader
 
@@ -23,7 +25,7 @@ make server stats easier to view
 
 improve demo website
 
-improve Auto set up demonstration server  script
+improve Auto set up demonstration server script autosetup.sh
 
 ~~finish idlechecks and checks for containers exceeding fair use in killidle.py~~
 
@@ -33,6 +35,5 @@ documentation
 
 output to logfiles
 
-finish start server script
 
 
