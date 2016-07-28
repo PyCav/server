@@ -23,11 +23,11 @@
 5. A computer that you can use to ssh into your server.
 
 ## **Useful Resources**
-| | | |
-|-|-|-|
+
 |[JupyterHub Documentation](http://jupyterhub-tutorial.readthedocs.io/en/latest/)|[Docker Documentation](https://docs.docker.com)|[NbGrader Documentation](http://nbgrader.readthedocs.io/en/stable/)|
+|---|---|---|
 |[Python3 Documentation](https://docs.python.org/3/)|[NumPy & SciPy Documentation](http://docs.scipy.org/doc/)|[Matplotlib Documentation](http://matplotlib.org/1.5.1/contents.html)|
-|[Pycav Github](https://github.com/pycav)| | |
+|[PyCav Github](https://github.com/pycav)| | |
 
 ### **Preliminary setup**
 1. If your computer is running windows please download putty.exe and puttygen.exe [from here](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html)
