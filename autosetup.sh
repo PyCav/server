@@ -237,6 +237,7 @@ if [ "$jup" == "y" ]; then
 	echo "Creating a publically readable folder containing the demos from the pycav/demos github repository"
 	cd /home/public
 	git clone https://github.com/pycav/demos.git >> server.log
+	sudo sed -i -- 's/#demos_//g' /home/public/server/jupyterhub_config.py
 
 	#does this need to be here
 	crontab -l > mycron
@@ -253,6 +254,8 @@ if [ "$jup" == "y" ]; then
 
 	#add startserver.sh to path
 	sudo cp /home/public/server/startserver.sh /usr/local/bin/startserver
+	sudo cp /home/public/server/removecontainers.sh /usr/local/bin/removecontainers
+	sudo cp /home/public/server/updatecontainers.sh /usr/local/bin/updatecontainers
 	echo "To run server in background: screen; sudo startserver; ctrl-a; ctrl-d;"
 fi
 #so user can edit website without sudo? also part of general set up?
