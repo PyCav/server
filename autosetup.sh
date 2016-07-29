@@ -1,6 +1,8 @@
 #!/bin/bash
 #install ubuntu 16.04 server http://www.ubuntu.com/download/server
 
+#https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-vnc-on-ubuntu-16-04 ?install vnc
+
 #general server set up followed by custom deployment of jupyterhub using fresh ubuntu 16.04 install with root user
 echo "Output from script saved in working directory as server.log"
 echo "Updating software sources"
