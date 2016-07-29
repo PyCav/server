@@ -57,6 +57,7 @@ elif raven:
     c.JupyterHub.authenticator_class = RavenAuthenticator
     c.RavenAuthenticator.description = "pyCav"
     c.RavenAuthenticator.login_logo = './resources/logo.png'
+    c.RavenAuthenticator.long_description = ”The_pyCav_Jupyterhub_server.”
     c.RavenAuthenticator.allowed_colleges = {'PHY'} 
 
 # Docker
@@ -65,7 +66,9 @@ c.JupyterHub.spawner_class = DockerSpawner
 c.Spawner.debug = True
 
 c.DockerSpawner.volumes={'/home/public/users/{username}':'/home/jovyan/work','/srv/nbgrader/exchange':'/srv/nbgrader/exchange','/home/public/server/crsidify':"/srv/crsidify"}
-c.DockerSpawner.read_only_volumes={'/home/public/demos':'/home/jovyan/work/demos'}
+
+#demos_c.DockerSpawner.read_only_volumes={'/home/public/demos':'/home/jovyan/work/demos'}
+
 #c.DockerSpawner.notebook_dir = '/home/jovyan/work/{username}'
 c.DockerSpawner.extra_create_kwargs.update({
     'command': 'sh /srv/crsidify/start-singleuser.sh'
