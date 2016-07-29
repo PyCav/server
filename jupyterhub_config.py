@@ -18,8 +18,8 @@ c.JupyterHub.log_level = 'DEBUG'
 c.JupyterHub.port = 8000
 
 # SSL
-c.JupyterHub.ssl_key = '/etc/letsencrypt/live/[domain]/privkey.pem'
-c.JupyterHub.ssl_cert = '/etc/letsencrypt/live/[domain]/fullchain.pem'
+c.JupyterHub.ssl_key = '/etc/letsencrypt/live/website/privkey.pem'
+c.JupyterHub.ssl_cert = '/etc/letsencrypt/live/website/fullchain.pem'
 
 # Cookies
 auth_key=''
@@ -42,7 +42,7 @@ if github:
     from oauthenticator.github import GitHubOAuthenticator
     c.JupyterHub.authenticator_class = GitHubOAuthenticator
     #c.LocalGitHubOAuthenticator.create_system_users = True
-    c.GitHubOAuthenticator.oauth_callback_url = 'https://[domain]:[port]/hub/oauth_callback'
+    c.GitHubOAuthenticator.oauth_callback_url = 'https://website:8000/hub/oauth_callback'
     c.GitHubOAuthenticator.client_id = ''
     c.GitHubOAuthenticator.client_secret = ''
     #c.Authenticator.whitelist = {''}
