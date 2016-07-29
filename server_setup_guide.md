@@ -356,7 +356,7 @@ In this section we will describe how to install a variety of authentication meth
 	sed -i -- 's/local = False/local = True/g' /home/public/server/jupyterhub_config.py
 	```
 
-### **NbGrader** *to do*
+### **NbGrader**
 This section will discuss how to set up NbGrader up on your server, so that you can create assignments for users to complete and hand in. It will also show you how to set up NbGrader so that assignments are automatically marked.
 
 1. Firstly we need to install nbgrader, we can do this by running
@@ -365,19 +365,10 @@ This section will discuss how to set up NbGrader up on your server, so that you 
 	pip3 install --upgrade nbgrader
 	```
 
+***to do***
+
 ### **Final Configuration**
 This section will show you how to customise your installation, how to update containers, how to set up periodic backups of user data and how to kill resource draining containers.
-
-#### **Setting up a Basic Webpage**
-The PyCav server repo that you cloned earlier contains a basic index page and stats page. These can be used as a basic landing page for users accessing your website. 
-To make these pages accessible at your domain we need to move these files to the directory Apache uses to serve content from (/var/www/html/) **Optional**. Make sure you replace
-[domain] with the domain name of your server in the format example.com and [port] with the port you selected your JupyterHub server to run on (default is 8000).
-
-```bash
-sed -i -- 's/8000/[port]/g' /home/public/server/webpages/index.php
-sed -i -- 's/website/[domain]/g' /home/public/server/webpages/index.php
-mv /home/public/server/webpages/* /var/www/html/
-```
 
 #### **Updating Containers**
 
@@ -418,9 +409,25 @@ echo "30 04 * * 1 /home/public/server/cron/backup.sh" >> mycron
 rm mycron
 ```
 
-#### **JupyterHub Configuration** todo
+#### **JupyterHub Configuration** 
+***todo***
 
-#### **NbGrader Configuration** todo
+#### **NbGrader Configuration** 
+***todo***
+
+#### **Killing Resource Draining Containers** 
+***todo***
+
+#### **(Optional) Setting up a Basic Webpage**
+The PyCav server repo that you cloned earlier contains a basic index page and stats page. These can be used as a basic landing page for users accessing your website. 
+To make these pages accessible at your domain we need to move these files to the directory Apache uses to serve content from (/var/www/html/) **Optional**. Make sure you replace
+[domain] with the domain name of your server in the format example.com and [port] with the port you selected your JupyterHub server to run on (default is 8000).
+
+```bash
+sed -i -- 's/8000/[port]/g' /home/public/server/webpages/index.php
+sed -i -- 's/website/[domain]/g' /home/public/server/webpages/index.php
+mv /home/public/server/webpages/* /var/www/html/
+```
 
 #### **(Optional) Install PyCav Demos**
 If you wish to install the PyCav demos so that they are viewable by your users and set them up so that they are automatically updated (at 04:10 am everyday) you need to run the following commands.
@@ -434,9 +441,10 @@ crontab mycron
 rm mycron
 ```
 
-#### **Killing Resource Draining Containers** todo
-
-### **Running The Server** todo
+### **Running The Server** 
 In this final section you will find out about the various scripts that come from the PyCav project which will help to maintain your server. You will also find out how to start your server.
+
+***todo***
+
 
 ###### **v1.0 PyCav 2016 - Jordan Osborn**
