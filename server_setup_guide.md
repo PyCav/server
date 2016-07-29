@@ -370,9 +370,12 @@ This section will show you how to customise your installation, how to update con
 
 #### **Setting up a Basic Webpage**
 The PyCav server repo that you cloned earlier contains a basic index page and stats page. These can be used as a basic landing page for users accessing your website. 
-To make these pages accessible at your domain we need to move these files to the directory Apache uses to serve content from (/var/www/html/) **Optional**.
+To make these pages accessible at your domain we need to move these files to the directory Apache uses to serve content from (/var/www/html/) **Optional**. Make sure you replace
+[domain] with the domain name of your server in the format example.com and [port] with the port you selected your JupyterHub server to run on (default is 8000).
 
 ```bash
+sed -i -- 's/8000/[port]/g' /home/public/server/webpages/index.php
+sed -i -- 's/website/[domain]/g' /home/public/server/webpages/index.php
 mv /home/public/server/webpages/* /var/www/html/
 ```
 
@@ -401,8 +404,19 @@ The final command will pull the named image (replace [image] with the name of th
 
 Note if you use a new image with a different name you will need to update your **jupyterhub_config.py** file to reflect this change.
 
-#### **Backing Up Containers** todo
+#### **Backing Up Containers**
+All user data is by default stored in the directory /home/public/users which contains sub directories for each user named after that user's username. Backing up is therefore as simple as copying the users directory to a backup hard disk. A script has been created 
+that will back up this folder to a mounted hard disk. It creates a tar.gz archive with a name modified according to the date the folder was backed up (default is every monday at 04:30). **Before carrying out the steps below you must mount the hard disk you want to back up to to some directory on your computer ([Help](https://help.ubuntu.com/community/Mount)).**
+Run the following commands replacing [mountpath] with the full path to the mount directory (and folder if you require) of your backup hard disk (in the format /media/backup/).
 
+```bash
+backup_path=$(echo "[mountpath]" | sed -s 's/[/]/''\\\/''/g')
+sudo sed -i -- 's/\/media\/backup\//'$backup_path'/g' /home/public/cron/backup.sh
+rm backup_path
+crontab -l > mycron
+echo "30 04 * * 1 /home/public/server/cron/backup.sh" >> mycron
+rm mycron
+```
 
 #### **JupyterHub Configuration** todo
 
