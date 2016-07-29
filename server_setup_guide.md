@@ -357,7 +357,7 @@ In this section we will describe how to install a variety of authentication meth
 	sed -i -- 's/local = False/local = True/g' /home/public/server/jupyterhub_config.py
 	```
 
-### **NbGrader**
+### **NbGrader** *to do*
 This section will discuss how to set up NbGrader up on your server, so that you can create assignments for users to complete and hand in. It will also show you how to set up NbGrader so that assignments are automatically marked.
 
 1. Firstly we need to install nbgrader, we can do this by running
@@ -367,11 +367,17 @@ This section will discuss how to set up NbGrader up on your server, so that you 
 	```
 
 ### **Final Configuration**
-This section will show you how to customise your installation, how to set up updates of software and how to set up periodic backups of user data.
+This section will show you how to customise your installation, how to update containers and how to set up periodic backups of user data.
 
 #### **Setting up a Basic Webpage**
+The PyCav server repo that you cloned earlier contains a basic index page and stats page. These can be used as a basic landing page for users accessing your website. 
+To make these pages accessible at your domain we need to move these files to the directory Apache uses to serve content from (/var/www/html/) **Optional**.
 
-#### **Setting up Updates and Backups**
+```bash
+mv /home/public/server/webpages/* /var/www/html/
+```
+
+#### **Updating Containers and Backing Up User Data**
 
 #### **JupyterHub Configuration**
 
