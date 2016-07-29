@@ -281,19 +281,19 @@ In this next section we shall set up a Jupyterhub Server that isolates users usi
 	ufw allow 8081
 	```
 
-4. This next step sets up the image that docker containers will use and can be customised to meet your needs. Docker images are images that are used to create containers with specific software installed.
-	To install the PyCav docker image (recommended) run the following command (note this is a large download several GBs and may take some time to complete)
+4. This next step sets up the image that docker containers will use. This step can be customised to meet your needs. Docker images are images that are used to create containers with specific software installed.
+	To install the PyCav docker image (recommended) run the following command (note this is a large download several GBs in size and may take some time to complete)
 
 	```bash
 	docker pull jordanosborn/pycav
 	```
 
-	If you need to customise what libraries are installed you can edit the Dockerfile and build the image yourself by following the steps below (note build will download several GBs of data and will then build the image this may take a long time)
+	If you need to customise what libraries are installed you can edit the Dockerfile and build the image yourself by following the steps below making sure to name your image by replacing [image] with the name you wish to use (note build will download several GBs of data and will then build the image this may take a long time)
 	
 	```bash
 	git clone https://github.com/PyCav/jupyterhub.git
 	nano jupyterhub/Dockerfile
-	docker -t build docker build -t jordanosborncustom/pycav:latest jupyterhub/.
+	docker -t build docker build -t [image]:latest jupyterhub/.
 	rm -R jupyterhub
 	```
 
@@ -304,7 +304,19 @@ In this next section we shall set up a Jupyterhub Server that isolates users usi
 	chmod a+x /home/public/server/*.sh
 	chmod a+x /home/public/server/cron/*.sh
 	```
-	To tell JupyterHub to use docker and our custom image we need to customise the jupyterhub_config.py file explanation for how to do this will be in the Final Configuration section of this document.
+
+	To tell JupyterHub to use a custom image we need to customise the jupyterhub_config.py file. If you are using the default image you **do not** need to run this step,
+	if however you are using a custom image run the following command making sure to replace [image] with the name you used for your custom image
+
+	```bash
+	sed -i -- 's/jordanosborn\/pycav/[image]/g' /home/public/server/jupyterhub_config.py
+	```
+
+	If you have forgotten what you have named your image you can run the command below (must be root) to list all currently installed images.
+
+	```bash
+	docker images
+	```
 
 ### **Authentication**
 In this section we will describe how to install a variety of authentication methods (Raven, Github, Local User) which will help to prevent unauthorised users from accessing your JupyterHub server.
