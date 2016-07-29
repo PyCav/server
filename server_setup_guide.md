@@ -442,9 +442,34 @@ rm mycron
 ```
 
 ### **Running The Server** 
-In this final section you will find out about the various scripts that come from the PyCav project which will help to maintain your server. You will also find out how to start your server.
+First you should add the startserver.sh script to your path, you can do this by running the following command.
 
-***todo***
+```bash
+cp /home/public/server/startserver.sh /usr/local/bin/startserver
+```
+
+With the script added to your path you can start the server in any directory by running the command **(as root)** below.
+
+```bash
+startserver
+```
+
+To close the JupyterHub server you need to send a SIGINT to the process, you can do this by pressing **CTRL-C** with your ssh-client's window focussed.
+
+You can also start the server in the background by running (as root) the following command.
+
+```bash
+screen startserver
+```
+
+To detach from the processe's running screen press **CTRL-A** followed by **CTRL_D** you can now safely exit your ssh-client without interupting the JupyterHub process.
+To reattach to the JupyterHub screen run the following command (as root).
+
+```bash
+screen -r
+```
+
+***This concludes the PyCav JupyterHub setup guide, please visit [Pycav.org](https://pycav.org/) if you would like to learn more about the PyCav project.***
 
 
 ###### **v1.0 PyCav 2016 - Jordan Osborn**
