@@ -97,7 +97,7 @@ export EDITOR=/bin/nano
 
 #set up crons
 echo "Setting up automated renewal of SSL certificate"
-crontab -e
+
 crontab -l > mycron
 echo "07 04 * * * letsencrypt renew" >> mycron
 crontab mycron
