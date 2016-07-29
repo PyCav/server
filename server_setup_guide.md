@@ -291,10 +291,9 @@ In this next section we shall set up a Jupyterhub Server that isolates users usi
 	If you need to customise what libraries are installed you can edit the Dockerfile and build the image yourself by following the steps below making sure to name your image by replacing [image] with the name you wish to use (note build will download several GBs of data and will then build the image this may take a long time)
 	
 	```bash
-	git clone https://github.com/PyCav/jupyterhub.git
+	git clone https://github.com/PyCav/jupyterhub.git /home/public/Dockerfile
 	nano jupyterhub/Dockerfile
-	docker -t build docker build -t [image]:latest jupyterhub/.
-	rm -R jupyterhub
+	docker -t build docker build -t [image]:latest /home/public/Dockerfile/.
 	```
 
 5. Finally we will download the pycav server scripts repo, this contains a jupyterhub_config.py file, and several shell scripts that will help you to manage your installation. To download and make all shell scripts executable run the commands below
@@ -367,7 +366,7 @@ This section will discuss how to set up NbGrader up on your server, so that you 
 	```
 
 ### **Final Configuration**
-This section will show you how to customise your installation, how to update containers and how to set up periodic backups of user data.
+This section will show you how to customise your installation, how to update containers, how to set up periodic backups of user data and how to kill resource draining containers.
 
 #### **Setting up a Basic Webpage**
 The PyCav server repo that you cloned earlier contains a basic index page and stats page. These can be used as a basic landing page for users accessing your website. 
@@ -377,13 +376,53 @@ To make these pages accessible at your domain we need to move these files to the
 mv /home/public/server/webpages/* /var/www/html/
 ```
 
-#### **Updating Containers and Backing Up User Data**
+#### **Updating Containers**
 
-#### **JupyterHub Configuration**
+The easiest way to update containers is to first delete them all, this is okay as data created by the user is seperated from the container. After this you need to delete the old docker image and download/build the newer version. You must schedule a maintenance period where the server will remain offline during the update, this involves informing users of this scheduled down time and giving them appropriate time to prepare. Two scripts have been provided the first one stops all containers and then deletes them, the second will take the JupyterHub server offline, call the first script, delete the old Docker Image and then download/build the new one. We first need to move these scripts so that they will be on your server's path to do this run the commands below.
 
-#### **NbGrader Configuration**
+```bash
+cp /home/public/server/removecontainers.sh /usr/local/bin/removecontainers
+cp /home/public/server/updatecontainers.sh /usr/local/bin/updatecontainers
+```
 
-### **Running The Server**
+You can now update the containers by running **updatecontainers** (as root) in your server's terminal. The updatecontainers script has 2 flags that can be activated independently three examples of running the updatecontainers script are shown below.
+
+```bash
+updatecontainers
+updatecontainers -b [image] [path_to_Dockerfile]
+updatecontainers -p [image]
+```
+
+The first command updates using the default jordanosborn/pycav image.
+
+The second command updates by building a new image from a custom Dockerfile (replace [image] with the name of the image you wish to create and [path_to_Dockerfile] with the path to your custom Dockerfile).
+
+The final command will pull the named image (replace [image] with the name of the image you wish to use) from [DockerHub](hub.docker.com).
+
+Note if you use a new image with a different name you will need to update your **jupyterhub_config.py** file to reflect this change.
+
+#### **Backing Up Containers** todo
+
+
+#### **JupyterHub Configuration** todo
+
+#### **NbGrader Configuration** todo
+
+#### **(Optional) Install PyCav Demos**
+If you wish to install the PyCav demos so that they are viewable by your users and set them up so that they are automatically updated (at 04:10 am everyday) you need to run the following commands.
+
+```bash
+git clone https://github.com/pycav/demos.git /home/public/demos
+sudo sed -i -- 's/#demos_//g' /home/public/server/jupyterhub_config.py
+crontab -l > mycron
+echo "10 04 * * * rm -R /home/public/cron/updatenotebooks.sh" >> mycron
+crontab mycron
+rm mycron
+```
+
+#### **Killing Resource Draining Containers** todo
+
+### **Running The Server** todo
 In this final section you will find out about the various scripts that come from the PyCav project which will help to maintain your server. You will also find out how to start your server.
 
 ###### **v1.0 PyCav 2016 - Jordan Osborn**
