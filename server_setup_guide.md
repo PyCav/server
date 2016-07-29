@@ -47,7 +47,7 @@ In this section you will complete the basic set up required for any new server.
 	passwd
 	```
 
-	and following the on screen insturctions.
+	and following the on screen instructions.
 
 5. Now update your software sources and software packages to their latest version by running
 	
@@ -65,7 +65,7 @@ In this section you will complete the basic set up required for any new server.
 
 	into your client and replacing [username] with the name of the user you wish to create.
 	You will then be prompted for various things relating to the new user, follow these on screen instructions.
-7. We must then give this user sudo access which stands for super user do, which allows ths new user to execute commands as the root user.
+7. We must then give this user sudo access which stands for super user do, which allows this new user to execute commands as the root user.
    We can do this by running
    
    ```bash 
@@ -252,10 +252,10 @@ In this section you will complete the basic set up required for any new server.
 	apt-get -y install npm nodejs nodejs-legacy libjs-mathjax
 	```
 
-### **Jupyterhub and Docker**
-In this next section we shall set up a Jupyterhub Server that isolates users using docker containers.
+### **JupyterHub and Docker**
+In this next section we shall set up a JupyterHub Server that isolates users using Docker containers.
 
-1. Firstly we will make a new directory where all the server files and each Jupyterhub user's home directories live called public
+1. Firstly we will make a new directory where all the server files and each JupyterHub user's home directories live called public
 
 	```bash
 	mkdir /home/public
@@ -263,7 +263,7 @@ In this next section we shall set up a Jupyterhub Server that isolates users usi
 	chmod a+rxw -R /home/public
 	```
 
-2. Now we need to install Jupyterhub, Docker and all the required dependencies. To do this run the following commands
+2. Now we need to install JupyterHub, Docker and all the required dependencies. To do this run the following commands
 
 	```bash
 	apt-get -y install docker.io
@@ -281,7 +281,7 @@ In this next section we shall set up a Jupyterhub Server that isolates users usi
 	ufw allow 8081
 	```
 
-4. This next step sets up the image that docker containers will use. This step can be customised to meet your needs. Docker images are images that are used to create containers with specific software installed.
+4. This next step sets up the image that Docker containers will use. This step can be customised to meet your needs. Docker images are images that are used to create containers with specific software installed.
 	To install the PyCav docker image (recommended) run the following command (note this is a large download several GBs in size and may take some time to complete)
 
 	```bash
@@ -296,7 +296,7 @@ In this next section we shall set up a Jupyterhub Server that isolates users usi
 	docker -t build docker build -t [image]:latest /home/public/Dockerfile/.
 	```
 
-5. Finally we will download the pycav server scripts repo, this contains a jupyterhub_config.py file, and several shell scripts that will help you to manage your installation. To download and make all shell scripts executable run the commands below
+5. Finally we will download the PyCav server scripts repo, this contains a jupyterhub_config.py file, and several shell scripts that will help you to manage your installation. To download and make all shell scripts executable run the commands below
 
 	```bash
 	git clone https://github.com/pycav/server.git /home/public/server
@@ -318,7 +318,7 @@ In this next section we shall set up a Jupyterhub Server that isolates users usi
 	```
 
 ### **Authentication**
-In this section we will describe how to install a variety of authentication methods (Raven, Github, Local User) which will help to prevent unauthorised users from accessing your JupyterHub server.
+In this section we will describe how to install a variety of authentication methods (Raven, GitHub, Local User) which will help to prevent unauthorised users from accessing your JupyterHub server.
 #### **Raven**
 1. Firstly you need to install the PyCav Raven Authenticator plugin, this can be done by running the command
 
