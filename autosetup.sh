@@ -87,7 +87,6 @@ sudo echo $'<?php\necho \'Hello World!\';?>' > /var/www/html/index.php
 
 #must have domain set up use domainName.domain with url forwarding of www.domainName.domain to domainName.domain
 echo "Setting up HTTPS access for server"
-cd /home/public
 sudo apt-get -y install python-letsencrypt-apache >> server.log
 echo "Enter site name (domainName.domain):"
 #implement checks?
@@ -108,7 +107,7 @@ sudo rm mycron
 
 echo "Preventing access to server by IP address (domain access only)"
 cp /etc/apache2/apache2.conf /etc/apache2/apache2.conf.working
-curl https://raw.githubusercontent.com/PyCav/Server/master/python/configure_apache.py
+wget https://raw.githubusercontent.com/PyCav/Server/master/python/configure_apache.py
 sudo python3 configure_apache.py
 rm configure_apache.py
 #enable virtual hosts?
