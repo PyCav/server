@@ -6,8 +6,8 @@ import time as t
 TIMEOUT_MIN=30.0 #in seconds idle time threshold
 TIMEOUT_MAX=30.0 #in seconds maxing time threshold
 INCREMENT_TIME=3.0 #in seconds
-CPU_MIN_THRESHOLD=3 #decide thresholds? in 1/100 of a second of cpu time x86 per second| 3 -> 3% USER CPU usage
-CPU_MAX_THRESHOLD=50 #decide thresholds?
+CPU_MIN_THRESHOLD=3 #decide thresholds idle? in 1/100 of a second of cpu time x86 per second| 3 -> 3% USER CPU usage
+CPU_MAX_THRESHOLD=50 #decide thresholds maxing?
 REMOVE_AFTER_STOP=True
 FNULL = open(os.devnull, 'w')
 #add logging statements?
