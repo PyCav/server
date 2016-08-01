@@ -3,7 +3,7 @@ cd /home/public/server
 function run {
     sudo ./fixpermissions.sh &
     if [ "$1" -ne "-nk" ]; then
-		sudo ./killidle.sh &
+		sudo ./killcontainers.sh &
 	fi
     sudo ./serverstats.sh &
     sudo ./jupyterhub
