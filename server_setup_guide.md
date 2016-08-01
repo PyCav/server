@@ -478,7 +478,7 @@ To reattach to the JupyterHub screen run the following command (as root).
 screen -r
 ```
 
-***This concludes the PyCav JupyterHub setup guide, please visit [Pycav.org](https://pycav.org/) if you would like to learn more about the PyCav project.***
+***This concludes the PyCav JupyterHub setup guide, please visit [pycav.org](https://pycav.org/) if you would like to learn more about the PyCav project.***
 
 
 ###### **v1.0 PyCav 2016 - Jordan Osborn**
