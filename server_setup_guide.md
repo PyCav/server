@@ -411,7 +411,11 @@ rm mycron
 
 #### **JupyterHub Configuration** 
 ***todo***
-
+```bash
+	sudo sed -i -- 's/website/'$site_name'/g' /home/public/server/jupyterhub_config.py
+	sudo sed -i -- 's/8000/'$port'/g' /home/public/server/jupyterhub_config.py
+	sudo sed -i -- 's/auth_key='\'\''/auth_key='\'$(openssl rand -base64 2048)\''/g' /home/public/server/jupyterhub_config.py
+```
 #### **NbGrader Configuration** 
 ***todo***
 

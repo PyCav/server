@@ -29,7 +29,7 @@ improve Auto set up demonstration server script autosetup.sh
 
 ~~finish idlechecks and checks for containers exceeding fair use in killidle.py~~
 
-jupyterhub customisation (logos)
+~~jupyterhub customisation (logos)~~
 
 documentation
 
