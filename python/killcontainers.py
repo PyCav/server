@@ -138,7 +138,7 @@ class processes:
 				pass
 	def _usersRunning(self):
 		userList=str(self.time)+": "
-		for i in range(0,self.processes):
+		for i in range(0,len(self.processes)):
 			if i+1==len(self.processes):
 				userList+=(self.processes[i][0])[7:]+"."
 			else:
