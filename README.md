@@ -26,6 +26,8 @@ output to logfiles
 
 remove references to we in server_setup_guide.md
 
+in guide explain how to use local users instead of docker containers
+
 ~~finish idlechecks and checks for containers exceeding fair use in killidle.py~~
 
 ~~jupyterhub customisation (logos)~~
