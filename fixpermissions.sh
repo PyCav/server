@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 function run {
 	while true; do
 		chmod -R a+rxw /home/public/users
