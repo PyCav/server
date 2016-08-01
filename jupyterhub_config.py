@@ -57,7 +57,7 @@ elif raven:
     c.JupyterHub.authenticator_class = RavenAuthenticator
     c.RavenAuthenticator.description = "pyCav"
     c.RavenAuthenticator.login_logo = './resources/logo.png'
-    c.RavenAuthenticator.long_description = ”The_pyCav_Jupyterhub_server.”
+    c.RavenAuthenticator.long_description = ”The pyCav Jupyterhub server.”
     c.RavenAuthenticator.allowed_colleges = {'PHY'} 
 
 # Docker
