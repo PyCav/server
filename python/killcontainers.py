@@ -35,7 +35,7 @@ class processes:
 		self.time=0.0
 
 	def _getTime(self):
-		self.time=t.time()-self.time0
+		self.time=round(t.time()-self.time0,1)
 
 	def _getRunning(self):
 		dockerps=sp.Popen(["docker","ps","-f","\"status=running\""],stdout=sp.PIPE)
@@ -77,7 +77,7 @@ class processes:
 					self.processes[len(self.processes)-1].append(0.0)
 					self.processes[len(self.processes)-1].append(0.0)
 					self.processes[len(self.processes)-1].append(0.0)
-					printlog(self.time + ": Container "+self.processes[i][0]+" is now running.")
+					printlog(str(self.time) + ": Container "+self.processes[i][0]+" is now running.")
 				except IndexError:
 					pass
 		for i in range(0,len(self.processes)):
@@ -140,9 +140,9 @@ class processes:
 		userList=str(self.time)+": "
 		for i in range(0,len(self.processes)):
 			if i+1==len(self.processes):
-				userList+=(self.processes[i][0])[7:]+"."
+				userList+=(self.processes[i][0])[8:]+"."
 			else:
-				userList+=(self.processes[i][0])[7:]+", "
+				userList+=(self.processes[i][0])[8:]+", "
 		printlog(userList)
 
 	def run(self):
@@ -153,7 +153,7 @@ class processes:
 			self._usageCheck()
 			self._kill()
 			self._getTime()
-			print(self.processes)
+			#print(self.processes)
 			t.sleep(INCREMENT_TIME)
 
 def main():
