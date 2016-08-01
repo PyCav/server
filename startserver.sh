@@ -6,7 +6,7 @@ function run {
 		sudo ./killcontainers.sh &
 	fi
     sudo ./serverstats.sh &
-    sudo ./jupyterhub
+    sudo jupyterhub
 }
 
 until run; do
