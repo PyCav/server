@@ -6,8 +6,8 @@ import time as t
 TIMEOUT_MIN=30.0 #in seconds idle time threshold
 TIMEOUT_MAX=30.0 #maxing time threshold
 INCREMENT_TIME=3.0 #in seconds
-CPU_MIN_THRESHOLD=10 #decide thresholds? in 1/100 of a second of cpu time x86
-CPU_MAX_THRESHOLD=100 #decide thresholds?
+CPU_MIN_THRESHOLD=3 #decide thresholds? in 1/100 of a second of cpu time x86 per second| 3 -> 3% USER CPU usage
+CPU_MAX_THRESHOLD=50 #decide thresholds?
 REMOVE_AFTER_STOP=True
 FNULL = open(os.devnull, 'w')
 #add logging statements?
@@ -104,11 +104,11 @@ class processes:
 			user=int(''.join(filter(lambda x: x.isdigit(),stats[0])))
 			system=int(''.join(filter(lambda x: x.isdigit(),stats[1])))
 			try:
-				if abs(user-self.processes[i][4])<=CPU_MIN_THRESHOLD:
+				if abs(user-self.processes[i][4])<=CPU_MIN_THRESHOLD*INCREMENT_TIME:
 						self.processes[i][2]+=INCREMENT_TIME
 				else:
 						self.processes[i][2]=0.0
-				if abs(user-self.processes[i][4])>=CPU_MAX_THRESHOLD:
+				if abs(user-self.processes[i][4])>=CPU_MAX_THRESHOLD*INCREMENT_TIME:
 						self.processes[i][3]+=INCREMENT_TIME
 				else:
 						self.processes[i][3]=0.0
