@@ -416,7 +416,7 @@ rm mycron
 ***todo***
 
 #### **Killing Resource Draining Containers** 
-***todo***
+A script was written in python to check if containers are idle or are using too much of the server's computing power. The script will kill any containers that are exceeding maximum usage thresholds (USER CPU usage) for a certain period of time and will also kill any containers that fall below a minimum usage threshold (USER CPU usage) for a certain period of time. These are all user definable constants in the python script. Thresholds are effectively percentage usage of CPU for x86 based hardware. You should modify the python script located at **/home/public/server/python/killcontainers.py** (if using default directories) to fit these parameters to your needs (idle Timeout, maxing Timeout, time increment, idle cpu threshold, maxing cpu threshold).
 
 #### **(Optional) Setting up a Basic Webpage**
 The PyCav server repo that you cloned earlier contains a basic index page and stats page. These can be used as a basic landing page for users accessing your website. 
@@ -453,6 +453,7 @@ With the script added to your path you can start the server in any directory by 
 ```bash
 startserver
 ```
+This command runs the scripts fixpermissions.sh which gives users write access to their home directories, killcontainers.sh which kills resource intensive or idle containers (can be turned off with the flag -nk), and also starts the JupyterHub server.
 
 To close the JupyterHub server you need to send a SIGINT to the process, you can do this by pressing **CTRL-C** with your ssh-client's window focussed.
 
