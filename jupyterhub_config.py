@@ -29,6 +29,7 @@ c.JupyterHub.cookie_secret_file = '/home/public/jupyterhub_cookie_secret'
 # Users
 c.JupyterHub.db_url = '/home/public/jupyterhub.sqlite'
 c.JupyterHub.admin_access = True
+c.JupyterHub.logo_file='./resources/logo.png'
 
 #tis_config = '/home/public/tis_config'
 #tis_csv = '/home/public/tis.csv'
@@ -57,8 +58,9 @@ elif raven:
     c.JupyterHub.authenticator_class = RavenAuthenticator
     c.RavenAuthenticator.description = "pyCav"
     c.RavenAuthenticator.login_logo = './resources/logo.png'
-    c.RavenAuthenticator.long_description = ”The pyCav Jupyterhub server.”
+    #c.RavenAuthenticator.long_description = ”The pyCav Jupyterhub server.”
     c.RavenAuthenticator.allowed_colleges = {'PHY'} 
+    c.RavenAuthenticator.ssl=True
 
 # Docker
 from dockerspawner import DockerSpawner
