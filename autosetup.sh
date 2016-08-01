@@ -212,7 +212,7 @@ if [ "$jup" == "y" ]; then
 
 	echo "Getting docker image for a single user notebook"
 	cd /home/public/server
-	echo "Do you wish to use a custom dockerfile (no)?"
+	echo "Do you wish to use a custom dockerfile (n)?"
 	read answer
 	if [ "$answer" == "y" ]; then
 		echo "Where is your dockerfile (path)?"
