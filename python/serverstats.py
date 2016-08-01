@@ -19,7 +19,7 @@ for i in range(0,len(text)):
                 if text[i]=='B':
                         Bcount+=1
                 if Bcount==6:
-                        string.append([len(string):i+1]+'\n')
+                        string.append(text[len(string):i+1]+'\n')
                         Bcount=0
 for line in string:
         stats.write(line)
