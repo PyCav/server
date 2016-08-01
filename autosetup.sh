@@ -4,7 +4,7 @@
 #https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-vnc-on-ubuntu-16-04 ?install vnc
 echo "Would you like to initialise your server (y)?"
 read initialise
-if [ "$initialise" -ne "n" ]; then
+if [ "$initialise" != "n" ]; then
 	#general server set up followed by custom deployment of jupyterhub using fresh ubuntu 16.04 install with root user
 	echo "Output from script saved in working directory as server.log"
 	echo "Updating software sources"
@@ -253,7 +253,7 @@ if [ "$jup" == "y" ]; then
 	#cron job to backup
 	echo "Enter path (e.g. /media/backup/) for user data backups (empty string sets no backups)?"
 	read backpath
-	if [ "$isbackup" -ne "" ]; then
+	if [ "$isbackup" != "" ]; then
 		backup_path=$(echo "$backpath" | sed -s 's/[/]/''\\\/''/g')
 		sudo sed -i -- 's/\/media\/backup\//'$backup_path'/g' /home/public/cron/backup.sh
 		rm backup_path
