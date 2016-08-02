@@ -7,6 +7,7 @@
 
 Finish server_setup_guide.md
 
+fix nokill flag, stopping server nicely 
 
 nbgrader
 
