@@ -18,7 +18,7 @@
 
 4. Static ip on server.
 
-4. Domain name that points to your server's static ip address, with url forwarding such that www.domainname redirects to domainname
+4. Domain name that points to your server's static ip address, with url forwarding such that www. versions of your domain are redirected to the non www. versions, for example www.example.com is forwarded to example.com.
 
 5. A computer that you can use to ssh into your server.
 
