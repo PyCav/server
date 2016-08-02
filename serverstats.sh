@@ -3,7 +3,7 @@ function run {
 	while true; do
 		echo `sudo docker stats --no-stream` > ./.stats.txt
 		python3 ./python/serverstats.py
-		sleep 5
+		sleep 3
 	done
 }
 
