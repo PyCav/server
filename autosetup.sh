@@ -231,7 +231,7 @@ if [ "$jup" == "y" ]; then
 	sudo sed -i -- 's/raven = False/raven = True/g' /home/public/server/jupyterhub_config.py
 	sudo sed -i -- 's/website/'$site_name'/g' /home/public/server/jupyterhub_config.py
 	sudo sed -i -- 's/8000/'$port'/g' /home/public/server/jupyterhub_config.py
-	sudo sed -i -- 's/auth_key='\'\''/auth_key='\'$(openssl rand -base64 2048)\''/g' /home/public/server/jupyterhub_config.py
+	sudo sed -i -- 's/auth_key='\'\''/auth_key='\'$(openssl rand -hex 32)\''/g' /home/public/server/jupyterhub_config.py
 	#may need to be run twice? sudo sed -i -- 's/auth_key='\'\''/auth_key='\'$(openssl rand -base64 32)\''/g' /home/$user/Server/jupyterhub_config.py
 
 	#set up publicly viewable and executable hard disk with pycav demos docker virtual disks cron job update
