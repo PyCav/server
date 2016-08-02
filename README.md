@@ -5,7 +5,7 @@
 
 ## Todo:
 
-Finish guide.md
+Finish server_setup_guide.md
 
 
 nbgrader
