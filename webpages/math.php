@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>MathJax TeX Test Page</title>
+<title>Math</title>
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 </script>
