@@ -9,6 +9,10 @@ Finish server_setup_guide.md
 
 fix nokill flag, stopping server nicely 
 
+multiple flags killcontainers.py
+
+add uptime in running containers list
+
 nbgrader
 
 whitelisting by course tis library

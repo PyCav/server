@@ -1,10 +1,9 @@
 #!/bin/bash
 cd /home/public/server
+flag=$1
 function run {
     sudo ./fixpermissions.sh &
-    if [ "$1" != "-nk" ]; then
-		sudo ./killcontainers.sh $1 &
-	fi
+	sudo ./killcontainers.sh "$flag" &
     sudo ./serverstats.sh &
     sudo jupyterhub
 }

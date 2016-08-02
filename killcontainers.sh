@@ -1,6 +1,7 @@
 #!/bin/bash
+flag=$1
 function run {
-    sudo python3 ./python/killcontainers.py $1
+    sudo python3 ./python/killcontainers.py "$flag"
 }
 
 until run; do
