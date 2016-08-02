@@ -3,6 +3,7 @@
 ?>
 <html>
 	<head>
+		<title> Stats </title>
     	<meta http-equiv="refresh" content="5" > 
     </head>
 	<body>
