@@ -154,7 +154,7 @@ In this section you will complete the basic set up required for any new server.
 	apt-get -y install php libapache2-mod-php php-mcrypt php-mysql
 	```
 
-14. The next three commands will reorder the priority of files that apache uses as your server's homepage,
+14. The next four commands will reorder the priority of files that apache uses as your server's homepage and then restart the apache server so that this change takes effect,
 	by default index.html in the folder /var/www/html/ is the default landing page, these commands will change it so
 	that index.php (same directory) is the default homepage.
 	
@@ -162,6 +162,7 @@ In this section you will complete the basic set up required for any new server.
 	sed -i -- 's/index.php/temp.html/g' /etc/apache2/mods-enabled/dir.conf
 	sed -i -- 's/index.html/index.php/g' /etc/apache2/mods-enabled/dir.conf
 	sed -i -- 's/temp.html/index.html/g' /etc/apache2/mods-enabled/dir.conf
+	systemctl restart apache2
 	```
 
 15. The command below will now create a sample homepage written in php that prints the words Hello World!
