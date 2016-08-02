@@ -1,11 +1,11 @@
 #!/bin/bash
-
-
 function run {
-	echo `sudo docker stats --no-stream` > ./stats.txt
-	python3 ./python/serverstats.py
-	sleep 5
-           }
+	while true; do
+		echo `sudo docker stats --no-stream` > ./.stats.txt
+		python3 ./python/serverstats.py
+		sleep 5
+	done
+}
 
 until run; do
     echo "Server Stats crashed with exit code $?.  Respawning.." >&2
