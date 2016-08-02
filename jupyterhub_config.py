@@ -24,10 +24,10 @@ c.JupyterHub.ssl_cert = '/etc/letsencrypt/live/website/fullchain.pem'
 # Cookies
 auth_key=''
 c.JupyterHub.proxy_auth_token=auth_key
-c.JupyterHub.cookie_secret_file = '/home/public/jupyterhub_cookie_secret'
+c.JupyterHub.cookie_secret_file = './jupyterhub_cookie_secret'
 
 # Users
-c.JupyterHub.db_url = '/home/public/jupyterhub.sqlite'
+c.JupyterHub.db_url = './jupyterhub.sqlite'
 c.JupyterHub.admin_access = True
 c.JupyterHub.logo_file='./resources/logo.png'
 
@@ -67,7 +67,7 @@ from dockerspawner import DockerSpawner
 c.JupyterHub.spawner_class = DockerSpawner
 c.Spawner.debug = True
 
-c.DockerSpawner.volumes={'/home/public/users/{username}':'/home/jovyan/work','/srv/nbgrader/exchange':'/srv/nbgrader/exchange','./crsidify':"/srv/crsidify"}
+c.DockerSpawner.volumes={'/home/public/users/{username}':'/home/jovyan/work','/srv/nbgrader/exchange':'/srv/nbgrader/exchange',str(os.getcwd())+'/crsidify':"/srv/crsidify"}
 
 #demos_c.DockerSpawner.read_only_volumes={'/home/public/demos':'/home/jovyan/work/demos'}
 
