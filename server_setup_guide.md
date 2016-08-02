@@ -416,7 +416,7 @@ The final steps to configuring JupyterHub are to customise the jupyterhub_config
 ```bash
 sudo sed -i -- 's/website/[domain]/g' /home/public/server/jupyterhub_config.py
 sudo sed -i -- 's/8000/[port]/g' /home/public/server/jupyterhub_config.py
-sudo sed -i -- 's/auth_key='\'\''/auth_key='\'$(openssl rand -base64 2048)\''/g' /home/public/server/jupyterhub_config.py
+sudo sed -i -- 's/auth_key='\'\''/auth_key='\'$(openssl rand -hex 32)\''/g' /home/public/server/jupyterhub_config.py
 ```
 
 You can also customise further parts of your JupyterHub installation in this file. Including login logos, application logos and shared directories etc. This document will not explain the details of how to do this, please refer to the [JupyterHub Docs](http://jupyterhub-tutorial.readthedocs.io/en/latest/) if you need more information.
@@ -472,7 +472,7 @@ You can also start the server in the background by running (as root) the followi
 screen startserver
 ```
 
-To detach from the processe's running screen press **CTRL-A** followed by **CTRL_D** you can now safely exit your ssh-client without interupting the JupyterHub process.
+To detach from the process's running screen press **CTRL-A** followed by **CTRL_D** you can now safely exit your ssh-client without interrupting the JupyterHub process.
 To reattach to the JupyterHub screen run the following command (as root).
 
 ```bash
