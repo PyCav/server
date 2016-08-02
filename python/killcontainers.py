@@ -14,7 +14,7 @@ FNULL = open(os.devnull, 'w')
 try:
 	if(sys.argv[1]=="-l"):
 		log=True
-		logfile=open(".killidleDocker.log",'w')
+		logfile=open(".killcontainers.log",'w')
 	else:
 		log=False
 
