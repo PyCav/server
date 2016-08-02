@@ -472,7 +472,7 @@ You can also start the server in the background by running (as root) the followi
 screen startserver
 ```
 
-To detach from the processe's running screen press **CTRL-A** followed by **CTRL_D** you can now safely exit your ssh-client without interupting the JupyterHub process.
+To detach from the process's running screen press **CTRL-A** followed by **CTRL_D** you can now safely exit your ssh-client without interupting the JupyterHub process.
 To reattach to the JupyterHub screen run the following command (as root).
 
 ```bash
