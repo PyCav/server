@@ -1,7 +1,11 @@
-stats =open("stats.txt",'r')
-with open("stats.txt") as fp:
+def size(string):
+        sumof=0
+        for line in string:
+                sumof+=len(line)
+        return sumof
+
+with open(".stats.txt",'r') as fp:
         data=fp.readlines()
-stats.close()
 text=data[0]
 string=[]
 firstLine=1
@@ -19,7 +23,7 @@ for i in range(0,len(text)):
                 if text[i]=='B':
                         Bcount+=1
                 if Bcount==6:
-                        string.append(text[len(string):i+1]+'\n')
+                        string.append(text[size(string):i+1]+'\n')
                         Bcount=0
 for line in string:
         stats.write(line)
