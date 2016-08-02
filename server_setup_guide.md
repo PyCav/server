@@ -18,7 +18,7 @@
 
 4. Static ip on server.
 
-4. Domain name that points to your server's static ip address, with url forwarding such that www.domainname redirects to domainname
+4. Domain name that points to your server's static ip address, with url forwarding such that www. versions of your domain are redirected to the non www. versions, for example www.example.com is forwarded to example.com.
 
 5. A computer that you can use to ssh into your server.
 
@@ -93,8 +93,8 @@ In this section you will complete the basic set up required for any new server.
 9. Switch back to your ssh client and input the following two commands to create and set permissions for the folder containing the authorised keys.
 	
 	```bash
-	runuser -l  [username] -c 'mkdir /home/[username]/.ssh'
-	runuser -l [username] -c 'chmod 700 /home/[username]/.ssh'
+	runuser -l  [username] -c 'mkdir ~/.ssh'
+	runuser -l [username] -c 'chmod 700 ~/.ssh'
 	```
 
 	Making sure to replace [username] with the name of the user that you created earlier.
@@ -104,7 +104,7 @@ In this section you will complete the basic set up required for any new server.
 	
 	```bash
 	echo [public-key] > /home/[username]/.ssh/authorized_keys
-	runuser -l  [username] -c 'chmod 600 /home/[username]/.ssh/authorized_keys'
+	runuser -l  [username] -c 'chmod 600 ~/.ssh/authorized_keys'
 	```
 
 11. Make sure you can log in using your public key before running the following commands as they may prevent access to the server if you haven't set
