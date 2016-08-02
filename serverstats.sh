@@ -1,7 +1,7 @@
 #!/bin/bash
 function run {
 	while true; do
-		echo `sudo docker stats --no-stream` > /home/public/server/.stats.txt
+		echo `sudo docker stats --no-stream` > ./.stats.txt
 		python3 ./python/serverstats.py
 		sleep 5
 	done
