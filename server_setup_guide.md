@@ -93,8 +93,8 @@ In this section you will complete the basic set up required for any new server.
 9. Switch back to your ssh client and input the following two commands to create and set permissions for the folder containing the authorised keys.
 	
 	```bash
-	runuser -l  [username] -c 'mkdir /home/[username]/.ssh'
-	runuser -l [username] -c 'chmod 700 /home/[username]/.ssh'
+	runuser -l  [username] -c 'mkdir ~/.ssh'
+	runuser -l [username] -c 'chmod 700 ~/.ssh'
 	```
 
 	Making sure to replace [username] with the name of the user that you created earlier.
@@ -104,7 +104,7 @@ In this section you will complete the basic set up required for any new server.
 	
 	```bash
 	echo [public-key] > /home/[username]/.ssh/authorized_keys
-	runuser -l  [username] -c 'chmod 600 /home/[username]/.ssh/authorized_keys'
+	runuser -l  [username] -c 'chmod 600 ~/.ssh/authorized_keys'
 	```
 
 11. Make sure you can log in using your public key before running the following commands as they may prevent access to the server if you haven't set
