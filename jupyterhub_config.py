@@ -67,7 +67,7 @@ from dockerspawner import DockerSpawner
 c.JupyterHub.spawner_class = DockerSpawner
 c.Spawner.debug = True
 
-c.DockerSpawner.volumes={'/home/public/users/{username}':'/home/jovyan/work','/srv/nbgrader/exchange':'/srv/nbgrader/exchange','/home/public/server/crsidify':"/srv/crsidify"}
+c.DockerSpawner.volumes={'/home/public/users/{username}':'/home/jovyan/work','/srv/nbgrader/exchange':'/srv/nbgrader/exchange','./crsidify':"/srv/crsidify"}
 
 #demos_c.DockerSpawner.read_only_volumes={'/home/public/demos':'/home/jovyan/work/demos'}
 
