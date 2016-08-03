@@ -13,7 +13,7 @@ import os
 #from pycav_tis import tis
 
 # Enable Logging
-c.JupyterHub.log_level = 'DEBUG'
+#c.JupyterHub.log_level = 'DEBUG'
 
 c.JupyterHub.port = 8000
 
