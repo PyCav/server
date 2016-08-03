@@ -33,8 +33,8 @@ def printlog(string):
 		print(string)
 
 def formatTime(seconds):
-	rndSec=round(seconds,0)
-	return str(int(rndSec/3600.0))+"h "+str(int((rndSec%3600)/60.0))+"m "+ str(rndSec%60)+"s"
+	rndSec=round(seconds,0))
+	return str(int(round(rndSec/3600.0,0)))+"h "+str(int(round((rndSec%3600)/60.0,0)))+"m "+ str(int(rndSec%60))+"s"
 
 if not shouldkill:
 	printlog("Containers will not be killed.")
@@ -155,11 +155,11 @@ class processes:
 		userList=str(self.time)+": "
 		for i in range(0,len(self.processes)):
 			try:
-				self.processes[i][7]=self._getTime(self.processes[6])
+				self.processes[i][6]=self._getTime(self.processes[5])
 				if i+1==len(self.processes):
-					userList+=(self.processes[i][0])[8:]+" ("+ self.processes[i][7]+")."
+					userList+=(self.processes[i][0])[8:]+" ("+ self.processes[i][6]+")."
 				else:
-					userList+=(self.processes[i][0])[8:]+" ("+ self.processes[i][7]+"), "
+					userList+=(self.processes[i][0])[8:]+" ("+ self.processes[i][6]+"), "
 			except IndexError:
 				pass
 		printlog(userList)
