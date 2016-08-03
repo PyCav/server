@@ -85,7 +85,7 @@ class processes:
 			if isNew:
 				try:
 					self.processes.append(ps[i])
-					index=len(self.processses)-1
+					index=len(self.processes)-1
 					self.processes[index].append(0.0)
 					self.processes[index].append(0.0)
 					self.processes[index].append(0.0)
