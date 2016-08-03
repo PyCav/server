@@ -11,7 +11,7 @@ fix nokill flag, stopping server nicely
 
 multiple flags killcontainers.py
 
-add uptime in running containers list
+~~add uptime in running containers list~~
 
 nbgrader
 
