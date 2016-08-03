@@ -451,13 +451,14 @@ rm mycron
 ```
 
 ### **Running The Server** 
-First you should add the startserver.sh script to your path, you can do this by running the following command.
+First you should add the startserver.sh and killserver.sh scripts to your path, you can do this by running the following commands.
 
 ```bash
 cp /home/public/server/startserver.sh /usr/local/bin/startserver
+sudo cp /home/public/server/killserver.sh /usr/local/bin/killserver
 ```
 
-With the script added to your path you can start the server in any directory by running the command **(as root)** below.
+With the scripts added to your path you can start the server in any directory by running the command **(as root)** below.
 
 ```bash
 startserver
@@ -477,6 +478,12 @@ To reattach to the JupyterHub screen run the following command (as root).
 
 ```bash
 screen -r
+```
+
+You can also kill your JupyterHub server by running the command below (as root).
+
+```bash
+killserver
 ```
 
 ***This concludes the PyCav JupyterHub setup guide, please visit [pycav.org](https://pycav.org/) if you would like to learn more about the PyCav project.***

@@ -266,6 +266,7 @@ if [ "$jup" == "y" ]; then
 
 	#add startserver.sh to path
 	sudo cp /home/public/server/startserver.sh /usr/local/bin/startserver
+	sudo cp /home/public/server/killserver.sh /usr/local/bin/killserver
 	sudo cp /home/public/server/removecontainers.sh /usr/local/bin/removecontainers
 	sudo cp /home/public/server/updatecontainers.sh /usr/local/bin/updatecontainers
 	echo "To run server in background: screen; sudo startserver; ctrl-a; ctrl-d;"
