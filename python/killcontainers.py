@@ -34,7 +34,7 @@ def printlog(string):
 
 def formatTime(seconds):
 	rndSec=round(seconds,0)
-	return str(int(rndSec/3600.0))+"h "+str(int((rndSec%3600)/60.0,0))+"m "+ str(int(rndSec%60))+"s"
+	return str(int(rndSec/3600.0))+"h "+str(int((rndSec%3600)/60.0))+"m "+ str(int(rndSec%60))+"s"
 
 if not shouldkill:
 	printlog("Containers will not be killed.")
