@@ -155,7 +155,7 @@ class processes:
 		userList=str(self.time)+": "
 		for i in range(0,len(self.processes)):
 			try:
-				self.processes[i][6]=self._getTime(self.processes[5])
+				self.processes[i][6]=self._getTime(self.processes[i][5])
 				if i+1==len(self.processes):
 					userList+=(self.processes[i][0])[8:]+" ("+ self.processes[i][6]+")."
 				else:
