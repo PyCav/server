@@ -10,7 +10,7 @@
 #### *Using Docker Containers, Authentication Services and NbGrader*
 
 ## **Requirements**
-1. Server with a fresh copy of Ubuntu 16.04 Server installed [Download here](http://www.ubuntu.com/download/server).
+1. Server with a fresh copy of [Ubuntu 16.04 Server](http://www.ubuntu.com/download/server) installed.
 
 2. Root access to your server.
 
