@@ -154,11 +154,14 @@ class processes:
 	def _usersRunning(self):
 		userList=str(self.time)+": "
 		for i in range(0,len(self.processes)):
-			self.processes[i][7]=self._getTime(self.processes[6])
-			if i+1==len(self.processes):
-				userList+=(self.processes[i][0])[8:]+" ("+ self.processes[i][7]+")."
-			else:
-				userList+=(self.processes[i][0])[8:]+" ("+ self.processes[i][7]+"), "
+			try:
+				self.processes[i][7]=self._getTime(self.processes[6])
+				if i+1==len(self.processes):
+					userList+=(self.processes[i][0])[8:]+" ("+ self.processes[i][7]+")."
+				else:
+					userList+=(self.processes[i][0])[8:]+" ("+ self.processes[i][7]+"), "
+			except IndexError:
+				pass
 		printlog(userList)
 
 	def run(self):
