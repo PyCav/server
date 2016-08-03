@@ -85,14 +85,16 @@ class processes:
 			if isNew:
 				try:
 					self.processes.append(ps[i])
-					self.processes[len(self.processes)-1].append(0.0)
-					self.processes[len(self.processes)-1].append(0.0)
-					self.processes[len(self.processes)-1].append(0.0)
-					self.processes[len(self.processes)-1].append(0.0)
-					self.processes[len(self.processes)-1].append(0.0)
-					print(t.time())
-					self.processes[len(self.processes)-1].append(t.time())
-					self.processes[len(self.processes)-1].append("")
+					index=len(self.processses)-1
+					self.processes[index].append(0.0)
+					self.processes[index].append(0.0)
+					self.processes[index].append(0.0)
+					self.processes[index].append(0.0)
+					self.processes[index].append(0.0)
+					T0=t.time()
+					self.processes[index].append(0.0)
+					self.processes[index][6]=T0
+					self.processes[index].append("")
 					printlog(str(self.time) + ": Container "+self.processes[i][0]+" is now running.")
 				except IndexError:
 					pass
