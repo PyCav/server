@@ -33,7 +33,7 @@ def printlog(string):
 		print(string)
 
 def formatTime(seconds):
-	rndSec=round(seconds,0))
+	rndSec=round(seconds,0)
 	return str(int(round(rndSec/3600.0,0)))+"h "+str(int(round((rndSec%3600)/60.0,0)))+"m "+ str(int(rndSec%60))+"s"
 
 if not shouldkill:
