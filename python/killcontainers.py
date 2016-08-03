@@ -90,7 +90,8 @@ class processes:
 					self.processes[len(self.processes)-1].append(0.0)
 					self.processes[len(self.processes)-1].append(0.0)
 					self.processes[len(self.processes)-1].append(0.0)
-					self.processes[len(self.processes)-1].append(self.time)
+					print(t.time())
+					self.processes[len(self.processes)-1].append(t.time())
 					self.processes[len(self.processes)-1].append("")
 					printlog(str(self.time) + ": Container "+self.processes[i][0]+" is now running.")
 				except IndexError:
