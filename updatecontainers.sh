@@ -2,7 +2,7 @@
 #update dockerimage
 #stop server before running
 echo "Stopping server"
-pkill -f startserver
+killserver
 echo "Stopping and removing all containers"
 removecontainers
 # $1 build flag -b / -p pull docker hub , $2 docker image name, $3 /path/to/Dockerfile
