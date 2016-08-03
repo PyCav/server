@@ -90,7 +90,7 @@ class processes:
 					self.processes[len(self.processes)-1].append(0.0)
 					self.processes[len(self.processes)-1].append(0.0)
 					self.processes[len(self.processes)-1].append(0.0)
-					self.processes[len(self.processes)-1].append(t.time())
+					self.processes[len(self.processes)-1].append(self.time)
 					self.processes[len(self.processes)-1].append("")
 					printlog(str(self.time) + ": Container "+self.processes[i][0]+" is now running.")
 				except IndexError:
@@ -157,7 +157,7 @@ class processes:
 		for i in range(0,len(self.processes)):
 			try:
 				self.processes[i][7]=self._getTime(self.processes[i][6])
-				print(formatTime(self.processes[i][6]))
+				print(self.processes[i][6])
 				if i+1==len(self.processes):
 					userList+=(self.processes[i][0])[8:]+" ("+ self.processes[i][7]+")."
 				else:
