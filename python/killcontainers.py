@@ -32,18 +32,22 @@ def printlog(string):
 	else:
 		print(string)
 
+def formatTime(seconds):
+	rndSec=round(seconds,0)
+	return str(int(rndSec/3600.0))+"h "+str(int((rndSec%3600)/60.0))+"m "+ str(rndSec%60)+"s"
+
 if not shouldkill:
 	printlog("Containers will not be killed.")
 
 class processes:
 	def __init__(self):
-		self.processes=[] #index: 0=container_name, 1=container_id, 2=idle_time, 3=maxing_time, 4=cpu_time user, 5= cpu_time system
+		self.processes=[] #index: 0=container_name, 1=container_id, 2=idle_time, 3=maxing_time, 4=cpu_time user, 5= cpu_time system, 6 time initialised, 7 uptime
 		self.time0=0.0
 		self.time="0h 0m 0s"
 
-	def _getTime(self):
-		seconds=round(t.time()-self.time0,1)
-		self.time=str(int(seconds/3600.0))+"h "+str(int((round(seconds,0)%3600)/60.0))+"m "+ str(int(round(seconds,0))%60)+"s"
+	def _getTime(self,t0):
+		seconds=round(t.time()-t0,1)
+		return formatTime(seconds)
 
 	def _getRunning(self):
 		dockerps=sp.Popen(["docker","ps","-f","\"status=running\""],stdout=sp.PIPE)
@@ -84,6 +88,8 @@ class processes:
 					self.processes[len(self.processes)-1].append(0.0)
 					self.processes[len(self.processes)-1].append(0.0)
 					self.processes[len(self.processes)-1].append(0.0)
+					self.processes[len(self.processes)-1].append(0.0)
+					self.processes[len(self.processes)-1].append(t.time())
 					self.processes[len(self.processes)-1].append(0.0)
 					printlog(str(self.time) + ": Container "+self.processes[i][0]+" is now running.")
 				except IndexError:
@@ -148,10 +154,11 @@ class processes:
 	def _usersRunning(self):
 		userList=str(self.time)+": "
 		for i in range(0,len(self.processes)):
+			self.processes[i][7]=self._getTime(self.processes[6])
 			if i+1==len(self.processes):
-				userList+=(self.processes[i][0])[8:]+"."
+				userList+=(self.processes[i][0])[8:]+" ("+ self.processes[i][7]+")."
 			else:
-				userList+=(self.processes[i][0])[8:]+", "
+				userList+=(self.processes[i][0])[8:]+" ("+ self.processes[i][7]+"), "
 		printlog(userList)
 
 	def run(self):
@@ -161,8 +168,7 @@ class processes:
 			self._processesCheck()
 			self._usageCheck()
 			self._kill()
-			self._getTime()
-			#print(self.processes)
+			self.time=self._getTime(self.time0)
 			t.sleep(INCREMENT_TIME)
 
 def main():
