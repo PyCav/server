@@ -7,21 +7,15 @@
 
 Finish server_setup_guide.md
 
-fix nokill flag, stopping server nicely 
+~~stopping server~~ nicely 
 
 multiple flags killcontainers.py
-
-~~add uptime in running containers list~~
 
 nbgrader
 
 whitelisting by course tis library
 
 admin access to /home/public/users top level customise dockerSpawner.py
-
-make server stats easier to view
-
-improve demo website
 
 improve Auto set up demonstration server script autosetup.sh
 
@@ -32,6 +26,14 @@ output to logfiles
 remove references to we in server_setup_guide.md
 
 in guide explain how to use local users instead of docker containers
+
+~~add uptime in running containers list~~
+
+~~improve demo website~~
+
+~~make server stats easier to view~~
+
+~~fix nokill flag~~
 
 ~~finish idlechecks and checks for containers exceeding fair use in killidle.py~~
 
