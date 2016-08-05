@@ -7,6 +7,8 @@
 
 Finish server_setup_guide.md
 
+Add 404 page to demo website
+
 ~~stopping server~~ nicely 
 
 multiple flags killcontainers.py
