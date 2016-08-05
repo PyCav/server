@@ -93,7 +93,7 @@ In this section you will complete the basic set up required for any new server.
 9. Switch back to your ssh client and input the following two commands to create and set permissions for the folder containing the authorised keys.
 	
 	```bash
-	runuser -l  [username] -c 'mkdir ~/.ssh'
+	runuser -l [username] -c 'mkdir ~/.ssh'
 	runuser -l [username] -c 'chmod 700 ~/.ssh'
 	```
 
