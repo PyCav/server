@@ -411,18 +411,26 @@ rm mycron
 ```
 
 #### **JupyterHub Configuration** 
-The final steps to configuring JupyterHub are to customise the jupyterhub_config.py file. These include replacing the word website with your server's domain, 8000 with the port your server is running JupyterHub on and generating a proxy authorisation token. These three tasks can be completed by running the 3 commands below, making sure to change [domain] to your server's domain (in the form example.com) and [port] to the port number your JupyterHub instance is running on (default is 8000).
+The final steps to configuring JupyterHub are to customise the jupyterhub_config.py file. These include replacing the word website with your server's domain, 8000 with the port your server is running JupyterHub on and generating a proxy authorisation token. These three tasks can be completed by running the 4 commands below, making sure to change [domain] to your server's domain (in the form example.com) and [port] to the port number your JupyterHub instance is running on (default is 8000).
 
 ```bash
 sudo sed -i -- 's/website/[domain]/g' /home/public/server/jupyterhub_config.py
 sudo sed -i -- 's/8000/[port]/g' /home/public/server/jupyterhub_config.py
-sudo sed -i -- 's/auth_key='\'\''/auth_key='\'$(openssl rand -hex 32)\''/g' /home/public/server/jupyterhub_config.py
+proxy_key=$(openssl rand -hex 32)
+sudo sed -i -- 's/auth_key='\'\''/auth_key='\'$(proxy_key)\''/g' /home/public/server/jupyterhub_config.py
 ```
 
 You can also customise further parts of your JupyterHub installation in this file. Including login logos, application logos and shared directories etc. This document will not explain the details of how to do this, please refer to the [JupyterHub Docs](http://jupyterhub-tutorial.readthedocs.io/en/latest/) if you need more information.
 
 #### **NbGrader Configuration** 
-***todo***
+Run the commands below to configure the environment variables that NbGrader uses for configuration making sure to replace [username] with the name of the user you created earlier.
+
+```bash
+echo "CONFIGPROXY_AUTH_TOKEN='""$proxy_key""'" >> /etc/environment
+JPY_tmp=$(jupyterhub token --db=sqlite:///home/public/server/jupyterhub.sqlite -f /home/public/server/jupyterhub_config.py [username])
+echo "JPY_API_TOKEN='""$JPY_tmp""'" >> /etc/environment
+source /etc/environment
+```
 
 #### **Killing Resource Draining Containers** 
 A script was written in python to check if containers are idle or are using too much of the server's computing power. The script will kill any containers that are exceeding maximum usage thresholds (USER CPU usage) for a certain period of time and will also kill any containers that fall below a minimum usage threshold (USER CPU usage) for a certain period of time. These are all user definable constants in the python script. Thresholds are effectively percentage usage of CPU for x86 based hardware. You should modify the python script located at **/home/public/server/python/killcontainers.py** (if using default directories) to fit these parameters to your needs (idle Timeout, maxing Timeout, time increment, idle cpu threshold, maxing cpu threshold).
@@ -458,7 +466,19 @@ cp /home/public/server/startserver.sh /usr/local/bin/startserver
 sudo cp /home/public/server/killserver.sh /usr/local/bin/killserver
 ```
 
-With the scripts added to your path you can start the server in any directory by running the command **(as root)** below.
+You should now switch to the non-root user you created earlier, you can do this by running the command below (making sure to replace [username] with the username of the user you created earlier).
+
+```bash
+su [username]
+```
+
+We now need to run the command below which ensures the NbGrader environment variables are accessible to our user.
+
+```bash
+source /etc/environment
+```
+
+With the scripts added to your path you can start the server in any directory by running the command **(as root using sudo)** below.
 
 ```bash
 startserver
@@ -467,20 +487,20 @@ This command runs the scripts fixpermissions.sh which gives users write access t
 
 To close the JupyterHub server you need to send a SIGINT to the process, you can do this by pressing **CTRL-C** with your ssh-client's window focussed.
 
-You can also start the server in the background by running (as root) the following command.
+You can also start the server in the background by running (as root using sudo ) the following command.
 
 ```bash
 screen startserver
 ```
 
 To detach from the process's running screen press **CTRL-A** followed by **CTRL_D** you can now safely exit your ssh-client without interrupting the JupyterHub process.
-To reattach to the JupyterHub screen run the following command (as root).
+To reattach to the JupyterHub screen run the following command (as root using sudo).
 
 ```bash
 screen -r
 ```
 
-You can also kill your JupyterHub server by running the command below (as root).
+You can also kill your JupyterHub server by running the command below (as root using sudo).
 
 ```bash
 killserver
