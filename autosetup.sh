@@ -238,6 +238,7 @@ if [ "$jup" == "y" ]; then
 	#may need to be run twice? sudo sed -i -- 's/auth_key='\'\''/auth_key='\'$(openssl rand -base64 32)\''/g' /home/$user/Server/jupyterhub_config.py
 
 	echo "CONFIGPROXY_AUTH_TOKEN='""$proxy_key""'" >> /etc/environment
+	#$user actually is admin in jupyterhub must change
 	JPY_tmp=$(jupyterhub token --db=sqlite:///home/public/server/jupyterhub.sqlite -f /home/public/server/jupyterhub_config.py $user)
 	echo "JPY_API_TOKEN='""$JPY_tmp""'" >> /etc/environment
 	source /etc/environment

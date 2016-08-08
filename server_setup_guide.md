@@ -425,6 +425,7 @@ You can also customise further parts of your JupyterHub installation in this fil
 #### **NbGrader Configuration** 
 Run the commands below to configure the environment variables that NbGrader uses for configuration making sure to replace [username] with the name of the user you created earlier.
 
+[username] is actually admin in jupyterhub must change command?
 ```bash
 echo "CONFIGPROXY_AUTH_TOKEN='""$proxy_key""'" >> /etc/environment
 JPY_tmp=$(jupyterhub token --db=sqlite:///home/public/server/jupyterhub.sqlite -f /home/public/server/jupyterhub_config.py [username])
