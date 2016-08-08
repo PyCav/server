@@ -8,7 +8,9 @@ RUN apt-get update -y
 
 RUN apt-get upgrade -y
 
-RUN conda install -y numpy scipy matplotlib bokeh
+RUN conda install -y numpy scipy matplotlib bokeh ipywidgets
+
+RUN jupyter nbextension enable --py --sys-prefix widgetsnbextension
 
 ADD ./pycav_install.py ./pycav_install.py
 
