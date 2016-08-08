@@ -230,11 +230,17 @@ if [ "$jup" == "y" ]; then
 	echo "jupyterhub-raven-auth installed"
 
 	echo "Setting up jupyterhub_config file"
+	proxy_key=$(openssl rand -hex 32)
 	sudo sed -i -- 's/raven = False/raven = True/g' /home/public/server/jupyterhub_config.py
 	sudo sed -i -- 's/website/'$site_name'/g' /home/public/server/jupyterhub_config.py
 	sudo sed -i -- 's/8000/'$port'/g' /home/public/server/jupyterhub_config.py
-	sudo sed -i -- 's/auth_key='\'\''/auth_key='\'$(openssl rand -hex 32)\''/g' /home/public/server/jupyterhub_config.py
+	sudo sed -i -- 's/auth_key='\'\''/auth_key='\'$(proxy_key)\''/g' /home/public/server/jupyterhub_config.py
 	#may need to be run twice? sudo sed -i -- 's/auth_key='\'\''/auth_key='\'$(openssl rand -base64 32)\''/g' /home/$user/Server/jupyterhub_config.py
+
+	echo "CONFIGPROXY_AUTH_TOKEN='""$proxy_key""'" >> /etc/environment
+	JPY_tmp=$(jupyterhub token --db=sqlite:///home/public/server/jupyterhub.sqlite -f /home/public/server/jupyterhub_config.py $user)
+	echo "JPY_API_TOKEN='""$JPY_tmp""'" >> /etc/environment
+	source /etc/environment
 
 	#set up publicly viewable and executable hard disk with pycav demos docker virtual disks cron job update
 	sudo echo "Creating a publically readable folder containing the demos from the pycav/demos github repository"
