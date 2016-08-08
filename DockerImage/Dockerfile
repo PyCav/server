@@ -8,7 +8,6 @@ MAINTAINER jordan <jo357@cam.ac.uk>
 EXPOSE 8888
 
 USER root
-#RUN apt-get install ffmpeg
 RUN apt-get -y update && \
     apt-get -y upgrade && \
     apt-get -y install rsync
@@ -36,7 +35,4 @@ ADD pycav-start.sh /srv/pycav/pycav-start.sh
 
 CMD ["sh", "/srv/pycav/pycav-start.sh"]
 
-
-#ADD update_usr.sh /srv/pycav/update_usr.sh
 #RUN chmod  666 /home/jovyan/work/.nbgrader.log
-#RUN sh /srv/singleuser/update_usr.sh -h
