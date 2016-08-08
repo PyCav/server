@@ -239,8 +239,8 @@ if [ "$jup" == "y" ]; then
 
 	echo "CONFIGPROXY_AUTH_TOKEN='""$proxy_key""'" >> /etc/environment
 	#$user actually is admin in jupyterhub must change
-	JPY_tmp=$(jupyterhub token --db=sqlite:///home/public/server/jupyterhub.sqlite -f /home/public/server/jupyterhub_config.py $user)
-	echo "JPY_API_TOKEN='""$JPY_tmp""'" >> /etc/environment
+	#JPY_tmp=$(jupyterhub token --db=sqlite:///home/public/server/jupyterhub.sqlite -f /home/public/server/jupyterhub_config.py $user)
+	#echo "JPY_API_TOKEN='""$JPY_tmp""'" >> /etc/environment
 	source /etc/environment
 
 	#set up publicly viewable and executable hard disk with pycav demos docker virtual disks cron job update
