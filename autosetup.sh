@@ -244,6 +244,8 @@ if [ "$jup" == "y" ]; then
 	#echo "JPY_API_TOKEN='""$JPY_tmp""'" >> /etc/environment
 	source /etc/environment
 
+	sudo runuser -l $user -c 'source /etc/environment'
+
 	#set up publicly viewable and executable hard disk with pycav demos docker virtual disks cron job update
 	sudo echo "Creating a publically readable folder containing the demos from the pycav/demos github repository"
 	cd /home/public
@@ -288,6 +290,7 @@ fi
 #so user can edit website without sudo? also part of general set up?
 #chgrp $user -R /var/www/html
 echo "Logging in as ""$user"" "
+sudo runuser -l $user -c 'source ~/.bashrc'
 
 su $user
 #in server folder  webpages/ startserver.sh, killidlecontainers.sh,updatecontainers.sh, jupyterhub_config.py
