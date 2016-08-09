@@ -18,6 +18,10 @@ if [ "$ans" == "y" ]; then
 	sudo updatescripts_subscript $site_name $port
 	sudo cp updatescripts_subscript.sh /usr/local/bin/updatescripts_subscript
 	sudo cp updatescripts.sh /usr/local/bin/updatescripts
+	sudo cp /home/public/server/startserver.sh /usr/local/bin/startserver
+	sudo cp /home/public/server/killserver.sh /usr/local/bin/killserver
+	sudo cp /home/public/server/removecontainers.sh /usr/local/bin/removecontainers
+	sudo cp /home/public/server/updatecontainers.sh /usr/local/bin/updatecontainers
 fi
 cd ~
 source .bashrc
