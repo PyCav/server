@@ -5,6 +5,8 @@
 
 ## Todo:
 
+~~make update server files script that pulls github repo and customises jupyterhub_config.py~~ not tested (only for Raven usage)
+
 Finish server_setup_guide.md
 
 Add 404 page to demo website

@@ -19,3 +19,5 @@ RUN python pycav_install.py
 RUN rm pycav_install.py
 
 USER jovyan
+
+RUN git clone https://github.com/pycav/demos.git /home/jovyan/work/
