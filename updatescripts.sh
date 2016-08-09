@@ -10,6 +10,7 @@ read ans
 if [ "$ans" == "y" ]; then
 	site_name='domain'
 	port='PORT'
+	#raven r , github g, local user l flags?
 	sudo sed -i -- 's/raven = False/raven = True/g' /home/public/server/jupyterhub_config.py
 	sudo sed -i -- 's/website/'$site_name'/g' /home/public/server/jupyterhub_config.py
 	sudo sed -i -- 's/8000/'$port'/g' /home/public/server/jupyterhub_config.py
