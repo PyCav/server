@@ -17,6 +17,7 @@ if [ "$ans" == "y" ]; then
 	sudo sed -i -- 's/auth_key='\'\''/auth_key='\'$CONFIGPROXY_AUTH_TOKEN\''/g' /home/public/server/jupyterhub_config.py
 	sudo sed -i -- 's/#demos_//g' /home/public/server/jupyterhub_config.py
 	sudo updatescripts_subscript $site_name $port
+	sudo chmod a+x *.sh
 	sudo cp ./updatescripts_subscript.sh /usr/local/bin/updatescripts_subscript
 	sudo cp ./updatescripts.sh /usr/local/bin/updatescripts
 	sudo cp /home/public/server/startserver.sh /usr/local/bin/startserver
