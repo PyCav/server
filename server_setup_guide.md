@@ -396,6 +396,9 @@ The final command will pull the named image (replace [image] with the name of th
 
 Note if you use a new image with a different name you will need to update your **jupyterhub_config.py** file to reflect this change.
 
+#### **Updating Server Scripts**
+Todo
+
 #### **Backing Up Containers**
 All user data is by default stored in the directory /home/public/users which contains sub directories for each user named after that user's username. Backing up is therefore as simple as copying the users directory to a backup hard disk. A script has been created 
 that will back up this folder to a mounted hard disk. It creates a tar.gz archive with a name modified according to the date the folder was backed up (default is every monday at 04:30). **Before carrying out the steps below you must mount the hard disk you want to back up to to some directory on your computer ([Help](https://help.ubuntu.com/community/Mount)).**
