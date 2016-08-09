@@ -2,7 +2,10 @@
 cd /home/public/server
 sudo git pull origin master
 #replace domain with site_name and PORT with port
-echo "Script assumes you are using raven authentication do you wish to proceed (n)?"
+echo "Script assumes you are using raven authentication."
+echo "Script will also overwrite any changes you have made to files in your server directory."
+sleep 2
+echo "Do you still wish to proceed (n)?"
 read ans
 if [ "$ans" == "y" ]; then
 	site_name='domain'
