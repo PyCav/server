@@ -396,9 +396,6 @@ The final command will pull the named image (replace [image] with the name of th
 
 Note if you use a new image with a different name you will need to update your **jupyterhub_config.py** file to reflect this change.
 
-#### **Updating Server Scripts**
-Todo
-
 #### **Backing Up Containers**
 All user data is by default stored in the directory /home/public/users which contains sub directories for each user named after that user's username. Backing up is therefore as simple as copying the users directory to a backup hard disk. A script has been created 
 that will back up this folder to a mounted hard disk. It creates a tar.gz archive with a name modified according to the date the folder was backed up (default is every monday at 04:30). **Before carrying out the steps below you must mount the hard disk you want to back up to to some directory on your computer ([Help](https://help.ubuntu.com/community/Mount)).**
@@ -462,12 +459,21 @@ crontab mycron
 rm mycron
 ```
 
+#### **Updating Server Scripts**
+
+```bash
+sudo sed -i -- 's/domain/[site_name]/g' /home/public/server/updatescripts.sh
+sudo sed -i -- 's/PORT/[port]/g' /home/public/server/updatescripts.sh
+sudo cp updatescripts_subscript.sh /usr/local/bin/updatescripts_subscript
+sudo cp updatescripts.sh /usr/local/bin/updatescripts
+```
+
 ### **Running The Server** 
 First you should add the startserver.sh and killserver.sh scripts to your path, you can do this by running the following commands.
 
 ```bash
 cp /home/public/server/startserver.sh /usr/local/bin/startserver
-sudo cp /home/public/server/killserver.sh /usr/local/bin/killserver
+cp /home/public/server/killserver.sh /usr/local/bin/killserver
 ```
 
 You should now switch to the non-root user you created earlier, you can do this by running the command below (making sure to replace [username] with the username of the user you created earlier).
@@ -476,10 +482,11 @@ You should now switch to the non-root user you created earlier, you can do this 
 su [username]
 ```
 
-We now need to run the command below which ensures the NbGrader environment variables are accessible to our user.
+We now need to run the command below which ensures that all the set environment variables and shell scripts are accessible to the user you created earlier.
 
 ```bash
 source /etc/environment
+source ~/.bashrc
 ```
 
 With the scripts added to your path you can start the server in any directory by running the command **(as root using sudo)** below.
