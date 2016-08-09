@@ -294,4 +294,3 @@ su $user
 #setup admin accounts and whitelist?
 #jupyterhub customisation custom logos and jupyter extensions
 #cull idle docker containers?
-

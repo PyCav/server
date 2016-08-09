@@ -1,6 +1,5 @@
 #!/bin/bash
 cd /home/public/server
-sudo git pull origin master
 #replace domain with site_name and PORT with port
 echo "Script assumes you are using raven authentication."
 echo "Script will also overwrite any changes you have made to files in your server directory."
