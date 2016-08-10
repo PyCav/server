@@ -204,7 +204,7 @@ In this section you will complete the basic set up required for any new server.
 
 	```bash
 	cp /etc/apache2/apache2.conf /etc/apache2/apache2.conf.working
-	curl https://raw.githubusercontent.com/PyCav/Server/master/configure_apache.py
+	curl https://raw.githubusercontent.com/PyCav/Server/master/configure_apache.py >> configure_apache.py
 	python3 configure_apache.py
 	rm configure_apache.py
 	```
@@ -463,10 +463,10 @@ rm mycron
 #### **Updating Server Scripts**
 
 ```bash
-sudo sed -i -- 's/domain/[site_name]/g' /home/public/server/updatescripts.sh
-sudo sed -i -- 's/PORT/[port]/g' /home/public/server/updatescripts.sh
-sudo cp updatescripts_subscript.sh /usr/local/bin/updatescripts_subscript
-sudo cp updatescripts.sh /usr/local/bin/updatescripts
+sed -i -- 's/domain/[site_name]/g' /home/public/server/updatescripts.sh
+sed -i -- 's/PORT/[port]/g' /home/public/server/updatescripts.sh
+cp updatescripts_subscript.sh /usr/local/bin/updatescripts_subscript
+cp updatescripts.sh /usr/local/bin/updatescripts
 ```
 
 ### **Running The Server** 
