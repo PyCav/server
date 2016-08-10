@@ -445,6 +445,7 @@ To make these pages accessible at your domain we need to move these files to the
 sed -i -- 's/8000/[port]/g' /home/public/server/webpages/index.php
 sed -i -- 's/website/[domain]/g' /home/public/server/webpages/index.php
 mv /home/public/server/webpages/* /var/www/html/
+echo "ErrorDocument 404 /notfound.php" >> /var/www/html/.htaccess
 ```
 
 #### **(Optional) Install PyCav Demos**

@@ -203,6 +203,7 @@ if [ "$jup" == "y" ]; then
 	sudo sed -i -- 's/8000/'$port'/g' /home/public/server/webpages/index.php
 	sudo sed -i -- 's/website/'$site_name'/g' /home/public/server/webpages/index.php
 	sudo mv * /var/www/html/
+	sudo echo "ErrorDocument 404 /notfound.php" >> /var/www/html/.htaccess
 	sudo service apache2 restart
 	cd /home/public
 	sudo chmod a+x /home/public/server/*.sh
