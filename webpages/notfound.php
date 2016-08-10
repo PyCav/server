@@ -9,7 +9,7 @@
 <body>
 <p>
 	Error Page Not Found.
-	<a href="/index.php"> Home </a>
+	<a href="/"> Home </a>
 </p>
 </body>
 </html>
