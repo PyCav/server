@@ -7,8 +7,6 @@
 
 Finish server_setup_guide.md
 
-Add 404 page to demo website
-
 multiple flags killcontainers.py
 
 nbgrader
@@ -25,11 +23,13 @@ output to logfiles
 
 remove references to we in server_setup_guide.md
 
-in guide explain how to use local users instead of docker containers
+in guide explain how to use local users instead of docker containers?
 
 ~~make update server files script that pulls github repo and customises jupyterhub_config.py~~ not tested (only for Raven usage)
 
 ~~stopping server~~ nicely 
+
+~~Add 404 page to demo website~~
 
 ~~add uptime in running containers list~~
 
