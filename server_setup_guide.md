@@ -463,10 +463,10 @@ rm mycron
 #### **Updating Server Scripts**
 
 ```bash
-sudo sed -i -- 's/domain/[site_name]/g' /home/public/server/updatescripts.sh
-sudo sed -i -- 's/PORT/[port]/g' /home/public/server/updatescripts.sh
-sudo cp updatescripts_subscript.sh /usr/local/bin/updatescripts_subscript
-sudo cp updatescripts.sh /usr/local/bin/updatescripts
+sed -i -- 's/domain/[site_name]/g' /home/public/server/updatescripts.sh
+sed -i -- 's/PORT/[port]/g' /home/public/server/updatescripts.sh
+cp updatescripts_subscript.sh /usr/local/bin/updatescripts_subscript
+cp updatescripts.sh /usr/local/bin/updatescripts
 ```
 
 ### **Running The Server** 
