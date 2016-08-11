@@ -448,11 +448,13 @@ mv /home/public/server/webpages/* /var/www/html/
 echo "ErrorDocument 404 /notfound.php" >> /var/www/html/.htaccess
 ```
 
-#### **(Optional) Install PyCav Demos**
-If you wish to install the PyCav demos so that they are viewable by your users and set them up so that they are automatically updated (at 04:10 am everyday) you need to run the following commands.
+#### **(Optional) Install PyCav Notebooks**
+If you wish to install the PyCav Notebooks so that they are viewable by your users and set them up so that they are automatically updated (at 04:10 am everyday) you need to run the following commands.
 
 ```bash
 git clone https://github.com/pycav/demos.git /home/public/demos
+git clone https://github.com/pycav/data.git /home/public/data
+git clone https://github.com/pycav/investigations.git /home/public/investigations
 sudo sed -i -- 's/#demos_//g' /home/public/server/jupyterhub_config.py
 crontab -l > mycron
 echo "10 04 * * * rm -R /home/public/cron/updatenotebooks.sh" >> mycron
@@ -461,7 +463,7 @@ rm mycron
 ```
 
 #### **Updating Server Scripts**
-
+**Section to be completed**
 ```bash
 sed -i -- 's/domain/[site_name]/g' /home/public/server/updatescripts.sh
 sed -i -- 's/PORT/[port]/g' /home/public/server/updatescripts.sh
@@ -493,7 +495,7 @@ source ~/.bashrc
 With the scripts added to your path you can start the server in any directory by running the command **(as root using sudo)** below.
 
 ```bash
-startserver
+sudo startserver
 ```
 This command runs the scripts fixpermissions.sh which gives users write access to their home directories, killcontainers.sh which kills resource intensive or idle containers (can be turned off with the flag -nk), and also starts the JupyterHub server.
 
@@ -502,10 +504,10 @@ To close the JupyterHub server you need to send a SIGINT to the process, you can
 You can also start the server in the background by running (as root using sudo ) the following command.
 
 ```bash
-screen startserver
+screen sudo startserver
 ```
 
-To detach from the process's running screen press **CTRL-A** followed by **CTRL_D** you can now safely exit your ssh-client without interrupting the JupyterHub process.
+To detach from the process's running screen press **CTRL-A** followed by **CTRL-D** you can now safely exit your ssh-client without interrupting the JupyterHub process.
 To reattach to the JupyterHub screen run the following command (as root using sudo).
 
 ```bash
@@ -515,7 +517,7 @@ screen -r
 You can also kill your JupyterHub server by running the command below (as root using sudo).
 
 ```bash
-killserver
+sudo killserver
 ```
 
 ***This concludes the PyCav JupyterHub setup guide, please visit [pycav.org](https://pycav.org/) if you would like to learn more about the PyCav project.***
