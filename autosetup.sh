@@ -251,6 +251,9 @@ if [ "$jup" == "y" ]; then
 	sudo echo "Creating a publically readable folder containing the demos from the pycav/demos github repository"
 	cd /home/public
 	git clone https://github.com/pycav/demos.git >> server.log
+	git clone https://github.com/pycav/data.git /home/public/data >> server.log
+	git clone https://github.com/pycav/investigations.git /home/public/investigations >> server.log
+
 	sudo sed -i -- 's/#demos_//g' /home/public/server/jupyterhub_config.py
 
 	#does this need to be here
