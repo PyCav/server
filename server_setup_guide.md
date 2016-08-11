@@ -475,8 +475,8 @@ rm mycron
 ```bash
 sed -i -- 's/domain/[site_name]/g' /home/public/server/updatescripts.sh
 sed -i -- 's/PORT/[port]/g' /home/public/server/updatescripts.sh
-cp updatescripts_subscript.sh /usr/local/bin/updatescripts_subscript
-cp updatescripts.sh /usr/local/bin/updatescripts
+cp /home/public/server/updatescripts_subscript.sh /usr/local/bin/updatescripts_subscript
+cp /home/public/server/updatescripts.sh /usr/local/bin/updatescripts
 ```
 
 ### **Running The Server** 

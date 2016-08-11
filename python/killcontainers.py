@@ -15,7 +15,7 @@ shouldkill=True
 try:
 	if(sys.argv[1]=="-l"):
 		log=True
-		logfile=open(".killcontainers.log",'w')
+		logfile=open(str(os.path.dirname(os.path.realpath(sys.argv[0])))+"/.killcontainers.log",'w')
 	elif sys.argv[1]=="-nk":
 		log=False
 		shouldkill=False
@@ -50,7 +50,7 @@ class processes:
 		return formatTime(seconds)
 
 	def _getRunning(self):
-		dockerps=sp.Popen(["docker","ps","-f","\"status=running\""],stdout=sp.PIPE)
+		dockerps=sp.Popen(["docker","ps"],stdout=sp.PIPE)
 		dockerps=str(dockerps.stdout.read()).replace("\'", "").replace("\\n","\n")[1:]
 		ps=[]
 		start=0
