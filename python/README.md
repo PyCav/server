@@ -3,7 +3,6 @@
 Jupyter notebooks must be modified to contain the following lines somewhere inside if you want them to be included in the index.
 
 ```python
-
 #NAME: insert-title-here
 #DESCRIPTION: insert-description-here
 ```
