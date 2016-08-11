@@ -33,7 +33,7 @@ for i in range(0,len(directories)):
 	directories[i]="."+directories[i][len(os.getcwd()):]
 	if directories[i] ==  "./index.ipynb":
 		iIndex=i
-	#fails if ipynb isn't in a sub directory
+	#fails if ipynb isn't in a sub directory must test?
 	if directories[i].count("/") == 1:
 		areaofphys.append("")
 	else:
