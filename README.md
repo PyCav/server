@@ -2,6 +2,9 @@
 
 [Link to Server Setup Guide](https://github.com/PyCav/Server/blob/master/server_setup_guide.md)
 
+**Don't mess with folder structure**
+
+**Contents must be downloaded to /home/public/server (may be fixed at a later date)**
 
 ## Todo:
 
