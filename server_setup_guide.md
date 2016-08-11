@@ -425,7 +425,7 @@ The final steps to configuring JupyterHub are to customise the jupyterhub_config
 sudo sed -i -- 's/website/[domain]/g' /home/public/server/jupyterhub_config.py
 sudo sed -i -- 's/8000/[port]/g' /home/public/server/jupyterhub_config.py
 proxy_key=$(openssl rand -hex 32)
-sudo sed -i -- 's/auth_key='\'\''/auth_key='\'$(proxy_key)\''/g' /home/public/server/jupyterhub_config.py
+sudo sed -i -- "s/auth_key=''/auth_key='"$proxy_key"'/g" /home/public/server/jupyterhub_config.py
 ```
 
 You can also customise further parts of your JupyterHub installation in this file. Including login logos, application logos and shared directories etc. This document will not explain the details of how to do this, please refer to the [JupyterHub Docs](http://jupyterhub-tutorial.readthedocs.io/en/latest/) if you need more information.
