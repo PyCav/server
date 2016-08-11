@@ -1,12 +1,27 @@
 import os,glob,re,sys
 
 try:
-	title=str(sys.argv[1])
+	if sys.argv[1]=="-t":
+		title=str(sys.argv[2])
+		if sys.argv[3]=="-p":
+			path=str(sys.argv[4])
+		else:
+			path=os.getcwd()
+	elif sys.argv[1]=="-p":
+		path=str(sys.argv[2])
+		if sys.argv[3]=="-t":
+			title=str(sys.argv[4])
+		else:
+			title=str(input("Input title of index"))
+	else:
+		title=str(input("Input title of index"))
+		path=os.getcwd()
 except IndexError:
 	title=str(input("Input title of index"))
+	path=os.getcwd()
 
 notebooks=[]
-directories = glob.glob(os.getcwd()+'/**'+'/*.ipynb',recursive=True)
+directories = glob.glob(path+'/**'+'/*.ipynb',recursive=True)
 names = []
 areaofphys = []
 descriptions = []
