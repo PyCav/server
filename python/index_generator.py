@@ -46,7 +46,7 @@ for i in range(0,len(directories)):
 			break
 	if redDesc==None:
 		descriptions.append("")
-	directories[i]="."+directories[i][len(os.getcwd()):]
+	directories[i]="."+directories[i][len(path):]
 	if directories[i] ==  "./index.ipynb":
 		iIndex=i
 	#fails if ipynb isn't in a sub directory must test?
@@ -73,7 +73,7 @@ insertFrom=None
 for k in range(0,len(lines)):
 	if(lines[k].find("# PyCav Demo Index")!=-1):
 		insertFrom=k+1
-		lines[k]="    # "+str(title)+"\n\","
+		lines[k]="    \"# "+str(title)+"\\n\","
 		break
 lineset1=lines[0:k+1]
 lineset2=lines[k+1:]
