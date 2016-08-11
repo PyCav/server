@@ -254,6 +254,9 @@ In this section you will complete the basic set up required for any new server.
 	```
 
 ### **JupyterHub and Docker**
+**Warning** It is highly recommended that you clone all repositories to the specified location as doing otherwise will prevent the server from running correctly. It is also recommended that you do not edit the folder structure of the server directory. 
+
+
 In this next section we shall set up a JupyterHub Server that isolates users using Docker containers.
 
 1. Firstly we will make a new directory where all the server files and each JupyterHub user's home directories live called public

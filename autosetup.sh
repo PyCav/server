@@ -295,7 +295,7 @@ fi
 #chgrp $user -R /var/www/html
 echo "Logging in as ""$user"" "
 sudo runuser -l $user -c 'source ~/.bashrc'
-
+echo "Don't mess with folder structure of /home/public/server as you may break your Jupyterhub Server"
 su $user
 #in server folder  webpages/ startserver.sh, killidlecontainers.sh,updatecontainers.sh, jupyterhub_config.py
 #setup admin accounts and whitelist?
