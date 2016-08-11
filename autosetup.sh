@@ -253,6 +253,7 @@ if [ "$jup" == "y" ]; then
 	git clone https://github.com/pycav/demos.git >> server.log
 	git clone https://github.com/pycav/data.git /home/public/data >> server.log
 	git clone https://github.com/pycav/investigations.git /home/public/investigations >> server.log
+	sudo /home/public/server/cron/indexgen.sh
 
 	sudo sed -i -- 's/#demos_//g' /home/public/server/jupyterhub_config.py
 
