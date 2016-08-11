@@ -2,8 +2,7 @@
 Two files are required .indexraw.txt and index_generator.py which can both be found at the 
 [server repo](https://github.com/pycav/server).
 
-Jupyter notebook files must be modified to contain the following lines somewhere inside them if you want them to be included in the 
-index.
+Jupyter notebook files must be modified to contain the following lines somewhere inside them if you want them to be included in the index.
 
 ```python
 #NAME: insert-title-here
@@ -18,8 +17,8 @@ from.
 
 The generator will generate an index of Jupyter Notebooks, sorted into subcategories according to the subdirectory
 they reside in, notebooks not in a subdirectory will be added to the top of the index file outside of any 
-subcategories. Folder names will be formatted such that for example if a folder is named WavesAndOscillations it will appear
-as Waves And Oscillations when it is used as a subcategory name.
+subcategories. Folder names will be formatted such that a folder named WavesAndOscillations will appear
+as Waves And Oscillations when it is used as a subcategory name (new words are determined using uppercase letters, for example Statisticalphysics would appear as Statisticalphysics, where as StatisticalPhysics would appear as Statistical Physics).
 
 The generated index notebook will be named indexgen.ipynb.
 To run the generator just type the following command.
