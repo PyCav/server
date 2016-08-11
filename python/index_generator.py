@@ -25,6 +25,7 @@ directories = glob.glob(path+'/**'+'/*.ipynb',recursive=True)
 names = []
 areaofphys = []
 descriptions = []
+path_script=str(os.path.dirname(os.path.realpath(sys.argv[0])))
 
 for i in range(0,len(directories)):
 	redName=None
@@ -64,8 +65,8 @@ for i in range(0,len(directories)):
 
 notebooks.sort(key=lambda x: x[1])
 
-indexNotebook = open("indexgen.ipynb",'w')
-with open("./.indexraw.txt","r") as p:
+indexNotebook = open(path+"/indexgen.ipynb",'w')
+with open(path_script+"/.indexraw.txt","r") as p:
 	lines=p.readlines()
 
 insertFrom=None
