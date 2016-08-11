@@ -1,14 +1,19 @@
 #!/bin/bash
-cd /home/public/server
+cd /home/public
 
 #replace domain with site_name and PORT with port
 echo "Script assumes you are using raven authentication."
 echo "Script will also overwrite any changes you have made to files in your server directory."
-sleep 2
+sleep 1
 echo "Do you still wish to proceed (n)?"
 read ans
 if [ "$ans" == "y" ]; then
-	sudo git pull origin master
+	sudo killserver
+	sudo rm -R server
+	sudo git clone https://github.com/pycav/server.git
+	cd server
+	sudo chmod a+x *.sh
+	sudo chmod a+x ./cron/*.sh
 	site_name='domain'
 	port='PORT'
 	#raven r , github g, local user l flags?
@@ -19,7 +24,6 @@ if [ "$ans" == "y" ]; then
 	sudo sed -i -- 's/#demos_//g' ./jupyterhub_config.py
 	sudo updatescripts_subscript $site_name $port
 	sudo ./setcustomparent.sh
-	sudo chmod a+x *.sh
 	sudo cp ./updatescripts_subscript.sh /usr/local/bin/updatescripts_subscript
 	sudo cp ./updatescripts.sh /usr/local/bin/updatescripts
 	sudo cp ./startserver.sh /usr/local/bin/startserver
