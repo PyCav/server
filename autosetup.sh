@@ -236,7 +236,7 @@ if [ "$jup" == "y" ]; then
 	sudo sed -i -- 's/raven = False/raven = True/g' /home/public/server/jupyterhub_config.py
 	sudo sed -i -- 's/website/'$site_name'/g' /home/public/server/jupyterhub_config.py
 	sudo sed -i -- 's/8000/'$port'/g' /home/public/server/jupyterhub_config.py
-	sudo sed -i -- 's/auth_key='\'\''/auth_key='\'$(proxy_key)\''/g' /home/public/server/jupyterhub_config.py
+	sudo sed -i -- "s/auth_key=''/auth_key='"$proxy_key"'/g" /home/public/server/jupyterhub_config.py
 	#may need to be run twice? sudo sed -i -- 's/auth_key='\'\''/auth_key='\'$(openssl rand -base64 32)\''/g' /home/$user/Server/jupyterhub_config.py
 
 	echo "CONFIGPROXY_AUTH_TOKEN='""$proxy_key""'" >> /etc/environment
