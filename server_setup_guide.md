@@ -254,7 +254,7 @@ In this section you will complete the basic set up required for any new server.
 	```
 
 ### **JupyterHub and Docker**
-**Warning** It is highly recommended that you clone all repositories to the specified location as doing otherwise will prevent the server from running correctly. It is also recommended that you do not edit the folder structure of the server directory. 
+**Warning** It is highly recommended that you do not edit the folder structure of the server directory as this will prevent your JupyterHub server from functioning correctly. It is also recommended that you  that you clone all repositories to the specified location as doing otherwise may cause issues. 
 
 
 In this next section we shall set up a JupyterHub Server that isolates users using Docker containers.
@@ -306,6 +306,11 @@ In this next section we shall set up a JupyterHub Server that isolates users usi
 	git clone https://github.com/pycav/server.git /home/public/server
 	chmod a+x /home/public/server/*.sh
 	chmod a+x /home/public/server/cron/*.sh
+	```
+	**If you have decided to download these scripts into a different directory please run the script below (replacing /home/public/server with the path to the directory you cloned the server files into) if however you have used the default directory you do not need to run the command.**
+
+	```bash
+	/home/public/setcustomparent.sh
 	```
 
 	To tell JupyterHub to use a custom image we need to customise the jupyterhub_config.py file. If you are using the default image you **do not** need to run this step,
