@@ -31,5 +31,7 @@ if [ "$ans" == "y" ]; then
 	sudo cp ./removecontainers.sh /usr/local/bin/removecontainers
 	sudo cp ./updatecontainers.sh /usr/local/bin/updatecontainers
 fi
+
 sudo runuser -l $USER -c 'source ~/.bashrc'
 echo "Script Complete"
+
