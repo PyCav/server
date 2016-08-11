@@ -464,6 +464,7 @@ git clone https://github.com/pycav/demos.git /home/public/demos
 git clone https://github.com/pycav/data.git /home/public/data
 git clone https://github.com/pycav/investigations.git /home/public/investigations
 sudo sed -i -- 's/#demos_//g' /home/public/server/jupyterhub_config.py
+/home/public/server/cron/indexgen.sh
 crontab -l > mycron
 echo "10 04 * * * rm -R /home/public/cron/updatenotebooks.sh" >> mycron
 crontab mycron
