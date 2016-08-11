@@ -69,7 +69,7 @@ c.Spawner.debug = True
 
 c.DockerSpawner.volumes={'/home/public/users/{username}':'/home/jovyan/work','/srv/nbgrader/exchange':'/srv/nbgrader/exchange',str(os.getcwd())+'/crsidify':"/srv/crsidify"}
 
-#demos_c.DockerSpawner.read_only_volumes={'/home/public/demos':'/home/jovyan/work/demos'}
+#demos_c.DockerSpawner.read_only_volumes={'/home/public/demos':'/home/jovyan/work/demos','/home/public/data':'/home/jovyan/work/data','/home/public/investigations':'/home/jovyan/work/investigations'}
 
 #c.DockerSpawner.notebook_dir = '/home/jovyan/work/{username}'
 c.DockerSpawner.extra_create_kwargs.update({

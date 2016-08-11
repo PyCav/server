@@ -1,4 +1,5 @@
 #!/bin/bash
+cd "${0%/*}"
 function run {
 	while true; do
 		echo `sudo docker stats --no-stream` > ./.stats.txt

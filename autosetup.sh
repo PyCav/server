@@ -251,6 +251,9 @@ if [ "$jup" == "y" ]; then
 	sudo echo "Creating a publically readable folder containing the demos from the pycav/demos github repository"
 	cd /home/public
 	git clone https://github.com/pycav/demos.git >> server.log
+	git clone https://github.com/pycav/data.git /home/public/data >> server.log
+	git clone https://github.com/pycav/investigations.git /home/public/investigations >> server.log
+
 	sudo sed -i -- 's/#demos_//g' /home/public/server/jupyterhub_config.py
 
 	#does this need to be here
@@ -279,6 +282,7 @@ if [ "$jup" == "y" ]; then
 	#add startserver.sh to path
 	sudo sed -i -- 's/domain/'$site_name'/g' /home/public/server/updatescripts.sh
 	sudo sed -i -- 's/PORT/'$port'/g' /home/public/server/updatescripts.sh
+	sudo /home/public/server/setcustomparent.sh
 	sudo cp updatescripts_subscript.sh /usr/local/bin/updatescripts_subscript
 	sudo cp updatescripts.sh /usr/local/bin/updatescripts
 
@@ -292,7 +296,7 @@ fi
 #chgrp $user -R /var/www/html
 echo "Logging in as ""$user"" "
 sudo runuser -l $user -c 'source ~/.bashrc'
-
+echo "Don't mess with folder structure of /home/public/server as you may break your Jupyterhub Server"
 su $user
 #in server folder  webpages/ startserver.sh, killidlecontainers.sh,updatecontainers.sh, jupyterhub_config.py
 #setup admin accounts and whitelist?
