@@ -30,6 +30,9 @@ areaofphys = []
 descriptions = []
 path_script=str(os.path.dirname(os.path.realpath(sys.argv[0])))
 
+sys.path.append(path_script+str("/titlecase.py"))
+import titlecase
+
 for i in range(0,len(directories)):
 	redName=None
 	redDesc=None
@@ -58,14 +61,14 @@ for i in range(0,len(directories)):
 	else:
 		areaofphys.append(directories[i][2:])
 		areaofphys[i]=areaofphys[i][0:areaofphys[i].find("/")]
-		#.replace joining words 
-		areaofphys[i]=re.sub(r"(\w)([A-Z])", r"\1 \2", areaofphys[i]).replace("And","and")
+		areaofphys[i]=re.sub(r"(\w)([A-Z])", r"\1 \2", areaofphys[i])
+		areaofphys[i]=titlecase.titlecase(areaofphys[i])
 
 for i in range(0,len(directories)):
 	if names[i]=='':
 		pass
 	else:
-		notebooks.append([names[i],areaofphys[i],descriptions[i],directories[i]])
+		notebooks.append([titlecase.titlecase(names[i]),areaofphys[i],descriptions[i],directories[i]])
 
 notebooks.sort(key=lambda x: x[1])
 indexNotebook = open(path+"/indexgen.ipynb",'w')
