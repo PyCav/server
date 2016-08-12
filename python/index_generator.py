@@ -1,23 +1,26 @@
 import os,glob,re,sys
-
+title, path = None, None
 try:
 	if sys.argv[1]=="-t":
 		title=str(sys.argv[2])
-		if sys.argv[3]=="-p":
-			path=str(sys.argv[4])
-		else:
-			path=os.getcwd()
 	elif sys.argv[1]=="-p":
 		path=str(sys.argv[2])
+	else:
+		raise IndexError
+	try:
 		if sys.argv[3]=="-t":
 			title=str(sys.argv[4])
+		elif sys.argv[3]=="-p":
+			path=str(sys.argv[4])
 		else:
-			title=str(input("Input title of index"))
-	else:
-		title=str(input("Input title of index"))
-		path=os.getcwd()
+			raise IndexError
+	except IndexError:
+		if title==None:
+			title=str(input("Input title of index: "))
+		elif path==None:
+			path=os.getcwd()
 except IndexError:
-	title=str(input("Input title of index"))
+	title=str(input("Input title of index: "))
 	path=os.getcwd()
 
 notebooks=[]
@@ -55,7 +58,8 @@ for i in range(0,len(directories)):
 	else:
 		areaofphys.append(directories[i][2:])
 		areaofphys[i]=areaofphys[i][0:areaofphys[i].find("/")]
-		areaofphys[i]=re.sub(r"(\w)([A-Z])", r"\1 \2", areaofphys[i])
+		#.replace joining words 
+		areaofphys[i]=re.sub(r"(\w)([A-Z])", r"\1 \2", areaofphys[i]).replace("And","and")
 
 for i in range(0,len(directories)):
 	if names[i]=='':
@@ -64,7 +68,6 @@ for i in range(0,len(directories)):
 		notebooks.append([names[i],areaofphys[i],descriptions[i],directories[i]])
 
 notebooks.sort(key=lambda x: x[1])
-
 indexNotebook = open(path+"/indexgen.ipynb",'w')
 with open(path_script+"/.indexraw.txt","r") as p:
 	lines=p.readlines()
@@ -93,3 +96,4 @@ lines=lineset1+lineset2
 for l in lines:
 	indexNotebook.write(l)
 indexNotebook.close()
+print("Index \""+str(title)+"\" has been generated.")
