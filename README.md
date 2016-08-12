@@ -8,6 +8,8 @@
 
 ## Todo:
 
+Build on machine? Rather than using docker hub's auto build
+
 Use relative paths in scripts, (custom notebooks and user folders location?)
 
 Finish server_setup_guide.md
