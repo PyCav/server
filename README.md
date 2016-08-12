@@ -32,7 +32,7 @@ remove references to we in server_setup_guide.md
 
 ~~Use relative paths in scripts, (custom notebooks and user folders location?)~~ folders (users, demos, data, investigations, server) can live in custom parent now.
 
-~~make update server files script that pulls github repo and customises jupyterhub_config.py~~ not tested (only for Raven usage)
+~~make update server files script that pulls github repo and customises jupyterhub_config.py~~(only for Raven usage)
 
 ~~stopping server~~ nicely 
 
