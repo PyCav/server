@@ -38,7 +38,7 @@ improve Auto set up demonstration server script autosetup.sh implement checks
 
 ~~in guide explain how to use local users instead of docker containers?~~ not planned for now
 
-~~Use relative paths in scripts, (custom notebooks and user folders location?)~~ folders (users, demos, data, investigations, server) can live in custom parent now.
+~~Use relative paths in scripts, (custom notebooks and user folders location?)~~
 
 ~~make update server files script that pulls github repo and customises jupyterhub_config.py~~(only for Raven usage)
 

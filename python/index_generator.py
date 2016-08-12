@@ -1,4 +1,8 @@
 import os,glob,re,sys
+path_script=str(os.path.dirname(os.path.realpath(sys.argv[0])))
+sys.path.append(path_script+str("/titlecase.py"))
+import titlecase
+
 title, path = None, None
 try:
 	if sys.argv[1]=="-t":
@@ -15,9 +19,9 @@ try:
 		else:
 			raise IndexError
 	except IndexError:
-		if title==None:
+		if title is None:
 			title=str(input("Input title of index: "))
-		elif path==None:
+		elif path is None:
 			path=os.getcwd()
 except IndexError:
 	title=str(input("Input title of index: "))
@@ -28,10 +32,6 @@ directories = glob.glob(path+'/**'+'/*.ipynb',recursive=True)
 names = []
 areaofphys = []
 descriptions = []
-path_script=str(os.path.dirname(os.path.realpath(sys.argv[0])))
-
-sys.path.append(path_script+str("/titlecase.py"))
-import titlecase
 
 for i in range(0,len(directories)):
 	redName=None
@@ -55,7 +55,6 @@ for i in range(0,len(directories)):
 	directories[i]="."+directories[i][len(path):]
 	if directories[i] ==  "./index.ipynb":
 		iIndex=i
-	#fails if ipynb isn't in a sub directory must test?
 	if directories[i].count("/") == 1:
 		areaofphys.append("")
 	else:
@@ -72,6 +71,7 @@ for i in range(0,len(directories)):
 
 notebooks.sort(key=lambda x: x[1])
 indexNotebook = open(path+"/indexgen.ipynb",'w')
+
 with open(path_script+"/.indexraw.txt","r") as p:
 	lines=p.readlines()
 
@@ -81,9 +81,11 @@ for k in range(0,len(lines)):
 		insertFrom=k+1
 		lines[k]="    \"# "+str(title)+"\\n\","
 		break
+
 lineset1=lines[0:k+1]
 lineset2=lines[k+1:]
 prevSection=None
+
 for nb in notebooks:
 	if(prevSection!=str(nb[1])):
 		lineset1.append("\"\\n\",\n")
@@ -94,9 +96,12 @@ for nb in notebooks:
 	lineset1.append("\"["+str(nb[0])+"]("+str(nb[3])+"): "+str(nb[2])+"\\n\",\n")
 	lineset1.append("\"\\n\",\n")
 	prevSection=str(nb[1])
+
 lineset1.append("\"\\n\"\n")
 lines=lineset1+lineset2
+
 for l in lines:
 	indexNotebook.write(l)
+
 indexNotebook.close()
 print("Index \""+str(title)+"\" has been generated.")
