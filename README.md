@@ -28,7 +28,7 @@ output to logfiles
 
 remove references to we in server_setup_guide.md
 
-in guide explain how to use local users instead of docker containers?
+~~in guide explain how to use local users instead of docker containers?~~ not planned for now
 
 ~~Use relative paths in scripts, (custom notebooks and user folders location?)~~ folders (users, demos, data, investigations, server) can live in custom parent now.
 
