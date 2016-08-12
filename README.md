@@ -2,17 +2,18 @@
 
 [Link to Server Setup Guide](https://github.com/PyCav/Server/blob/master/server_setup_guide.md)
 
-**Don't mess with folder structure** /parent/
+**Don't mess with folder structure** 
 
-                                      --users/
+    /parent/
+          --users/
                                       
-                                      --demos/
+          --demos/
                                       
-                                      --data/
+          --data/
                                       
-                                      --investigations/
+          --investigations/
                                       
-                                      --server/
+          --server/
 
 
 ## Todo:
