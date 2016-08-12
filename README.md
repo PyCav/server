@@ -12,7 +12,11 @@ Build on machine? Rather than using docker hub's auto build
 
 Finish server_setup_guide.md
 
-multiple flags killcontainers.py
+documentation
+
+output to logfiles
+
+remove references to we in server_setup_guide.md
 
 nbgrader
 
@@ -20,13 +24,7 @@ whitelisting by course tis library
 
 admin access to /home/public/users top level customise dockerSpawner.py
 
-improve Auto set up demonstration server script autosetup.sh
-
-documentation
-
-output to logfiles
-
-remove references to we in server_setup_guide.md
+improve Auto set up demonstration server script autosetup.sh implement checks
 
 ~~in guide explain how to use local users instead of docker containers?~~ not planned for now
 
