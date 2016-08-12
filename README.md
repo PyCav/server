@@ -10,8 +10,6 @@
 
 Build on machine? Rather than using docker hub's auto build
 
-Use relative paths in scripts, (custom notebooks and user folders location?)
-
 Finish server_setup_guide.md
 
 multiple flags killcontainers.py
@@ -31,6 +29,8 @@ output to logfiles
 remove references to we in server_setup_guide.md
 
 in guide explain how to use local users instead of docker containers?
+
+~~Use relative paths in scripts, (custom notebooks and user folders location?)~~ folders (users, demos, data, investigations, server) can live in custom parent now.
 
 ~~make update server files script that pulls github repo and customises jupyterhub_config.py~~ not tested (only for Raven usage)
 
