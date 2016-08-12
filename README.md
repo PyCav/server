@@ -2,25 +2,25 @@
 
 [Link to Server Setup Guide](https://github.com/PyCav/Server/blob/master/server_setup_guide.md)
 
-**Don't mess with folder structure**
+**Don't mess with the folder structure of /parent or the file layout in /parent/server** 
 
-**Contents must be downloaded to /home/public/server (may be fixed at a later date)**
+    /parent/
+          --users/
+                                      
+          --demos/
+                                      
+          --data/
+                                      
+          --investigations/
+                                      
+          --server/
+
 
 ## Todo:
 
-Use relative paths in scripts, (custom notebooks and user folders location?)
+Build on machine? Rather than using docker hub's auto build
 
 Finish server_setup_guide.md
-
-multiple flags killcontainers.py
-
-nbgrader
-
-whitelisting by course tis library
-
-admin access to /home/public/users top level customise dockerSpawner.py
-
-improve Auto set up demonstration server script autosetup.sh
 
 documentation
 
@@ -28,9 +28,19 @@ output to logfiles
 
 remove references to we in server_setup_guide.md
 
-in guide explain how to use local users instead of docker containers?
+nbgrader
 
-~~make update server files script that pulls github repo and customises jupyterhub_config.py~~ not tested (only for Raven usage)
+whitelisting by course tis library
+
+admin access to /home/public/users top level customise dockerSpawner.py
+
+improve Auto set up demonstration server script autosetup.sh implement checks
+
+~~in guide explain how to use local users instead of docker containers?~~ not planned for now
+
+~~Use relative paths in scripts, (custom notebooks and user folders location?)~~ folders (users, demos, data, investigations, server) can live in custom parent now.
+
+~~make update server files script that pulls github repo and customises jupyterhub_config.py~~(only for Raven usage)
 
 ~~stopping server~~ nicely 
 
