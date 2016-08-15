@@ -19,7 +19,9 @@
 ## Todo:
 Finish server_setup_guide.md
 
-Build on machine? Rather than using docker hub's auto build
+Build on machine? Rather than using docker hub's auto build or move to pycav account on hub.docker.com
+
+Investigate crons and updatescripts.sh as cronjob?
 
 documentation
 
@@ -29,9 +31,11 @@ nbgrader
 
 whitelisting by course tis library
 
-admin access to /home/public/users top level customise dockerSpawner.py
+admin users access to /home/public/users top level user folders customise dockerSpawner.py
 
 improve Auto set up demonstration server script autosetup.sh implement checks
+
+Raven auth to Pypi so can be updated without git.
 
 ~~in guide explain how to use local users instead of docker containers?~~ not planned for now
 
