@@ -17,16 +17,13 @@
 
 
 ## Todo:
+Finish server_setup_guide.md
 
 Build on machine? Rather than using docker hub's auto build
-
-Finish server_setup_guide.md
 
 documentation
 
 output to logfiles
-
-remove references to we in server_setup_guide.md
 
 nbgrader
 
