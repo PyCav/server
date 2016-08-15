@@ -32,7 +32,7 @@
 ### **Preliminary setup**
 In this section you will complete the basic set up required for any new server.
 
-1. If your computer is running windows please download putty.exe and puttygen.exe [from here](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html)
+1. If your computer is running windows please download putty.exe and puttygen.exe [from here](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html) 
 	if however you are running Linux, or Mac OS then you can ssh into your server from the terminal.
 
 2. On Mac and Linux SSH into your server by running the command ssh root@[ip] in your terminal, replacing [ip] with your
@@ -57,24 +57,24 @@ In this section you will complete the basic set up required for any new server.
 
 	in your ssh client.
 
-6. We shall now create a new user on the server as running everything as root is generally a bad idea we can do this by typing   
+6. You now need to create a new user on the server as remaining logged in as root all of the time is a bad idea. You can create a new user using the command below.  
 
 	```bash 
 	adduser [username]
 	```
 
-	into your client and replacing [username] with the name of the user you wish to create.
+	into your client and replacing **[username]** with the name of the user you wish to create.
 	You will then be prompted for various things relating to the new user, follow these on screen instructions.
-7. We must then give this user sudo access which stands for super user do, which allows this new user to execute commands as the root user.
-   We can do this by running
+7. You must now give this new user sudo access which stands for super user do, this allows the new user to execute commands as the root user.
+   You can do this using the command
    
    ```bash 
    usermod -aG sudo [username]
    ```
 
-   where [username] is replaced by the name of the user that you just created.
+   where **[username]** is replaced by the name of the user that you just created.
 
-8. To aid security we will now prevent unauthorized computers from logging in to your server. To do this we must create an ssh key on your local machine.
+8. To aid security you need to prevent unauthorized computers from logging in to your server. To do this you must create an ssh key on your local machine.
    To do this on Mac or Linux open a local terminal and run the command
    
    ```bash
@@ -97,10 +97,10 @@ In this section you will complete the basic set up required for any new server.
 	runuser -l [username] -c 'chmod 700 ~/.ssh'
 	```
 
-	Making sure to replace [username] with the name of the user that you created earlier.
+	Making sure to replace **[username]** with the name of the user that you created earlier.
 
-10. We will now authorise our computer so that it can access the server using the generated key, run the command below in your ssh client making sure 
-	to replace [public-key] and [username] with the key that was generated and the name of the user you created respectively.
+10. You will now need to authorise your computer so that it can access the server using the generated key, run the command below in your ssh client making sure 
+	to replace **[public-key]** with the key that was generated and **[username]** with the name of the user you created earlier.
 	
 	```bash
 	runuser -l [username] -c 'echo [public-key] > ~/.ssh/authorized_keys'
@@ -119,7 +119,7 @@ In this section you will complete the basic set up required for any new server.
 	 ```
 
 12. This next step will enable a basic firewall for your server and allow ssh connections to pass through it.
-	Run the following commands to set this up
+	Run the following commands to set this up.
 	
 	```bash 
 	ufw allow OpenSSH
@@ -127,35 +127,35 @@ In this section you will complete the basic set up required for any new server.
 	ufw status
 	```
 
-13. We will now install the rest of the LAMP software stack which includes Linux, Apache, MySQL and PHP. You already have **Linux** installed on your server, so we will now
-	install the http server software **Apache** and allow incoming connections to apache to pass through your firewall
+13. You now need to install the rest of the LAMP software stack which includes Linux, Apache, MySQL and PHP. You already have Linux installed on your server, so you now need to install the next part
+	the http server software Apache. You will also need to allow incoming connections to Apache to pass through your firewall. These steps are easily carried out by running the following two commands.
 	
 	```bash
 	apt-get -y install apache2
 	ufw allow in "Apache Full"
 	```
 
-	You can print the status of Apache by running the command (although it doesn't need to be run to proceed)
+	You can print the status of Apache by running the command below (although it doesn't need to be run to proceed).
 
 	```bash 
 	systemctl status apache2
 	```
 
-	we will now install the database software **MySQL**, on screen prompts will appear after running each of the commands below, make sure to follow the instructions that appear on screen
+	You must now install the database software MySQL, on screen prompts will appear after running each of the commands below, make sure to follow the on screen instructions that appear.
 	
 	```bash
 	apt-get -y install mysql-server
 	mysql_secure_installation
 	```
 
-	now to install the final component, a scripting language **PHP**, run the following command
+	Now to install the final component, the scripting language PHP.
 	
 	```bash
 	apt-get -y install php libapache2-mod-php php-mcrypt php-mysql
 	```
 
 14. The next four commands will reorder the priority of files that apache uses as your server's homepage and then restart the apache server so that this change takes effect,
-	by default index.html in the folder /var/www/html/ is the default landing page, these commands will change it so
+	by default index.html in the folder /var/www/html/ is your server's default homepage, these commands will change it so
 	that index.php (same directory) is the default homepage.
 	
 	```bash
@@ -173,22 +173,22 @@ In this section you will complete the basic set up required for any new server.
 
 	Test this out by directing your browser to your domain name. You should see a white page with the words Hello World! on it.
 
-16. We will now configure https access to our server by generating our own certificates using the letsencrypt software package, first we must install letsencrypt
+16. Now you must configure secure access (https) to your server by generating your own SSL certificates using the letsencrypt software package. First you should install letsencrypt by running
 
 	```bash
 	apt-get -y install python-letsencrypt-apache
 	```
 
-	Now run the following command making sure to replace [domain] with the domain name (in the format example.com) that points to your server's ip address
+	, then you must run the following command making sure to replace **[domain]** with the domain name (in the format example.com) that points to your server's ip address.
 
 	```bash
 	letsencrypt --apache -d [domain]
 	```
 
-	after inputting this command a prompt will appear, follow the on screen instructions and select secure (to permit https access only) when prompted.
+	After inputting this command a prompt will appear, follow the on screen instructions and select secure (to permit https access only) when prompted.
 
-	The certificates this software generates are only valid for 90 days before we need to renew them luckily we can set this up to happen automatically using a cronjob.
-	To set up a cron job to try to renew our certificate at 4am every everyday we can run the following commands
+	The certificates this software generates are only valid for 90 days before you must renew them, luckily you can set up a cron job that will renew them automatically.
+	To set up a cron job that will try to renew your certificate at 4am every everyday you can run the following commands.
 
 	```bash
 	crontab -l > mycron
@@ -200,7 +200,8 @@ In this section you will complete the basic set up required for any new server.
 	The commands above create a cron job that runs letsencrypt renew at 00 minutes, 04 hours, every day, every month and every day of the week.
 
 17. The following commands will prevent users from accessing your server via its IP address and force them to access your site through https at your domain.
-	First we need to download a python script that will alter the apache config file so that redirects are allowed. Before this though we will back up a working copy of the config file.
+	First you need to download a python script that will alter the apache config file so that redirects are allowed, this script is provided by the PyCav project.
+	Before this though you should back up a working copy of the config file. To carry out both of these steps just run the commands below.
 
 	```bash
 	cp /etc/apache2/apache2.conf /etc/apache2/apache2.conf.working
@@ -209,8 +210,8 @@ In this section you will complete the basic set up required for any new server.
 	rm configure_apache.py
 	```
 
-	Now we need to format your server's public IP address so that it is laid out how apache expects, we can use the website http://icanhazip.com to determine your server's IP address. Run the following 
-	commands to do this making sure you replace [domain] with your server's domain name (in the format example.com) in the final command.
+	Now you need to format your server's public IP address so that it is laid out in the format that Apache expects, you can use the website http://icanhazip.com to determine your server's IP address. Run the following 
+	commands to do this making sure you replace **[domain]** with your server's domain name (in the format example.com) in the final command.
 
 	```bash
 	ipformatted=$(echo "$(curl http://icanhazip.com)" | sed -s 's/[.]/''\\.''/g')
@@ -219,27 +220,28 @@ In this section you will complete the basic set up required for any new server.
 	echo "RewriteRule (.*) https://[domain]/$1 [R=301,L]" >> /var/www/html/.htaccess
 	```
 
-	We now need to restart apache for these changes to take effect. To do this run
+	You must now restart Apache for these changes to take effect.
 
 	```bash
 	a2enmod rewrite
 	systemctl restart apache2
 	```
+
 18. Now on to the final part of preliminary setup, installing useful libraries.
-	We need to install git so that we can clone git repos, to do this run the command
+	You should first install git so that you can clone git repos.
 
 	```bash
 	apt-get -y install git
 	```
 
-	We can also install the program htop which is a useful tool for managing running processes on your server, to install run the command
+	It will also be useful to install the program htop which is a visual tool for managing running processes on your server.
 
 	```bash
 	apt-get install htop
 	```
 
-	Another useful piece of software is the python tool pip, which allows you to install python libraries and all their dependencies very easily using commands such as "pip3 install numpy". To set up pip for both
-	python2 and python3 you need to run the next 3 commands
+	Another useful piece of software is the python tool pip, which allows you to install python libraries and all of their dependencies very easily using commands such as "pip3 install numpy". To set up pip for both
+	python2 and python3 you need to run the three commands below.
 
 	```bash
 	apt-get -y install python3-pip python-pip
@@ -247,19 +249,29 @@ In this section you will complete the basic set up required for any new server.
 	pip install --upgrade pip
 	```
 
-	Finally we can install many useful javascript libraries using the command below
+	Finally you should install the javascript libraries npm, nodejs and mathjax using the command below.
 
 	```bash
 	apt-get -y install npm nodejs nodejs-legacy libjs-mathjax
 	```
 
 ### **JupyterHub and Docker**
-**Warning** It is highly recommended that you do not edit the folder structure of the server directory as this will prevent your JupyterHub server from functioning correctly. It is also recommended that you  that you clone all repositories to the specified location as doing otherwise may cause issues. 
+**Warning** It is highly recommended that you do not edit the folder structure of the server directory as this will prevent your JupyterHub server from functioning correctly. It is also recommended that you that you clone all repositories to the specified location as doing otherwise may cause issues, the expected layout of folders is shown in the tree diagram below.
 
+	parent/
+          --users/
+                                      
+          --demos/
+                                      
+          --data/
+                                      
+          --investigations/
+                                      
+          --server/
 
-In this next section we shall set up a JupyterHub Server that isolates users using Docker containers.
+In this next section you will be instructed on how to set up a JupyterHub Server that isolates users using Docker containers.
 
-1. Firstly we will make a new directory where all the server files and each JupyterHub user's home directories live called public
+1. Firstly you should make a new directory where all of the server files and each JupyterHub user's home directories live called public.
 
 	```bash
 	mkdir /home/public
@@ -267,7 +279,7 @@ In this next section we shall set up a JupyterHub Server that isolates users usi
 	chmod a+rxw -R /home/public
 	```
 
-2. Now we need to install JupyterHub, Docker and all the required dependencies. To do this run the following commands
+2. Now you need to install JupyterHub, Docker and all of the required dependencies. To do this run the following commands.
 
 	```bash
 	apt-get -y install docker.io
@@ -277,8 +289,8 @@ In this next section we shall set up a JupyterHub Server that isolates users usi
 	pip3 install --upgrade dockerspawner netifaces
 	```
 
-3. We now need to allow users access to JupyterHub and Docker through your server's firewall, the default ports used are 8000 and 8081 these can be changed in the jupyterhub_config.py file if you wish,
-	 we can allow access to ports 8000 and 8081 using the following commands (if you decide to use different ports change the commands below to the ports you want to use)
+3. You will now need to allow users access to JupyterHub and Docker through your server's firewall, the default ports used are 8000 and 8081 (these can be changed in the jupyterhub_config.py file if you wish),
+	 you can allow access to ports 8000 and 8081 using the following commands (if you decide to use different ports change the commands below to the ports you want to use).
 
 	```bash
 	ufw allow 8000
@@ -286,13 +298,13 @@ In this next section we shall set up a JupyterHub Server that isolates users usi
 	```
 
 4. This next step sets up the image that Docker containers will use. This step can be customised to meet your needs. Docker images are images that are used to create containers with specific software installed.
-	To install the PyCav docker image (recommended) run the following command (note this is a large download several GBs in size and may take some time to complete)
+	To install the PyCav docker image (recommended) you should run the following command (note this is a large download several GBs in size and may take some time to complete).
 
 	```bash
 	docker pull jordanosborn/pycav
 	```
 
-	If you need to customise what libraries are installed you can edit the Dockerfile and build the image yourself by following the steps below making sure to name your image by replacing [image] with the name you wish to use (note build will download several GBs of data and will then build the image this may take a long time)
+	If you need to customise what libraries are installed you can edit the Dockerfile and build the image yourself by following the steps below making sure to name your image by replacing **[image]** with the name you wish to use (note build will download several GBs of data and will then build the image this may take a long time).
 	
 	```bash
 	git clone https://github.com/PyCav/jupyterhub.git /home/public/Dockerfile
@@ -300,21 +312,22 @@ In this next section we shall set up a JupyterHub Server that isolates users usi
 	docker -t build docker build -t [image]:latest /home/public/Dockerfile/.
 	```
 
-5. Finally we will download the PyCav server scripts repo, this contains a jupyterhub_config.py file, and several shell scripts that will help you to manage your installation. To download and make all shell scripts executable run the commands below
+5. Finally you should download the PyCav server scripts repo, this contains a jupyterhub_config.py file, and several shell scripts that will help you to manage your installation. To download and make all shell scripts executable run the commands below.
 
 	```bash
 	git clone https://github.com/pycav/server.git /home/public/server
 	chmod a+x /home/public/server/*.sh
 	chmod a+x /home/public/server/cron/*.sh
 	```
-	**If you have decided to download these scripts into a different directory please run the script below (replacing /home/public/server with the path to the directory you cloned the server files into) if however you have used the default directory you do not need to run the command.**
+	**Warning** If you have decided to download these scripts into a different directory please run the script below (replacing /home/public/ wherever it appears in setcustomparent.sh with the path to the parent directory you cloned the server repo into)
+	 if however you have used the default directory you can ignore this step.
 
 	```bash
 	/home/public/setcustomparent.sh
 	```
 
-	To tell JupyterHub to use a custom image we need to customise the jupyterhub_config.py file. If you are using the default image you **do not** need to run this step,
-	if however you are using a custom image run the following command making sure to replace [image] with the name you used for your custom image
+	To tell JupyterHub to use a custom image you need to customise the jupyterhub_config.py file. If you are using the default image you **do not** need to run this step,
+	if however you are using a custom image run the following command making sure to replace **[image]** with the name you used for your custom image.
 
 	```bash
 	sed -i -- 's/jordanosborn\/pycav/[image]/g' /home/public/server/jupyterhub_config.py
@@ -327,32 +340,32 @@ In this next section we shall set up a JupyterHub Server that isolates users usi
 	```
 
 ### **Authentication**
-In this section we will describe how to install a variety of authentication methods (Raven, GitHub, Local User) which will help to prevent unauthorised users from accessing your JupyterHub server.
+This section will describe how to set up a variety of authentication methods (Raven, GitHub, Local User), which you can use to prevent unauthorised users from accessing your JupyterHub server.
 #### **Raven**
-1. Firstly you need to install the PyCav Raven Authenticator plugin, this can be done by running the command
+1. Firstly you need to install the PyCav Raven Authenticator plugin, this can be done by running the command below.
 
 	```bash
 	pip3 install --upgrade git+git://github.com/PyCav/jupyterhub-raven-auth.git
 	```
 
-2. Before Raven authentication is available you must enable it in the jupyterhub_config.py file to do this you just need to run the following command
+2. Before Raven authentication is available you must enable it in the jupyterhub_config.py file to do this you should run the following command.
 
 	```bash
 	sed -i -- 's/raven = False/raven = True/g' /home/public/server/jupyterhub_config.py
 	```
 
 #### **GitHub**
-1. Firstly you need to install oauthenticator as GitHub uses oauth to authorise users, to install oauthenticator run
+1. Firstly you need to install oauthenticator as GitHub uses oauth to authorise users.
 
 	```bash
 	pip3 install --upgrade oauthenticator
 	```
 
-2. Secondly you need to set up an oauth application on GitHub, to do this log in to GitHub and [Create a GitHub Oauth Application](https://github.com/settings/developers). Using a sensible application name
-	, set the homepage url as **https://[domain]:[jupyterhubport]** and set the callback url as **https://[domain]:[jupyterhubport]/hub/oauth_callback** , make sure you replace [domain] with the domain name of your server
-	(in the format example.com) and also make sure to replace [jupyterhubport] with the port you decided to run jupyterhub on (default 8000).
+2. Secondly you need to set up an oauth application on GitHub, to do this log in to GitHub and [Create a GitHub Oauth Application](https://github.com/settings/developers). Use a sensible application name
+	, set the homepage url as **https://[domain]:[jupyterhubport]** and set the callback url as **https://[domain]:[jupyterhubport]/hub/oauth_callback** , make sure you replace **[domain]** with the domain name of your server
+	(in the format example.com) and also make sure you replace **[jupyterhubport]** with the port you decided to run jupyterhub on (default 8000).
  
-3. Finally, before GitHub authentication is available you must enable it in the jupyterhub_config.py file to do this you just need to run the following command
+3. Finally, before GitHub authentication is available you must enable it in the jupyterhub_config.py file to do this you should run the following command
 
 	```bash
 	sed -i -- 's/github = False/github = True/g' /home/public/server/jupyterhub_config.py
@@ -368,7 +381,7 @@ In this section we will describe how to install a variety of authentication meth
 ### **NbGrader**
 This section will discuss how to set up NbGrader up on your server, so that you can create assignments for users to complete and hand in. It will also show you how to set up NbGrader so that assignments are automatically marked.
 
-1. Firstly we need to install nbgrader, we can do this by running
+1. Firstly you need to install nbgrader.
 
 	```bash
 	pip3 install --upgrade nbgrader
@@ -381,7 +394,7 @@ This section will show you how to customise your installation, how to update con
 
 #### **Updating Containers**
 
-The easiest way to update containers is to first delete them all, this is okay as data created by the user is seperated from the container. After this you need to delete the old docker image and download/build the newer version. You must schedule a maintenance period where the server will remain offline during the update, this involves informing users of this scheduled down time and giving them appropriate time to prepare. Two scripts have been provided the first one stops all containers and then deletes them, the second will take the JupyterHub server offline, call the first script, delete the old Docker Image and then download/build the new one. We first need to move these scripts so that they will be on your server's path to do this run the commands below.
+The easiest way to update containers is to first delete them all, this is okay as data created by the user is seperated from the container. After this you need to delete the old docker image and download/build the newer version. You must schedule a maintenance period where the server will remain offline during the update, this involves informing users of this scheduled down time and giving them appropriate time to prepare. Two scripts have been provided the first one stops all containers and then deletes them, the second will take the JupyterHub server offline, call the first script, delete the old Docker Image and then downloads/builds the new one. You need to move these scripts so that they will be on your server's path, to do this run the commands below.
 
 ```bash
 cp /home/public/server/removecontainers.sh /usr/local/bin/removecontainers
@@ -398,16 +411,16 @@ updatecontainers -p [image]
 
 The first command updates using the default jordanosborn/pycav image.
 
-The second command updates by building a new image from a custom Dockerfile (replace [image] with the name of the image you wish to create and [path_to_Dockerfile] with the path to your custom Dockerfile).
+The second command updates by building a new image from a custom Dockerfile (replace **[image]** with the name of the image you wish to create and **[path_to_Dockerfile]** with the path to your custom Dockerfile).
 
-The final command will pull the named image (replace [image] with the name of the image you wish to use) from [DockerHub](hub.docker.com).
+The final command will pull the named image (replace **[image]** with the name of the image you wish to use) from [DockerHub](hub.docker.com).
 
-Note if you use a new image with a different name you will need to update your **jupyterhub_config.py** file to reflect this change.
+**Warning** If you use a new image with a different name you will need to update your **jupyterhub_config.py** file to reflect this change.
 
 #### **Backing Up Containers**
 All user data is by default stored in the directory /home/public/users which contains sub directories for each user named after that user's username. Backing up is therefore as simple as copying the users directory to a backup hard disk. A script has been created 
 that will back up this folder to a mounted hard disk. It creates a tar.gz archive with a name modified according to the date the folder was backed up (default is every monday at 04:30). **Before carrying out the steps below you must mount the hard disk you want to back up to to some directory on your computer ([Help](https://help.ubuntu.com/community/Mount)).**
-Run the following commands replacing [mountpath] with the full path to the mount directory (and folder if you require) of your backup hard disk (in the format /media/backup/).
+Run the following commands replacing **[mountpath]** with the full path to the mount directory (and folder if you require) of your backup hard disk (in the format /media/backup/).
 
 ```bash
 backup_path=$(echo "[mountpath]" | sed -s 's/[/]/''\\\/''/g')
@@ -419,7 +432,7 @@ rm mycron
 ```
 
 #### **JupyterHub Configuration** 
-The final steps to configuring JupyterHub are to customise the jupyterhub_config.py file. These include replacing the word website with your server's domain, 8000 with the port your server is running JupyterHub on and generating a proxy authorisation token. These three tasks can be completed by running the 4 commands below, making sure to change [domain] to your server's domain (in the form example.com) and [port] to the port number your JupyterHub instance is running on (default is 8000).
+The final steps to configuring JupyterHub are to customise the jupyterhub_config.py file. These include replacing the word website with your server's domain, 8000 with the port your server is running JupyterHub on and generating a proxy authorisation token. These three tasks can be completed by running the 4 commands below, making sure to change **[domain]** to your server's domain name (in the form example.com) and **[port]** to the port number your JupyterHub instance is running on (default is 8000).
 
 ```bash
 sudo sed -i -- 's/website/[domain]/g' /home/public/server/jupyterhub_config.py
@@ -431,9 +444,9 @@ sudo sed -i -- "s/auth_key=''/auth_key='"$proxy_key"'/g" /home/public/server/jup
 You can also customise further parts of your JupyterHub installation in this file. Including login logos, application logos and shared directories etc. This document will not explain the details of how to do this, please refer to the [JupyterHub Docs](http://jupyterhub-tutorial.readthedocs.io/en/latest/) if you need more information.
 
 #### **NbGrader Configuration** 
-Run the commands below to configure the environment variables that NbGrader uses for configuration making sure to replace [username] with the name of the user you created earlier.
+Run the commands below to configure the environment variables that NbGrader uses for configuration making sure to replace **[username]** with the username of an admin on your JupyterHub server.
 
-[username] is actually admin in jupyterhub must change command?
+**[username] is actually admin in jupyterhub must change command?**
 ```bash
 echo "CONFIGPROXY_AUTH_TOKEN='""$proxy_key""'" >> /etc/environment
 JPY_tmp=$(jupyterhub token --db=sqlite:///home/public/server/jupyterhub.sqlite -f /home/public/server/jupyterhub_config.py [username])
@@ -446,8 +459,8 @@ A script was written in python to check if containers are idle or are using too 
 
 #### **(Optional) Setting up a Basic Webpage**
 The PyCav server repo that you cloned earlier contains a basic index page and stats page. These can be used as a basic landing page for users accessing your website. 
-To make these pages accessible at your domain we need to move these files to the directory Apache uses to serve content from (/var/www/html/) **Optional**. Make sure you replace
-[domain] with the domain name of your server in the format example.com and [port] with the port you selected your JupyterHub server to run on (default is 8000).
+To make these pages accessible at your domain you need to move them to the directory Apache uses to serve content from (/var/www/html/), you can do this by running the commands below.
+ Make sure you replace **[domain]** with the domain name of your server (in the format example.com) and **[port]** with the port your JupyterHub server is running on (default is 8000).
 
 ```bash
 sed -i -- 's/8000/[port]/g' /home/public/server/webpages/index.php
@@ -494,7 +507,7 @@ You should now switch to the non-root user you created earlier, you can do this 
 su [username]
 ```
 
-We now need to run the command below which ensures that all the set environment variables and shell scripts are accessible to the user you created earlier.
+You now need to run the command below which ensures that all the set environment variables and shell scripts are accessible to the user you created earlier.
 
 ```bash
 source /etc/environment
@@ -516,8 +529,7 @@ You can also start the server in the background by running (as root using sudo )
 screen sudo startserver
 ```
 
-To detach from the process's running screen press **CTRL-A** followed by **CTRL-D** you can now safely exit your ssh-client without interrupting the JupyterHub process.
-To reattach to the JupyterHub screen run the following command (as root using sudo).
+To detach from the process's running screen press **CTRL-A** followed by **CTRL-D** you can now safely exit your ssh-client without interrupting the JupyterHub process. To reattach to the JupyterHub screen run the following command (as root using sudo).
 
 ```bash
 screen -r
@@ -529,7 +541,9 @@ You can also kill your JupyterHub server by running the command below (as root u
 sudo killserver
 ```
 
+To access your JupyterHub server you should direct your web browser to https://[domain]:[port] (replacing **[domain]** with your server's domain name and **[port]** with the port your JupyterHub server is running on).
+
 ***This concludes the PyCav JupyterHub setup guide, please visit [pycav.org](https://pycav.org/) if you would like to learn more about the PyCav project.***
 
 
-###### **v1.0 PyCav 2016 - Jordan Osborn**
+###### **v1.1 PyCav 2016 - Jordan Osborn**
