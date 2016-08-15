@@ -24,7 +24,7 @@ The generated index notebook will be named indexgen.ipynb.
 To run the generator just type the following command.
 
 ```bash
-python3 index_generator.py -t title-here -p /path/to/notebooks
+python3 index_generator.py -t "title-here" -p /path/to/notebooks
 ```
 
 Make sure .indexraw.txt is in the same directory as index_generator.py.
