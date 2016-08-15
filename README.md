@@ -21,7 +21,7 @@ Finish server_setup_guide.md
 
 Build on machine? Rather than using docker hub's auto build or move to pycav account on hub.docker.com
 
-Investigate crons and updatescripts.sh as cronjob?
+Investigate crons and updatescripts.sh as cronjob? serverguide
 
 documentation
 
