@@ -72,7 +72,7 @@ for i in range(0,len(directories)):
 notebooks.sort(key=lambda x: x[1])
 indexNotebook = open(path+"/indexgen.ipynb",'w')
 
-with open(path_script+"/.indexraw.txt","r") as p:
+with open(path_script+"/indexraw.txt","r") as p:
 	lines=p.readlines()
 
 insertFrom=None
