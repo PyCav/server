@@ -1,6 +1,3 @@
-# Build as jupyterhub/singleuser
-# Run with the DockerSpawner in JupyterHub
-
 FROM jupyterhub/singleuser
 
 MAINTAINER jordan <jo357@cam.ac.uk>
@@ -9,8 +6,8 @@ EXPOSE 8888
 
 USER root
 RUN apt-get -y update && \
-    apt-get -y upgrade && \
-    apt-get -y install rsync
+    apt-get -y upgrade
+
 RUN echo "deb http://ftp.debian.org/debian jessie-backports main" >> /etc/apt/sources.list
 RUN apt-get -y update
 RUN apt-get -t jessie-backports  -y install ffmpeg
