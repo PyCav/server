@@ -36,4 +36,3 @@ ADD pycav-start.sh /srv/pycav/pycav-start.sh
 
 CMD ["sh", "/srv/pycav/pycav-start.sh"]
 
-#RUN chmod  666 /home/jovyan/work/.nbgrader.log
