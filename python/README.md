@@ -1,6 +1,6 @@
 # Index Generator Readme
-Two files are required .indexraw.txt and index_generator.py which can both be found at the 
-[server repo](https://github.com/pycav/server).
+Two files are required indexraw.txt and index_generator.py which can both be found at the 
+[server repo](https://github.com/pycav/server). **Do not edit indexraw.txt**.
 
 Jupyter notebook files must be modified to contain the following lines somewhere inside them if you want them to be included in the index.
 
@@ -24,7 +24,7 @@ The generated index notebook will be named indexgen.ipynb.
 To run the generator just type the following command.
 
 ```bash
-python3 index_generator.py -t title-here -p /path/to/notebooks
+python3 index_generator.py -t "title-here" -p /path/to/notebooks
 ```
 
 Make sure .indexraw.txt is in the same directory as index_generator.py.
