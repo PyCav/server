@@ -64,7 +64,7 @@ improve Auto set up demonstration server script autosetup.sh implement checks
 
 ~~backup of /home/public/users backup.sh~~
 
-~~updating software script(remove containers, docker pull jordanosborn/pycav periodically and https://github.com/pycav/demos.git) update.sh~~
+~~updating software script(remove containers, docker pull jordanosborn/pycav periodically and pycav repos) update.sh~~
 
 
 
