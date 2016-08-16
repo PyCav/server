@@ -30,6 +30,7 @@ if [ "$ans" == "y" ]; then
 	sudo cp ./killserver.sh /usr/local/bin/killserver
 	sudo cp ./removecontainers.sh /usr/local/bin/removecontainers
 	sudo cp ./updatecontainers.sh /usr/local/bin/updatecontainers
+	sudo cp ./triggerbuild.sh /usr/local/bin/triggerbuild
 fi
 
 sudo runuser -l $USER -c 'source ~/.bashrc'

@@ -291,6 +291,7 @@ if [ "$jup" == "y" ]; then
 	sudo cp /home/public/server/killserver.sh /usr/local/bin/killserver
 	sudo cp /home/public/server/removecontainers.sh /usr/local/bin/removecontainers
 	sudo cp /home/public/server/updatecontainers.sh /usr/local/bin/updatecontainers
+	sudo cp /home/public/server/triggerbuild.sh /usr/local/bin/triggerbuild
 	echo "To run server in background: screen; sudo startserver; ctrl-a; ctrl-d;"
 fi
 #so user can edit website without sudo? also part of general set up?
