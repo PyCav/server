@@ -8,14 +8,14 @@ try:
 	if sys.argv[1]=="-t":
 		title=str(sys.argv[2])
 	elif sys.argv[1]=="-p":
-		path=str(sys.argv[2])
+		path=str(os.path.abspath(sys.argv[2]))
 	else:
 		raise IndexError
 	try:
 		if sys.argv[3]=="-t":
 			title=str(sys.argv[4])
 		elif sys.argv[3]=="-p":
-			path=str(sys.argv[4])
+			path=str(os.path.abspath(sys.argv[4]))
 		else:
 			raise IndexError
 	except IndexError:
