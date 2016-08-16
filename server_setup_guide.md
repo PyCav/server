@@ -394,11 +394,18 @@ This section will show you how to customise your installation, how to update con
 
 #### **Updating Containers**
 
-The easiest way to update containers is to first delete them all, this is okay as data created by the user is seperated from the container. After this you need to delete the old docker image and download/build the newer version. You must schedule a maintenance period where the server will remain offline during the update, this involves informing users of this scheduled down time and giving them appropriate time to prepare. Two scripts have been provided the first one stops all containers and then deletes them, the second will take the JupyterHub server offline, call the first script, delete the old Docker Image and then downloads/builds the new one. You need to move these scripts so that they will be on your server's path, to do this run the commands below.
+The easiest way to update containers is to first delete them all, this is okay as data created by the user is seperated from the container. After this you need to delete the old docker image and download/build the newer version. You must schedule a maintenance period where the server will remain offline during the update, this involves informing users of this scheduled down time and giving them appropriate time to prepare. Three scripts have been provided the first one stops all containers and then deletes them, the second will take the JupyterHub server offline, call the first script, delete the old Docker Image and then download/build the new image. The third one will trigger a build of the default image on [hub.docker.com](https://hub.docker.com/r/jordanosborn/pycav) You need to move these scripts so that they will be on your server's path, to do this run the commands below.
 
 ```bash
 cp /home/public/server/removecontainers.sh /usr/local/bin/removecontainers
 cp /home/public/server/updatecontainers.sh /usr/local/bin/updatecontainers
+cp /home/public/server/triggerbuild.sh /usr/local/bin/triggerbuild
+```
+
+If you are using the default image it is suggested that you trigger a build using the command below before updating the image (note this build will take roughly 30 minutes) you can check the [build status here](https://hub.docker.com/r/jordanosborn/pycav/builds/).
+
+```bash
+triggerbuild
 ```
 
 You can now update the containers by running **updatecontainers** (as root) in your server's terminal. The updatecontainers script has 2 flags that can be activated independently three examples of running the updatecontainers script are shown below.
@@ -411,7 +418,9 @@ updatecontainers -p [image]
 
 The first command updates using the default jordanosborn/pycav image.
 
-The second command updates by building a new image from a custom Dockerfile (replace **[image]** with the name of the image you wish to create and **[path_to_Dockerfile]** with the path to your custom Dockerfile).
+The second command updates by building a new image from a custom Dockerfile (replace **[image]** with the name of the image you wish to create and **[path_to_Dockerfile]** with the path to your custom Dockerfile). 
+
+**Note** if you run updatecontainers using just the -b flag with no further arguments you will build the default Docker image locally.
 
 The final command will pull the named image (replace **[image]** with the name of the image you wish to use) from [DockerHub](hub.docker.com).
 
