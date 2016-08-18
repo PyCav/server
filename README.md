@@ -23,8 +23,6 @@ Build on machine? Rather than using docker hub's auto build or move to pycav acc
 
 Investigate crons not working and updatescripts.sh as cronjob? serverguide
 
-updatescripts.sh backup.sh set up?
-
 documentation
 
 Output to log files
@@ -36,6 +34,8 @@ whitelisting by course tis library
 admin users access to /home/public/users top level user folders customise dockerSpawner.py
 
 Raven auth to Pypi so can be updated without git.
+
+~~updatescripts.sh backup.sh set up?~~
 
 ~~improve Auto set up demonstration server script autosetup.sh implement checks~~
 
