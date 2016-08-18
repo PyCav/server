@@ -3,7 +3,7 @@
 </script>
 <!--  SELinux nano /etc/selinux/config  edit sudo apt-get install policycoreutils selinux reboot touch /.autorelabel -->
 <p align="center">
-<img src="resources/pycav_latex.png"></img>
+<img src="../resources/pycav_latex.png"></img>
 </p>
 
 # **JupyterHub Server Setup Guide**
