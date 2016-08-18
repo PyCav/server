@@ -29,7 +29,7 @@ documentation
 
 Output to log files
 
-nbgrader
+nbgrader documentation  autosetup.sh server_setup_guide.md
 
 whitelisting by course tis library
 
