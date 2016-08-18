@@ -2,6 +2,8 @@
 
 [Link to Server Setup Guide](https://github.com/PyCav/Server/blob/master/guide/server_setup_guide.md)
 
+[Link to Server Setup Guide PDF](https://github.com/PyCav/Server/blob/master/guide/setup.pdf)
+
 **Don't mess with the folder structure of /parent or the file layout in /parent/server** 
 
     /parent/
