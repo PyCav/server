@@ -70,29 +70,29 @@ In this section you will complete the basic set up required for any new server.
 	into your client and replacing **[username]** with the name of the user you wish to create.
 	You will then be prompted for various things relating to the new user, follow these on screen instructions.
 7. You must now give this new user sudo access which stands for super user do, this allows the new user to execute commands as the root user.
-   You can do this using the command
-   
-   ```bash 
-   usermod -aG sudo [username]
-   ```
+	You can do this using the command
 
-   where **[username]** is replaced by the name of the user that you just created.
+	```bash 
+	usermod -aG sudo [username]
+	```
+	
+	where **[username]** is replaced by the name of the user that you just created.
 
 8. To aid security you need to prevent unauthorized computers from logging in to your server. To do this you must create an ssh key on your local machine.
-   To do this on Mac or Linux open a local terminal and run the command
-   
-   ```bash
-   ssh-keygen
-   ```
+	To do this on Mac or Linux open a local terminal and run the command
 
-   and save in the default location. To view the generated key type in the same local terminal the command
-   
-   ```bash 
-   cat ~/.ssh/id_rsa.pub
-   ```
+	```bash
+	ssh-keygen
+	```
 
-   To do this on Windows open the file named puttygen.exe that was downloaded earlier and use that to generate and view your machine's ssh key.
-   **Note this key down somewhere that is easily accessible.**
+	and save in the default location. To view the generated key type in the same local terminal the command
+
+	```bash 
+	cat ~/.ssh/id_rsa.pub
+	```
+
+	To do this on Windows open the file named puttygen.exe that was downloaded earlier and use that to generate and view your machine's ssh key.
+	**Note this key down somewhere that is easily accessible.**
 
 9. Switch back to your ssh client and input the following two commands to create and set permissions for the folder containing the authorised keys.
 	
@@ -360,6 +360,7 @@ In this next section you will be instructed on how to set up a JupyterHub Server
 
 	chmod a+x /home/public/server/global/*.sh
 	```
+
 	**Warning** If you have decided to download these scripts into a different directory please run the script below (replacing /home/public/ wherever it appears in setcustomparent.sh with the path to the parent directory you cloned the server repo into)
 	if however you have used the default directory you can ignore this step.
 
@@ -404,7 +405,7 @@ This section will describe how to set up a variety of authentication methods (Ra
 	```
 
 2. Secondly you need to set up an oauth application on GitHub, to do this log in to GitHub and [Create a GitHub Oauth Application](https://github.com/settings/developers). Use a sensible application name
-	, set the homepage url as https://**[domain]**:**[jupyterhubport]** and set the callback url as **https://**[domain]**:**[jupyterhubport]**/hub/oauth_callback , replacing **[domain]** with the domain name of your server
+	, set the homepage url as https://**[domain]**:**[jupyterhubport]** and set the callback url as https://**[domain]**:**[jupyterhubport]**/hub/oauth_callback , replacing **[domain]** with the domain name of your server
 	(in the format example.com) and also **[jupyterhubport]** with the port you decided to run your JupyterHub server on (default 8000).
  
 3. Finally, before GitHub authentication is available you must enable it in the jupyterhub_config.py file to do this you should run the following command
