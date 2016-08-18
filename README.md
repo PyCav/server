@@ -1,5 +1,5 @@
 # Server
-Links to Server Setup Guide
+### **Links to Server Setup Guide**
 [Markdown](https://github.com/PyCav/Server/blob/master/guide/server_setup_guide.md)
 [PDF](https://github.com/PyCav/Server/blob/master/guide/setup.pdf)
 
