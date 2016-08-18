@@ -633,4 +633,4 @@ To access your JupyterHub server you should direct your web browser to https://*
 ***This concludes the PyCav JupyterHub setup guide, please visit [pycav.org](https://pycav.org/) if you would like to learn more about the PyCav project.***
 
 
-###### **v1.1 PyCav 2016 - Jordan Osborn**
+###### **v1.2 PyCav 2016 - Jordan Osborn**
