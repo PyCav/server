@@ -17,15 +17,17 @@
 
 
 ## Todo:
-Finish server_setup_guide.md
+Finish server_setup_guide.md updatescripts section
 
 Build on machine? Rather than using docker hub's auto build or move to pycav account on hub.docker.com run trigger build script at 1am everyday on main server
 
-Investigate crons and updatescripts.sh as cronjob? serverguide
+Investigate crons not working and updatescripts.sh as cronjob? serverguide
+
+updatescripts.sh backup.sh set up?
 
 documentation
 
-output to logfiles
+Output to log files
 
 nbgrader
 
@@ -33,9 +35,9 @@ whitelisting by course tis library
 
 admin users access to /home/public/users top level user folders customise dockerSpawner.py
 
-improve Auto set up demonstration server script autosetup.sh implement checks
-
 Raven auth to Pypi so can be updated without git.
+
+~~improve Auto set up demonstration server script autosetup.sh implement checks~~
 
 ~~in guide explain how to use local users instead of docker containers?~~ not planned for now
 
