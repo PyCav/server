@@ -26,8 +26,12 @@
 
 |[JupyterHub Documentation](http://jupyterhub-tutorial.readthedocs.io/en/latest/)|[Docker Documentation](https://docs.docker.com)|[NbGrader Documentation](http://nbgrader.readthedocs.io/en/stable/)|
 |---|---|---|
+
 |[Python3 Documentation](https://docs.python.org/3/)|[NumPy & SciPy Documentation](http://docs.scipy.org/doc/)|[Matplotlib Documentation](http://matplotlib.org/1.5.1/contents.html)|
+|---|---|---|
+
 |[PyCav Github](https://github.com/pycav)| | |
+|---|---|---|
 
 ### **Preliminary setup**
 In this section you will complete the basic set up required for any new server.
@@ -35,7 +39,7 @@ In this section you will complete the basic set up required for any new server.
 1. If your computer is running windows please download putty.exe and puttygen.exe [from here](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html) 
 	if however you are running Linux, or Mac OS then you can ssh into your server from the terminal.
 
-2. On Mac and Linux SSH into your server by running the command ssh root@[ip] in your terminal, replacing [ip] with your
+2. On Mac and Linux SSH into your server by running the command ssh root@**[ip]** in your terminal, replacing **[ip]** with your
 	servers ip address. On Windows you can carry out the same process using the putty gui.
 
 3. Your ssh client will then prompt you to input the server's root password, input the root users password to 
@@ -341,6 +345,7 @@ In this next section you will be instructed on how to set up a JupyterHub Server
 
 ### **Authentication**
 This section will describe how to set up a variety of authentication methods (Raven, GitHub, Local User), which you can use to prevent unauthorised users from accessing your JupyterHub server.
+
 #### **Raven**
 1. Firstly you need to install the PyCav Raven Authenticator plugin, this can be done by running the command below.
 
@@ -362,8 +367,8 @@ This section will describe how to set up a variety of authentication methods (Ra
 	```
 
 2. Secondly you need to set up an oauth application on GitHub, to do this log in to GitHub and [Create a GitHub Oauth Application](https://github.com/settings/developers). Use a sensible application name
-	, set the homepage url as **https://[domain]:[jupyterhubport]** and set the callback url as **https://[domain]:[jupyterhubport]/hub/oauth_callback** , make sure you replace **[domain]** with the domain name of your server
-	(in the format example.com) and also make sure you replace **[jupyterhubport]** with the port you decided to run jupyterhub on (default 8000).
+	, set the homepage url as https://**[domain]**:**[jupyterhubport]** and set the callback url as **https://**[domain]**:**[jupyterhubport]**/hub/oauth_callback , replacing **[domain]** with the domain name of your server
+	(in the format example.com) and also **[jupyterhubport]** with the port you decided to run your JupyterHub server on (default 8000).
  
 3. Finally, before GitHub authentication is available you must enable it in the jupyterhub_config.py file to do this you should run the following command
 
@@ -495,6 +500,7 @@ rm mycron
 
 #### **Updating Server Scripts**
 **Section to be completed**
+
 ```bash
 sed -i -- 's/domain/[site_name]/g' /home/public/server/updatescripts.sh
 sed -i -- 's/PORT/[port]/g' /home/public/server/updatescripts.sh
@@ -510,7 +516,7 @@ cp /home/public/server/startserver.sh /usr/local/bin/startserver
 cp /home/public/server/killserver.sh /usr/local/bin/killserver
 ```
 
-You should now switch to the non-root user you created earlier, you can do this by running the command below (making sure to replace [username] with the username of the user you created earlier).
+You should now switch to the non-root user you created earlier, you can do this by running the command below (making sure to replace **[username]** with the username of the user you created earlier).
 
 ```bash
 su [username]
@@ -528,6 +534,7 @@ With the scripts added to your path you can start the server in any directory by
 ```bash
 sudo startserver
 ```
+
 This command runs the scripts fixpermissions.sh which gives users write access to their home directories, killcontainers.sh which kills resource intensive or idle containers (can be turned off with the flag -nk), and also starts the JupyterHub server.
 
 To close the JupyterHub server you need to send a SIGINT to the process, you can do this by pressing **CTRL-C** with your ssh-client's window focussed.
@@ -550,7 +557,7 @@ You can also kill your JupyterHub server by running the command below (as root u
 sudo killserver
 ```
 
-To access your JupyterHub server you should direct your web browser to https://[domain]:[port] (replacing **[domain]** with your server's domain name and **[port]** with the port your JupyterHub server is running on).
+To access your JupyterHub server you should direct your web browser to https://**[domain]**:**[port]** (replacing **[domain]** with your server's domain name and **[port]** with the port your JupyterHub server is running on).
 
 ***This concludes the PyCav JupyterHub setup guide, please visit [pycav.org](https://pycav.org/) if you would like to learn more about the PyCav project.***
 
