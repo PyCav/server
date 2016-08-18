@@ -22,6 +22,10 @@
 
 1. Finish server_setup_guide.md updatescripts section 
 
+1. fix url highlighting for pdfgen
+
+1. put other files in runtime folder
+
 1. Build on machine? Rather than using docker hub's auto build or move to pycav account on hub.docker.com run trigger build script at 1am everyday on main server
 
 1. Investigate crons not working and updatescripts.sh as cronjob? serverguide
