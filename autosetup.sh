@@ -238,6 +238,7 @@ if [ "$jup" == "y" ]; then
 	cd /home/public
 	sudo chmod a+x /home/public/server/*.sh
 	#add to crontab?
+	sudo chmod a+x /home/public/server/global/*.sh
 	sudo chmod a+x /home/public/server/cron/*.sh
 	echo "Succesfully cloned repository"
 
@@ -336,17 +337,17 @@ if [ "$jup" == "y" ]; then
 	#customise jupyterhub?
 
 	#add startserver.sh to path
-	sudo sed -i -- 's/domain/'$site_name'/g' /home/public/server/updatescripts.sh
-	sudo sed -i -- 's/PORT/'$port'/g' /home/public/server/updatescripts.sh
+	sudo sed -i -- 's/domain/'$site_name'/g' /home/public/server/global/updatescripts.sh
+	sudo sed -i -- 's/PORT/'$port'/g' /home/public/server/global/updatescripts.sh
 	sudo /home/public/server/setcustomparent.sh
-	sudo cp /home/public/server/updatescripts_subscript.sh /usr/local/bin/updatescripts_subscript
-	sudo cp /home/public/server/updatescripts.sh /usr/local/bin/updatescripts
+	sudo cp /home/public/server/global/updatescripts_subscript.sh /usr/local/bin/updatescripts_subscript
+	sudo cp /home/public/server/global/updatescripts.sh /usr/local/bin/updatescripts
 
-	sudo cp /home/public/server/startserver.sh /usr/local/bin/startserver
-	sudo cp /home/public/server/killserver.sh /usr/local/bin/killserver
-	sudo cp /home/public/server/removecontainers.sh /usr/local/bin/removecontainers
-	sudo cp /home/public/server/updatecontainers.sh /usr/local/bin/updatecontainers
-	sudo cp /home/public/server/triggerbuild.sh /usr/local/bin/triggerbuild
+	sudo cp /home/public/server/global/startserver.sh /usr/local/bin/startserver
+	sudo cp /home/public/server/global/killserver.sh /usr/local/bin/killserver
+	sudo cp /home/public/server/global/removecontainers.sh /usr/local/bin/removecontainers
+	sudo cp /home/public/server/global/updatecontainers.sh /usr/local/bin/updatecontainers
+	sudo cp /home/public/server/global/triggerbuild.sh /usr/local/bin/triggerbuild
 	echo "To run server in background: screen; sudo startserver; ctrl-a; ctrl-d;"
 fi
 #so user can edit website without sudo? also part of general set up?

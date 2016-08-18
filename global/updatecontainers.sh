@@ -12,12 +12,12 @@ if [ "$1" == "-b" ]; then
 	if [ $# -eq 1 ]; then
 		docker rmi jordanosborn/pycav
 		echo "Building new image"
-		docker build -t  jordanosborn/pycav:latest ./DockerImage/
+		docker build -t  jordanosborn/pycav:latest ./dockerimage/
 	else
 		if [ $# -eq 2 ]; then
 			docker rmi $2
 			echo "Building new image"
-			docker build -t $2:latest ./DockerImage/
+			docker build -t $2:latest ./dockerimage/
 		else
 			docker rmi $2
 			echo "Building new image"
