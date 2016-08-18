@@ -6,10 +6,10 @@ cd "${0%/*}"
 cd ..
 path=`pwd`
 sudo sed -i -- 's:/home/public:'$path':g' ./server/jupyterhub_config.py
-sudo sed -i -- 's:/home/public:'$path':g' ./server/startserver.sh
-sudo sed -i -- 's:/home/public:'$path':g' ./server/updatescripts.sh
-sudo sed -i -- 's:/home/public:'$path':g' ./server/updatescripts_subscript.sh
-sudo sed -i -- 's:/home/public:'$path':g' ./server/updatecontainers.sh
+sudo sed -i -- 's:/home/public:'$path':g' ./server/global/startserver.sh
+sudo sed -i -- 's:/home/public:'$path':g' ./server/global/updatescripts.sh
+sudo sed -i -- 's:/home/public:'$path':g' ./server/global/updatescripts_subscript.sh
+sudo sed -i -- 's:/home/public:'$path':g' ./server/global/updatecontainers.sh
 
 sudo sed -i -- 's:/home/public:'$path':g' ./server/cron/backup.sh
 sudo sed -i -- 's:/home/public:'$path':g' ./server/cron/indexgen.sh

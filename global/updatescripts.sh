@@ -15,6 +15,7 @@ if [ "$ans" == "y" ]; then
 	cd server
 	sudo chmod a+x *.sh
 	sudo chmod a+x ./cron/*.sh
+	sudo chmod a+x ./global/*.sh
 	site_name='domain'
 	port='PORT'
 	#raven r , github g, local user l flags?
@@ -25,13 +26,13 @@ if [ "$ans" == "y" ]; then
 	sudo sed -i -- 's/#demos_//g' ./jupyterhub_config.py
 	sudo updatescripts_subscript $site_name $port
 	sudo ./setcustomparent.sh
-	sudo cp ./updatescripts_subscript.sh /usr/local/bin/updatescripts_subscript
-	sudo cp ./updatescripts.sh /usr/local/bin/updatescripts
-	sudo cp ./startserver.sh /usr/local/bin/startserver
-	sudo cp ./killserver.sh /usr/local/bin/killserver
-	sudo cp ./removecontainers.sh /usr/local/bin/removecontainers
-	sudo cp ./updatecontainers.sh /usr/local/bin/updatecontainers
-	sudo cp ./triggerbuild.sh /usr/local/bin/triggerbuild
+	sudo cp ./global/updatescripts_subscript.sh /usr/local/bin/updatescripts_subscript
+	sudo cp ./global/updatescripts.sh /usr/local/bin/updatescripts
+	sudo cp ./global/startserver.sh /usr/local/bin/startserver
+	sudo cp ./global/killserver.sh /usr/local/bin/killserver
+	sudo cp ./global/removecontainers.sh /usr/local/bin/removecontainers
+	sudo cp ./global/updatecontainers.sh /usr/local/bin/updatecontainers
+	sudo cp ./global/triggerbuild.sh /usr/local/bin/triggerbuild
 	python3 python/set_backup_path.py
 	rm ../.backup.sh
 fi

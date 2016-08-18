@@ -357,6 +357,8 @@ In this next section you will be instructed on how to set up a JupyterHub Server
 	chmod a+x /home/public/server/*.sh
 
 	chmod a+x /home/public/server/cron/*.sh
+
+	chmod a+x /home/public/server/global/*.sh
 	```
 	**Warning** If you have decided to download these scripts into a different directory please run the script below (replacing /home/public/ wherever it appears in setcustomparent.sh with the path to the parent directory you cloned the server repo into)
 	if however you have used the default directory you can ignore this step.
@@ -437,11 +439,11 @@ This section will show you how to customise your installation, how to update con
 The easiest way to update containers is to first delete them all, this is okay as data created by the user is seperated from the container. After this you need to delete the old docker image and download/build the newer version. You must schedule a maintenance period where the server will remain offline during the update, this involves informing users of this scheduled down time and giving them appropriate time to prepare. Three scripts have been provided the first one stops all containers and then deletes them, the second will take the JupyterHub server offline, call the first script, delete the old Docker Image and then download/build the new image. The third one will trigger a build of the default image on [hub.docker.com](https://hub.docker.com/r/jordanosborn/pycav) You need to move these scripts so that they will be on your server's path, to do this run the commands below.
 
 ```bash
-cp /home/public/server/removecontainers.sh /usr/local/bin/removecontainers
+cp /home/public/server/global/removecontainers.sh /usr/local/bin/removecontainers
 
-cp /home/public/server/updatecontainers.sh /usr/local/bin/updatecontainers
+cp /home/public/server/global/updatecontainers.sh /usr/local/bin/updatecontainers
 
-cp /home/public/server/triggerbuild.sh /usr/local/bin/triggerbuild
+cp /home/public/server/global/triggerbuild.sh /usr/local/bin/triggerbuild
 ```
 
 If you are using the default image it is suggested that you trigger a build using the command below before updating the image (note this build will take roughly 30 minutes) you can check the [build status here](https://hub.docker.com/r/jordanosborn/pycav/builds/).
@@ -565,22 +567,22 @@ rm mycron
 **Section to be completed**
 
 ```bash
-sed -i -- 's/domain/[site_name]/g' /home/public/server/updatescripts.sh
+sed -i -- 's/domain/[site_name]/g' /home/public/server/global/updatescripts.sh
 
-sed -i -- 's/PORT/[port]/g' /home/public/server/updatescripts.sh
+sed -i -- 's/PORT/[port]/g' /home/public/server/global/updatescripts.sh
 
-cp /home/public/server/updatescripts_subscript.sh /usr/local/bin/updatescripts_subscript
+cp /home/public/server/global/updatescripts_subscript.sh /usr/local/bin/updatescripts_subscript
 
-cp /home/public/server/updatescripts.sh /usr/local/bin/updatescripts
+cp /home/public/server/global/updatescripts.sh /usr/local/bin/updatescripts
 ```
 
 ### **Running The Server** 
 First you should add the startserver.sh and killserver.sh scripts to your path, you can do this by running the following commands.
 
 ```bash
-cp /home/public/server/startserver.sh /usr/local/bin/startserver
+cp /home/public/server/global/startserver.sh /usr/local/bin/startserver
 
-cp /home/public/server/killserver.sh /usr/local/bin/killserver
+cp /home/public/server/global/killserver.sh /usr/local/bin/killserver
 ```
 
 You should now switch to the non-root user you created earlier, you can do this by running the command below (making sure to replace **[username]** with the username of the user you created earlier).
