@@ -16,27 +16,34 @@
           --server/
 
 
-## **Todo:**
+## **Todo**
 
-1. Finish server_setup_guide.md updatescripts section fix formatting when outputting to pdf
+#### **Current**
+
+1. Finish server_setup_guide.md updatescripts section 
 
 1. Build on machine? Rather than using docker hub's auto build or move to pycav account on hub.docker.com run trigger build script at 1am everyday on main server
 
 1. Investigate crons not working and updatescripts.sh as cronjob? serverguide
 
-1. documentation
+1. documenting source code
+
+
+#### **Future**
 
 1. Output to log files
 
-1. nbgrader documentation  autosetup.sh server_setup_guide.md
+1. nbgrader documentation and setup in autosetup.sh server_setup_guide.md
 
 1. whitelisting by course tis library
 
 1. admin users access to /home/public/users top level user folders customise dockerSpawner.py?
 
-1. Raven auth to Pypi so can be updated without git. (Niall)
+1. Raven auth to Pypi so can be updated without git. (Niall) Reflect in autosetup.sh and guide.
 
-### **Complete:**
+#### **Complete**
+
+1. ~~fix formatting when outputting to pdf~~
 
 1. ~~Move global scripts into ./global/~~
 
