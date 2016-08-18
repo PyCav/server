@@ -98,6 +98,7 @@ In this section you will complete the basic set up required for any new server.
 	
 	```bash
 	runuser -l [username] -c 'mkdir ~/.ssh'
+
 	runuser -l [username] -c 'chmod 700 ~/.ssh'
 	```
 
@@ -108,6 +109,7 @@ In this section you will complete the basic set up required for any new server.
 	
 	```bash
 	runuser -l [username] -c 'echo [public-key] > ~/.ssh/authorized_keys'
+
 	runuser -l [username] -c 'chmod 600 ~/.ssh/authorized_keys'
 	```
 
@@ -118,7 +120,9 @@ In this section you will complete the basic set up required for any new server.
 	 
 	 ```bash
 	 sed -i -- 's/PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
+
 	 sed -i -- 's/PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
+
 	 systemctl reload sshd
 	 ```
 
@@ -127,7 +131,9 @@ In this section you will complete the basic set up required for any new server.
 	
 	```bash 
 	ufw allow OpenSSH
+
 	ufw enable
+
 	ufw status
 	```
 
@@ -136,6 +142,7 @@ In this section you will complete the basic set up required for any new server.
 	
 	```bash
 	apt-get -y install apache2
+
 	ufw allow in "Apache Full"
 	```
 
@@ -149,6 +156,7 @@ In this section you will complete the basic set up required for any new server.
 	
 	```bash
 	apt-get -y install mysql-server
+
 	mysql_secure_installation
 	```
 
@@ -164,8 +172,11 @@ In this section you will complete the basic set up required for any new server.
 	
 	```bash
 	sed -i -- 's/index.php/temp.html/g' /etc/apache2/mods-enabled/dir.conf
+
 	sed -i -- 's/index.html/index.php/g' /etc/apache2/mods-enabled/dir.conf
+
 	sed -i -- 's/temp.html/index.html/g' /etc/apache2/mods-enabled/dir.conf
+
 	systemctl restart apache2
 	```
 
@@ -196,8 +207,11 @@ In this section you will complete the basic set up required for any new server.
 
 	```bash
 	crontab -l > mycron
+
 	echo "00 04 * * * letsencrypt renew" >> mycron
+
 	crontab mycron
+
 	rm mycron
 	```
 
@@ -209,8 +223,12 @@ In this section you will complete the basic set up required for any new server.
 
 	```bash
 	cp /etc/apache2/apache2.conf /etc/apache2/apache2.conf.working
-	curl https://raw.githubusercontent.com/PyCav/Server/master/configure_apache.py >> configure_apache.py
+
+	curl https://raw.githubusercontent.com/PyCav/Server/master/configure_apache.py \
+		 >> configure_apache.py
+
 	python3 configure_apache.py
+
 	rm configure_apache.py
 	```
 
@@ -219,8 +237,11 @@ In this section you will complete the basic set up required for any new server.
 
 	```bash
 	ipformatted=$(echo "$(curl http://icanhazip.com)" | sed -s 's/[.]/''\\.''/g')
+
 	echo "RewriteCond %{HTTP_HOST} ^""$ipformatted" >> /var/www/html/.htaccess
+
 	rm ipformatted
+
 	echo "RewriteRule (.*) https://[domain]/$1 [R=301,L]" >> /var/www/html/.htaccess
 	```
 
@@ -228,6 +249,7 @@ In this section you will complete the basic set up required for any new server.
 
 	```bash
 	a2enmod rewrite
+
 	systemctl restart apache2
 	```
 
@@ -249,7 +271,9 @@ In this section you will complete the basic set up required for any new server.
 
 	```bash
 	apt-get -y install python3-pip python-pip
+
 	pip3 install --upgrade pip
+
 	pip install --upgrade pip
 	```
 
@@ -279,7 +303,9 @@ In this next section you will be instructed on how to set up a JupyterHub Server
 
 	```bash
 	mkdir /home/public
+
 	mkdir /home/public/users
+
 	chmod a+rxw -R /home/public
 	```
 
@@ -287,9 +313,13 @@ In this next section you will be instructed on how to set up a JupyterHub Server
 
 	```bash
 	apt-get -y install docker.io
+
 	npm install -g configurable-http-proxy
+
 	pip3 install --upgrade jupyterhub
+
 	pip3 install --upgrade notebook
+
 	pip3 install --upgrade dockerspawner netifaces
 	```
 
@@ -298,6 +328,7 @@ In this next section you will be instructed on how to set up a JupyterHub Server
 
 	```bash
 	ufw allow 8000
+
 	ufw allow 8081
 	```
 
@@ -308,11 +339,13 @@ In this next section you will be instructed on how to set up a JupyterHub Server
 	docker pull jordanosborn/pycav
 	```
 
-	If you need to customise what libraries are installed you can edit the Dockerfile and build the image yourself by following the steps below making sure to name your image by replacing **[image]** with the name you wish to use (note build will download several GBs of data and will then build the image this may take a long time).
+	If you need to customise what libraries are installed you can edit the Dockerfile and build the image yourself by following the steps below making sure to name your image by replacing **[image]** with the name you wish to use (note build will download several GBs of data and will then build the image this may take a long time). If you need help with editing this file please use the [Dockerfile Docs](https://docs.docker.com/engine/reference/builder/).
 	
 	```bash
 	git clone https://github.com/PyCav/jupyterhub.git /home/public/Dockerfile
+
 	nano jupyterhub/Dockerfile
+
 	docker -t build docker build -t [image]:latest /home/public/Dockerfile/.
 	```
 
@@ -320,11 +353,13 @@ In this next section you will be instructed on how to set up a JupyterHub Server
 
 	```bash
 	git clone https://github.com/pycav/server.git /home/public/server
+
 	chmod a+x /home/public/server/*.sh
+
 	chmod a+x /home/public/server/cron/*.sh
 	```
 	**Warning** If you have decided to download these scripts into a different directory please run the script below (replacing /home/public/ wherever it appears in setcustomparent.sh with the path to the parent directory you cloned the server repo into)
-	 if however you have used the default directory you can ignore this step.
+	if however you have used the default directory you can ignore this step.
 
 	```bash
 	/home/public/setcustomparent.sh
@@ -403,7 +438,9 @@ The easiest way to update containers is to first delete them all, this is okay a
 
 ```bash
 cp /home/public/server/removecontainers.sh /usr/local/bin/removecontainers
+
 cp /home/public/server/updatecontainers.sh /usr/local/bin/updatecontainers
+
 cp /home/public/server/triggerbuild.sh /usr/local/bin/triggerbuild
 ```
 
@@ -417,7 +454,9 @@ You can now update the containers by running **updatecontainers** (as root) in y
 
 ```bash
 updatecontainers
+
 updatecontainers -b [image] [path_to_Dockerfile]
+
 updatecontainers -p [image]
 ```
 
@@ -438,10 +477,15 @@ Run the following commands replacing **[mountpath]** with the full path to the m
 
 ```bash
 backup_path=$(echo "[mountpath]" | sed -s 's/[/]/''\\\/''/g')
+
 sudo sed -i -- 's/\/media\/backup\//'$backup_path'/g' /home/public/cron/backup.sh
+
 rm backup_path
+
 crontab -l > mycron
+
 echo "30 04 * * 1 /home/public/server/cron/backup.sh" >> mycron
+
 rm mycron
 ```
 
@@ -450,8 +494,11 @@ The final steps to configuring JupyterHub are to customise the jupyterhub_config
 
 ```bash
 sudo sed -i -- 's/website/[domain]/g' /home/public/server/jupyterhub_config.py
+
 sudo sed -i -- 's/8000/[port]/g' /home/public/server/jupyterhub_config.py
+
 proxy_key=$(openssl rand -hex 32)
+
 sudo sed -i -- "s/auth_key=''/auth_key='"$proxy_key"'/g" /home/public/server/jupyterhub_config.py
 ```
 
@@ -461,10 +508,15 @@ You can also customise further parts of your JupyterHub installation in this fil
 Run the commands below to configure the environment variables that NbGrader uses for configuration making sure to replace **[username]** with the username of an admin on your JupyterHub server.
 
 **[username] is actually admin in jupyterhub must change command?**
+
 ```bash
 echo "CONFIGPROXY_AUTH_TOKEN='""$proxy_key""'" >> /etc/environment
-JPY_tmp=$(jupyterhub token --db=sqlite:///home/public/server/jupyterhub.sqlite -f /home/public/server/jupyterhub_config.py [username])
+
+JPY_tmp=$(jupyterhub token --db=sqlite:///home/public/server/jupyterhub.sqlite \
+	 -f /home/public/server/jupyterhub_config.py [username])
+
 echo "JPY_API_TOKEN='""$JPY_tmp""'" >> /etc/environment
+
 source /etc/environment
 ```
 
@@ -474,12 +526,15 @@ A script was written in python to check if containers are idle or are using too 
 #### **(Optional) Setting up a Basic Webpage**
 The PyCav server repo that you cloned earlier contains a basic index page and stats page. These can be used as a basic landing page for users accessing your website. 
 To make these pages accessible at your domain you need to move them to the directory Apache uses to serve content from (/var/www/html/), you can do this by running the commands below.
- Make sure you replace **[domain]** with the domain name of your server (in the format example.com) and **[port]** with the port your JupyterHub server is running on (default is 8000).
+Make sure you replace **[domain]** with the domain name of your server (in the format example.com) and **[port]** with the port your JupyterHub server is running on (default is 8000).
 
 ```bash
 sed -i -- 's/8000/[port]/g' /home/public/server/webpages/index.php
+
 sed -i -- 's/website/[domain]/g' /home/public/server/webpages/index.php
+
 mv /home/public/server/webpages/* /var/www/html/
+
 echo "ErrorDocument 404 /notfound.php" >> /var/www/html/.htaccess
 ```
 
@@ -488,13 +543,21 @@ If you wish to install the PyCav Notebooks so that they are viewable by your use
 
 ```bash
 git clone https://github.com/pycav/demos.git /home/public/demos
+
 git clone https://github.com/pycav/data.git /home/public/data
+
 git clone https://github.com/pycav/investigations.git /home/public/investigations
+
 sudo sed -i -- 's/#demos_//g' /home/public/server/jupyterhub_config.py
+
 /home/public/server/cron/indexgen.sh
+
 crontab -l > mycron
+
 echo "10 04 * * * rm -R /home/public/cron/updatenotebooks.sh" >> mycron
+
 crontab mycron
+
 rm mycron
 ```
 
@@ -503,8 +566,11 @@ rm mycron
 
 ```bash
 sed -i -- 's/domain/[site_name]/g' /home/public/server/updatescripts.sh
+
 sed -i -- 's/PORT/[port]/g' /home/public/server/updatescripts.sh
+
 cp /home/public/server/updatescripts_subscript.sh /usr/local/bin/updatescripts_subscript
+
 cp /home/public/server/updatescripts.sh /usr/local/bin/updatescripts
 ```
 
@@ -513,6 +579,7 @@ First you should add the startserver.sh and killserver.sh scripts to your path, 
 
 ```bash
 cp /home/public/server/startserver.sh /usr/local/bin/startserver
+
 cp /home/public/server/killserver.sh /usr/local/bin/killserver
 ```
 
@@ -526,6 +593,7 @@ You now need to run the command below which ensures that all the set environment
 
 ```bash
 source /etc/environment
+
 source ~/.bashrc
 ```
 
