@@ -114,17 +114,17 @@ In this section you will complete the basic set up required for any new server.
 	```
 
 11. Make sure you can log in using your public key before running the following commands as they may prevent access to the server if you haven't set
-	 up your public-key correctly. If you can log in then run the commands below to remove the ability to log in using passwords (only machines that 
-	 have authorised public-keys will be able to log in) and to also remove the ability for people to log in as root to your server remotely. These steps
-	 will help to prevent unauthorised users from accessing your server.
+	up your public-key correctly. If you can log in then run the commands below to remove the ability to log in using passwords (only machines that 
+	have authorised public-keys will be able to log in) and to also remove the ability for people to log in as root to your server remotely. These steps
+	will help to prevent unauthorised users from accessing your server.
 	 
-	 ```bash
-	 sed -i -- 's/PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
+	```bash
+	sed -i -- 's/PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
 
-	 sed -i -- 's/PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
+	sed -i -- 's/PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
 
-	 systemctl reload sshd
-	 ```
+	systemctl reload sshd
+	```
 
 12. This next step will enable a basic firewall for your server and allow ssh connections to pass through it.
 	Run the following commands to set this up.

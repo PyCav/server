@@ -1,3 +1,3 @@
 #!/bin/bash
 
-pandoc -V geometry:margin=0.8in server_setup_guide.md -o setup.pdf
+pandoc -s -V geometry:margin=0.8in --dpi=192  server_setup_guide.md -o setup.pdf
