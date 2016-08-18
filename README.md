@@ -19,7 +19,7 @@
 ## Todo:
 Finish server_setup_guide.md
 
-Build on machine? Rather than using docker hub's auto build or move to pycav account on hub.docker.com
+Build on machine? Rather than using docker hub's auto build or move to pycav account on hub.docker.com run trigger build script at 1am everyday on main server
 
 Investigate crons and updatescripts.sh as cronjob? serverguide
 
