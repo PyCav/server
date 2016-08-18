@@ -9,6 +9,7 @@ echo "Do you still wish to proceed (n)?"
 read ans
 if [ "$ans" == "y" ]; then
 	sudo killserver
+	cp server/cron/backup.sh ./.backup.sh
 	sudo rm -R server
 	sudo git clone https://github.com/pycav/server.git
 	cd server
@@ -31,6 +32,8 @@ if [ "$ans" == "y" ]; then
 	sudo cp ./removecontainers.sh /usr/local/bin/removecontainers
 	sudo cp ./updatecontainers.sh /usr/local/bin/updatecontainers
 	sudo cp ./triggerbuild.sh /usr/local/bin/triggerbuild
+	python3 python/set_backup_path.py
+	rm ../.backup.sh
 fi
 
 sudo runuser -l $USER -c 'source ~/.bashrc'
