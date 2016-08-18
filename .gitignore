@@ -5,3 +5,5 @@
 DockerImage/copyto.sh
 
 python/__pycache__/titlecase.cpython-35.pyc
+
+di/copyto.sh
