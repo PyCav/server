@@ -17,7 +17,7 @@
 
 
 ## Todo:
-Finish server_setup_guide.md updatescripts section
+Finish server_setup_guide.md updatescripts section fix formatting when outputting to pdf
 
 Build on machine? Rather than using docker hub's auto build or move to pycav account on hub.docker.com run trigger build script at 1am everyday on main server
 
