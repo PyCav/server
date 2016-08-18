@@ -20,13 +20,11 @@
 
 #### **Current**
 
-1. fix url highlighting for pdfgen
-
-1. put other files in runtime folder
+1. Total update script, updatescripts, updatecontainers, updatenotebooks.sh, triggerbuild?
 
 1. Build on machine? Rather than using docker hub's auto build or move to pycav account on hub.docker.com run trigger build script at 1am everyday on main server
 
-1. Investigate crons not working and updatescripts.sh as cronjob? serverguide
+1. Investigate crons not working? serverguide
 
 1. documenting source code
 
@@ -44,6 +42,8 @@
 1. Raven auth to Pypi so can be updated without git. (Niall) Reflect in autosetup.sh and guide.
 
 #### **Complete**
+
+1. ~~fix url highlighting for pdfgen~~
 
 1. ~~Finish server_setup_guide.md updatescripts section~~
 
