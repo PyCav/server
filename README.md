@@ -20,60 +20,57 @@
 
 1. Finish server_setup_guide.md updatescripts section fix formatting when outputting to pdf
 
-2. Move global scripts into ./global/
+1. Build on machine? Rather than using docker hub's auto build or move to pycav account on hub.docker.com run trigger build script at 1am everyday on main server
 
-3. Build on machine? Rather than using docker hub's auto build or move to pycav account on hub.docker.com run trigger build script at 1am everyday on main server
+1. Investigate crons not working and updatescripts.sh as cronjob? serverguide
 
-4. Investigate crons not working and updatescripts.sh as cronjob? serverguide
+1. documentation
 
-5. documentation
+1. Output to log files
 
-6. Output to log files
+1. nbgrader documentation  autosetup.sh server_setup_guide.md
 
-7. nbgrader documentation  autosetup.sh server_setup_guide.md
+1. whitelisting by course tis library
 
-8. whitelisting by course tis library
+1. admin users access to /home/public/users top level user folders customise dockerSpawner.py?
 
-9. admin users access to /home/public/users top level user folders customise dockerSpawner.py?
-
-10. Raven auth to Pypi so can be updated without git. (Niall)
+1. Raven auth to Pypi so can be updated without git. (Niall)
 
 ### **Complete:**
 
+1. ~~Move global scripts into ./global/~~
+
 1. ~~updatescripts.sh backup.sh set up?~~
  
-2. ~~improve Auto set up demonstration server script autosetup.sh implement checks~~
+1. ~~improve Auto set up demonstration server script autosetup.sh implement checks~~
 
-3. ~~in guide explain how to use local users instead of docker containers?~~ not planned for now
+1. ~~in guide explain how to use local users instead of docker containers?~~ not planned for now
 
-4. ~~Use relative paths in scripts, (custom notebooks and user folders location?)~~
+1. ~~Use relative paths in scripts, (custom notebooks and user folders location?)~~
 
-5. ~~make update server files script that pulls github repo and customises jupyterhub_config.py~~(only for Raven usage)
+1. ~~make update server files script that pulls github repo and customises jupyterhub_config.py~~(only for Raven usage)
 
-6. ~~stopping server~~ nicely 
+1. ~~stopping server~~ nicely 
 
-7. ~~Add 404 page to demo website~~
+1. ~~Add 404 page to demo website~~
 
-8. ~~add uptime in running containers list~~
+1. ~~add uptime in running containers list~~
 
-9. ~~improve demo website~~
+1. ~~improve demo website~~
 
-10. ~~make server stats easier to view~~
+1. ~~make server stats easier to view~~
 
-11. ~~fix nokill flag~~
+1. ~~fix nokill flag~~
 
-12. ~~finish idlechecks and checks for containers exceeding fair use in killidle.py~~
+1. ~~finish idlechecks and checks for containers exceeding fair use in killidle.py~~
 
-13. ~~jupyterhub customisation (logos)~~
+1. ~~jupyterhub customisation (logos)~~
 
-14. ~~folder restructuring~~
+1. ~~folder restructuring~~
 
-15. ~~make jupyterhub_config.py authentication type flaggable~~ (not tested)
+1. ~~make jupyterhub_config.py authentication type flaggable~~ (not tested)
 
-16. ~~backup of /home/public/users backup.sh~~
+1. ~~backup of /home/public/users backup.sh~~
 
-17. ~~updating software script(remove containers, docker pull jordanosborn/pycav periodically and pycav repos) update.sh~~
-
-
-
+1. ~~updating software script(remove containers, docker pull jordanosborn/pycav periodically and pycav repos) update.sh~~
 
