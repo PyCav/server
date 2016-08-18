@@ -39,7 +39,7 @@
 
 1. admin users access to /home/public/users top level user folders customise dockerSpawner.py?
 
-1. Raven auth to Pypi so can be updated without git. (Niall)
+1. Raven auth to Pypi so can be updated without git. (Niall) Reflect in autosetup.sh and guide.
 
 #### **Complete**
 
