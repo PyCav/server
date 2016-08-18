@@ -20,8 +20,6 @@
 
 #### **Current**
 
-1. Finish server_setup_guide.md updatescripts section 
-
 1. fix url highlighting for pdfgen
 
 1. put other files in runtime folder
@@ -46,6 +44,8 @@
 1. Raven auth to Pypi so can be updated without git. (Niall) Reflect in autosetup.sh and guide.
 
 #### **Complete**
+
+1. ~~Finish server_setup_guide.md updatescripts section~~
 
 1. ~~fix formatting when outputting to pdf~~
 

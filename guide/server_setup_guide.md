@@ -565,7 +565,22 @@ rm mycron
 ```
 
 #### **Updating Server Scripts**
-**Section to be completed**
+The PyCav server repo provides a script that updates all of the server scripts including itself and those that have been added to /usr/local/bin.
+However it does **not** update your server's webpages using the default webpages in the server repo. It will automatically customise the newly 
+updated files to use the previous values where it can, see notes below to see if you should use the update script. 
+
+**Note** this script will **DELETE** and redownload the entire server repo, which means you should not use it if you have manually customised any of the files in
+the server directory as you will lose any changes you have made. Unfortunately if you have customised the files in the server directory you will need to manually update scripts as they 
+are uploaded on to GitHub. 
+
+**Note** the script also assumes that Raven is being used as an authentication method and that you want users on your JupyterHub to be able 
+to access the PyCav provided notebooks. You can however use the script and then modify your **jupyterhub_config.py** file (in the server folder) manually to meet your
+needs (see [JupyterHub Docs](http://jupyterhub.readthedocs.io/en/latest/getting-started.html). 
+
+**Note** your JupyterHub server will be taken offline while updating the scripts, you can start it back up after they complete by running the command
+**startserver** (as root).
+
+If you are sure you meet the use cases for this update script then you can set it up by running the following commands.
 
 ```bash
 sed -i -- 's/domain/[site_name]/g' /home/public/server/global/updatescripts.sh
@@ -575,6 +590,12 @@ sed -i -- 's/PORT/[port]/g' /home/public/server/global/updatescripts.sh
 cp /home/public/server/global/updatescripts_subscript.sh /usr/local/bin/updatescripts_subscript
 
 cp /home/public/server/global/updatescripts.sh /usr/local/bin/updatescripts
+```
+
+To update your server scripts you just need to run the command below (as root).
+
+```bash
+updatescripts
 ```
 
 ### **Running The Server** 
@@ -633,4 +654,4 @@ To access your JupyterHub server you should direct your web browser to https://*
 ***This concludes the PyCav JupyterHub setup guide, please visit [pycav.org](https://pycav.org/) if you would like to learn more about the PyCav project.***
 
 
-###### **v1.2 PyCav 2016 - Jordan Osborn**
+###### **v1.2.1 PyCav 2016 - Jordan Osborn**
