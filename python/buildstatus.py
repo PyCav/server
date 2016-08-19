@@ -9,7 +9,7 @@ import sys,time
 status={10:"Success",3:"Building",0:"Queued",-1:"Failure"} 
 url="https://hub.docker.com/r/jordanosborn/pycav/builds/"
 token=""
-DELTA_T=3 # in seconds
+DELTA_T=5 # in seconds
 BUILD_TIME=30*60 # in seconds
 
 #import os
@@ -31,11 +31,11 @@ def build(name,dockerfile=""):
 #properties for builds include updated, created, status, build_code, dockertag_name, cause
 repo_updated=""
 
-def countdown(t,dt):
-	if t-dt<=0:
+def countdown(t0):
+	if (BUILD_TIME-(time.time()-t0))<=0:
 		return 0
 	else:
-		return t-dt
+		return int(round(BUILD_TIME-(time.time()-t0)))
 
 def fix_date(date):
 	return date.replace("T"," ")[0:date.find(".")]
@@ -105,7 +105,7 @@ def is_currently_building():
 try:
 	if sys.argv[1] == "--stream":
 		print("Builds take approximately 30 minutes to complete, but may be less.")
-		print("This script will print the approximate time remaining but will always end when a build has completed.")
+		print("This script will print the approximate time remaining but will always end when a build has completed.\n")
 		hub=read_hub(url,"all")
 		T=BUILD_TIME
 		build_status=""
@@ -113,13 +113,14 @@ try:
 			ID=find_property(hub[0],"id")
 		else:
 			ID=find_property(hub[is_currently_building()],"id")
+		T0=time.time()
 		while True:
 			build_status=find_property(read_hub(url,get_build_index(ID)),"status")
 			if(build_status == "Success" or build_status == ""):
 				break
 			if build_status == "Building":
 				print("Build Status: " + build_status + " Approximate time remaining: " +str(int(T/60.0))+ "m " + str(T%60) + "s.")
-				T=countdown(T,DELTA_T)
+				T=countdown(T0)
 			else:
 				print("Build Status: " + build_status + ". Build should start shortly.")
 			time.sleep(DELTA_T)
