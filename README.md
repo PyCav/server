@@ -23,12 +23,15 @@
 
 1. Total update script, updatescripts, updatecontainers, updatenotebooks.sh, triggerbuild?
 
+1. move scripts to runtime folder
+
 1. Build on machine? Rather than using docker hub's auto build or move to pycav account on hub.docker.com run trigger build script at 1am everyday on main server
 
 1. Investigate crons not working? serverguide
 
 1. documenting source code
 
+1. Raven auth to Pypi so can be updated without git. (Niall) Reflect in autosetup.sh and guide.
 
 #### **Future**
 
@@ -39,8 +42,6 @@
 1. whitelisting by course tis library
 
 1. admin users access to /home/public/users top level user folders customise dockerSpawner.py?
-
-1. Raven auth to Pypi so can be updated without git. (Niall) Reflect in autosetup.sh and guide.
 
 #### **Complete**
 
