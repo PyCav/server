@@ -21,11 +21,7 @@
 
 #### **Current**
 
-1. Total update script, updatescripts, updatecontainers, updatenotebooks.sh, triggerbuild?
-
-1. move scripts to runtime folder
-
-1. Build on machine? Rather than using docker hub's auto build or move to pycav account on hub.docker.com run trigger build script at 1am everyday on main server
+1. Total update script, updatescripts, updatecontainers, updatenotebooks.sh, triggerbuild? cron triggerbuild add to autosetup and server _guide setcustomparent and updatescripts
 
 1. Investigate crons not working? serverguide
 
