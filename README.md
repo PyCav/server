@@ -25,6 +25,8 @@
 
 1. documenting source code
 
+1. update guide/setup.pdf
+
 #### **Future**
 
 1. Raven auth to Pypi so can be updated without git. (Niall) Reflect in autosetup.sh and guide.
