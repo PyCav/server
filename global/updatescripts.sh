@@ -33,6 +33,7 @@ if [ "$ans" == "y" ]; then
 	sudo cp ./global/removecontainers.sh /usr/local/bin/removecontainers
 	sudo cp ./global/updatecontainers.sh /usr/local/bin/updatecontainers
 	sudo cp ./global/triggerbuild.sh /usr/local/bin/triggerbuild
+	sudo cp ./global/updateserver.sh /usr/local/bin/updateserver
 	python3 python/set_backup_path.py
 	rm ../.backup.sh
 fi
