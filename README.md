@@ -21,15 +21,15 @@
 
 #### **Current**
 
-1. Total update script, updatescripts, updatecontainers, updatenotebooks.sh, triggerbuild? cron triggerbuild add to autosetup and server _guide setcustomparent and updatescripts
-
 1. Investigate crons not working? serverguide
 
 1. documenting source code
 
-1. Raven auth to Pypi so can be updated without git. (Niall) Reflect in autosetup.sh and guide.
+1. update guide/setup.pdf
 
 #### **Future**
+
+1. Raven auth to Pypi so can be updated without git. (Niall) Reflect in autosetup.sh and guide.
 
 1. Output to log files
 
@@ -40,6 +40,7 @@
 1. admin users access to /home/public/users top level user folders customise dockerSpawner.py?
 
 #### **Complete**
+1. ~~Total update script, updatescripts, updatecontainers, updatenotebooks.sh, triggerbuild? cron triggerbuild add to autosetup and server _guide setcustomparent and updatescripts~~
 
 1. ~~fix url highlighting for pdfgen~~
 

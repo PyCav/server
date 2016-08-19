@@ -304,6 +304,10 @@ if [ "$jup" == "y" ]; then
 	sudo rm mycron
 
 	#cron job to update docker image?
+	crontab -l > mycron
+	echo "05 04 * * * rm -R triggerbuild" >> mycron
+	crontab mycron
+	rm mycron
 
 	#cron job to backup
 	echo "Do you want to set up user data backups (y/n)?"
@@ -348,6 +352,7 @@ if [ "$jup" == "y" ]; then
 	sudo cp /home/public/server/global/removecontainers.sh /usr/local/bin/removecontainers
 	sudo cp /home/public/server/global/updatecontainers.sh /usr/local/bin/updatecontainers
 	sudo cp /home/public/server/global/triggerbuild.sh /usr/local/bin/triggerbuild
+	sudo cp /home/public/server/global/updateserver.sh /usr/local/bin/updateserver
 	echo "To run server in background: screen; sudo startserver; ctrl-a; ctrl-d;"
 fi
 #so user can edit website without sudo? also part of general set up?
