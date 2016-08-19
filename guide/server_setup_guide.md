@@ -405,7 +405,7 @@ This section will describe how to set up a variety of authentication methods (Ra
 	```
 
 2. Secondly you need to set up an oauth application on GitHub, to do this log in to GitHub and [Create a GitHub Oauth Application](https://github.com/settings/developers). Use a sensible application name
-	, set the homepage url as https://**[domain]**:**[jupyterhubport]** and set the callback url as https://**[domain]**:**[jupyterhubport]**/hub/oauth_callback , replacing **[domain]** with the domain name of your server
+	, set the homepage url as https://**[domain]**:**[jupyterhubport]** and set the callback url as https://**[domain]**:**[jupyterhubport]**/hub/oauth_callback, replacing **[domain]** with the domain name of your server
 	(in the format example.com) and also **[jupyterhubport]** with the port you decided to run your JupyterHub server on (default 8000).
  
 3. Finally, before GitHub authentication is available you must enable it in the jupyterhub_config.py file to do this you should run the following command
