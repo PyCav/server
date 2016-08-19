@@ -11,6 +11,7 @@ sudo sed -i -- 's:/home/public:'$path':g' ./server/global/updatescripts.sh
 sudo sed -i -- 's:/home/public:'$path':g' ./server/global/updatescripts_subscript.sh
 sudo sed -i -- 's:/home/public:'$path':g' ./server/global/updatecontainers.sh
 sudo sed -i -- 's:/home/public:'$path':g' ./server/global/triggerbuild.sh
+sudo sed -i -- 's:/home/public:'$path':g' ./server/global/updateserver.sh
 
 sudo sed -i -- 's:/home/public:'$path':g' ./server/cron/backup.sh
 sudo sed -i -- 's:/home/public:'$path':g' ./server/cron/indexgen.sh
