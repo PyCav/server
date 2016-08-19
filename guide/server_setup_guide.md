@@ -435,9 +435,9 @@ This section will discuss how to set up NbGrader up on your server, so that you 
 ### **Final Configuration**
 This section will show you how to customise your installation, how to update containers, how to set up periodic backups of user data and how to kill resource draining containers.
 
-#### **Updating Containers**
+#### <a name="updatecontainers"></a> **Updating Containers**
 
-The easiest way to update containers is to first delete them all, this is okay as data created by the user is seperated from the container. After this you need to delete the old docker image and download/build the newer version. You must schedule a maintenance period where the server will remain offline during the update, this involves informing users of this scheduled down time and giving them appropriate time to prepare. Three scripts have been provided the first one stops all containers and then deletes them, the second will take the JupyterHub server offline, call the first script, delete the old Docker Image and then download/build the new image. The third one will trigger a build of the default image on [hub.docker.com](https://hub.docker.com/r/jordanosborn/pycav) You need to move these scripts so that they will be on your server's path, to do this run the commands below.
+The easiest way to update containers is to first delete them all, this is okay as data created by the user is seperated from the container. After this you need to delete the old docker image and download/build the newer version. You must schedule a maintenance period where the server will remain offline during the update, this involves informing users of this scheduled down time and giving them appropriate time to prepare. Three scripts have been provided the first one stops all containers and then deletes them, the second will take the JupyterHub server offline, call the first script, delete the old Docker Image and then download/build the new image. The third one will trigger a build of the default image on [hub.docker.com](https://hub.docker.com/r/jordanosborn/pycav) (If you aren't using the default image, you don't need to set up the trigger build script). You can move these scripts so that they will be on your server's path, using the commands below.
 
 ```bash
 cp /home/public/server/global/removecontainers.sh /usr/local/bin/removecontainers
@@ -459,6 +459,18 @@ You can check the [build status here](https://hub.docker.com/r/jordanosborn/pyca
 triggerbuild --status
 ```
 
+It is suggested that you set up the triggerbuild script to run automatically every day so that the image on [DockerHub](https://hub.docker.com/jordanosborn/pycav) is always up to date. You can do this using the commands below.
+
+```bash
+crontab -l > mycron
+
+echo "05 04 * * * rm -R triggerbuild" >> mycron
+
+crontab mycron
+
+rm mycron
+```
+
 You can now update the containers by running **updatecontainers** (as root) in your server's terminal. The updatecontainers script has 2 flags that can be activated independently three examples of running the updatecontainers script are shown below.
 
 ```bash
@@ -475,7 +487,7 @@ The second command updates by building a new image from a custom Dockerfile (rep
 
 **Note** if you run updatecontainers using just the -b flag with no further arguments you will build the default Docker image locally.
 
-The final command will pull the named image (replace **[image]** with the name of the image you wish to use) from [DockerHub](hub.docker.com).
+The final command will pull the named image (replace **[image]** with the name of the image you wish to use) from [DockerHub](https://hub.docker.com/).
 
 **Warning** If you use a new image with a different name you will need to update your **jupyterhub_config.py** file to reflect this change.
 
@@ -575,15 +587,15 @@ The PyCav server repo provides a script that updates all of the server scripts i
 However it does **not** update your server's webpages using the default webpages in the server repo. It will automatically customise the newly 
 updated files to use the previous values where it can, see notes below to see if you should use the update script. 
 
-**Note** this script will **DELETE** and redownload the entire server repo, which means you should not use it if you have manually customised any of the files in
+**Note** This script will **DELETE** and redownload the entire server repo, which means you should not use it if you have manually customised any of the files in
 the server directory as you will lose any changes you have made. Unfortunately if you have customised the files in the server directory you will need to manually update scripts as they 
 are uploaded on to GitHub. 
 
-**Note** the script also assumes that Raven is being used as an authentication method and that you want users on your JupyterHub to be able 
+**Note** The script also assumes that Raven is being used as an authentication method and that you want users on your JupyterHub to be able 
 to access the PyCav provided notebooks. You can however use the script and then modify your **jupyterhub_config.py** file (in the server folder) manually to meet your
 needs (see [JupyterHub Docs](http://jupyterhub.readthedocs.io/en/latest/getting-started.html). 
 
-**Note** your JupyterHub server will be taken offline while updating the scripts, you can start it back up after they complete by running the command
+**Note** Your JupyterHub server will be taken offline while updating the scripts, you can start it back up after they complete by running the command
 **startserver** (as root).
 
 If you are sure you meet the use cases for this update script then you can set it up by running the following commands.
@@ -603,6 +615,30 @@ To update your server scripts you just need to run the command below (as root).
 ```bash
 updatescripts
 ```
+
+#### **Updating your Entire JupyterHub Installation**
+**Note** Make sure you meet the use cases of the previous update scripts before running this script, as if you are not using the defaults outlined in this document you may damage your installation.
+
+You can either run each of the update scripts independently to update your installation or run all of them together using the updateserver script **(This means that the updateserver script has the same caveats as the updatescripts script)**. The updateserver script will take your JupyterHub server offline, update the PyCav provided notebook, update the server scripts, and finally update your Docker image. To add the the updateserver script to your path run the following command.
+
+```bash
+sudo cp /home/public/server/global/updateserver.sh /usr/local/bin/updateserver
+```
+
+The updateserver script can be run using one of the commands below (depending on your needs).
+
+```bash
+updateserver
+updateserver -f
+updateserver -b
+updateserver -p
+```
+
+The **-f** flag triggers a build on [DockerHub](https://hub.docker.com/jordanosborn/pycav) of the default image, waits for completion of this build and then downloads the newly built image (Takes ~30 mins for build to take place, quicker to not use pre-built images).
+
+For explanations of the **-b** and **-p** flags please see the section above titled [Updating Containers](#updatecontainers) as these flags are functionally equivalent for both scripts (They are used as arguments when the updateserver script calls the updatecontainers script).
+
+It is recommended that you run the updateserver command without using any flags, as using pre-built images is much faster.
 
 ### **Running The Server** 
 First you should add the startserver.sh and killserver.sh scripts to your path, you can do this by running the following commands.
@@ -655,9 +691,15 @@ You can also kill your JupyterHub server by running the command below (as root u
 sudo killserver
 ```
 
+You can update your JupyterHub server by running the command below (as root using sudo) (This command will also execute the killserver command). **Note** If you are not using the defaults outlined in this document you may damage your JupyterHub installation.
+
+```bash
+sudo updateserver
+```
+
 To access your JupyterHub server you should direct your web browser to https://**[domain]**:**[port]** (replacing **[domain]** with your server's domain name and **[port]** with the port your JupyterHub server is running on).
 
 ***This concludes the PyCav JupyterHub setup guide, please visit [pycav.org](https://pycav.org/) if you would like to learn more about the PyCav project.***
 
 
-###### **v1.2.1 PyCav 2016 - Jordan Osborn**
+###### **v1.5 PyCav 2016 - Jordan Osborn**
