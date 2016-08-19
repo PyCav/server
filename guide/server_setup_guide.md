@@ -447,10 +447,16 @@ cp /home/public/server/global/updatecontainers.sh /usr/local/bin/updatecontainer
 cp /home/public/server/global/triggerbuild.sh /usr/local/bin/triggerbuild
 ```
 
-If you are using the default image it is suggested that you trigger a build using the command below before updating the image (note this build will take roughly 30 minutes) you can check the [build status here](https://hub.docker.com/r/jordanosborn/pycav/builds/).
+If you are using the default image it is suggested that you trigger a build using the command below before updating the image (note this build will take roughly 30 minutes).
 
 ```bash
 triggerbuild
+```
+
+You can check the [build status here](https://hub.docker.com/r/jordanosborn/pycav/builds/) or by running the following command.
+
+```bash
+triggerbuild --status
 ```
 
 You can now update the containers by running **updatecontainers** (as root) in your server's terminal. The updatecontainers script has 2 flags that can be activated independently three examples of running the updatecontainers script are shown below.
