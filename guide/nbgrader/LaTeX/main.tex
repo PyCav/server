@@ -1,0 +1,44 @@
+\documentclass{report}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{parskip}
+\usepackage{setspace}
+\linespread{1.5}
+\usepackage{hyperref}
+\usepackage{listings}
+
+\usepackage{graphicx}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg,.tif}
+
+\title{NST Physics and nbgrader}
+\author{Niall McConville \\ PyCav Project}
+\date{August 2016}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents{}
+
+\chapter{Introduction}
+   \input{intro.tex}
+   
+\chapter{Setup}
+    \input{setup/jupyterhub.tex}
+    \input{setup/nbgrader.tex}
+    \section{Server}
+        \begin{figure}[htb]
+            \centering
+            \includegraphics[width=0.9\linewidth]{setup/files/server_setup.png}
+            \caption{The interactions between the various bits of software in relation to the users and the servers. Note that Assessors should be able to access software beyond the JupyterHub, for example, the nbgrader formgrade interface (which in turn relies on JupyterHub for authentication). Not depicted: The nbgrader installation \textbf{inside} the Docker containers.}
+            \label{fig:server}
+        \end{figure}
+
+\chapter{Courses}
+   \input{courses/courses.tex}
+   \input{courses/exercises.tex}
+   
+\chapter{Conclusion}
+    \input{conclusion.tex}
+
+\end{document}

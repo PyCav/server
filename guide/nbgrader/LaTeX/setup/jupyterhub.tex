@@ -1,0 +1,43 @@
+\section{JupyterHub}
+    \subsection{Background}
+    
+        JupyterHub is a system which allows the hosting of a multi-user server which allows users to log in to and create Jupyter notebooks without hosting a server for themselves.
+    
+        Docker\footnote{\url{https://www.docker.com/}} is effectively a sandboxing system which allows JupyterHub to create single user Jupyter servers inside a set of isolated environments.
+        
+        The idea for this project was to set up an environment where students could experiment with Python without having to install any software locally. The above were selected as they were able to provide this environment.
+        
+    \subsection{Raven Authentication}
+    
+        All Cambridge students and staff have access to a crsid. This allows them to authenticate using the Raven\footnote{\url{https://raven.cam.ac.uk/}} service.
+        
+        To extend this functionality to JupyterHub, an authentication plugin jupyterhub-raven-auth\footnote{\url{https://github.com/PyCav/jupyterhub-raven-auth}} was written. It was used throughout the project.
+        
+    \subsection{Docker Configuration}
+        
+        The isolation provided by Docker is useful for running an assessment environment. It allows for caps to be placed on usage, especially in the instances of runaway code. Students are unable to view other student's files in a way that goes beyond setting access rights. It also allows for the simple addition of read only volumes, which we have exploited to share Demonstrations for everyone to see.
+        
+        Docker images are built from Dockerfiles (compare with Makefiles). These images are called by the Dockerspawner in the JupyterHub config. The Dockerspawner creates \textit{containers} which take up file space. It is possible to mount volumes in an NFS setup, using the \{username\} filter.
+        
+        In the Dockerfile provided below, one can see the extent of the customisation we provide. Notably, nbgrader is installed in each container.
+        
+        Docker containers (and their 'real' mounted volumes) should be continually backed up. We (as of \today) have not considered what the total size of such a system would be. For the 'Computational Models' course at Berkley, CA a 3 TB NFS was used for storage\footnote{\url{https://github.com/compmodels/jupyterhub-deploy}}.
+        
+        We have also set up the containers to execute the 'start-singleuser.sh' shell script. This contains code to create a new user, whose username matches the crsid of the individual logged into the JupyterHub. This is required as nbgrader will use this username in the filenames of submitted coursework.
+        
+        \clearpage
+        
+        Dockerfile:
+        
+        \lstinputlisting[frame=single]{setup/files/Dockerfile}
+        
+        \clearpage
+       
+        start-singleuser.sh file:
+        
+        \lstinputlisting[frame=single,language=Bash]{setup/files/start-singleuser.sh}
+        \clearpage
+    \subsection{The JupyterHub Config}
+        \lstinputlisting[frame=single,language=Python]{setup/files/jupyterhub_config.py}
+        
+        \clearpage

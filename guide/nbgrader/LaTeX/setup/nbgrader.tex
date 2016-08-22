@@ -1,0 +1,39 @@
+\section{nbgrader}
+
+   \subsection{Background}
+   
+   nbgrader is a tool which allows for the assignment and grading of Jupyter notebooks. It can operate in numerous ways, the simplest of which is the manual distribution and collection of notebook assignments. The PyCav project uses a combination of nbgrader and JupyterHub to automate various aspects of the process.
+   
+   The documentation for nbgrader can be found here: \url{http://nbgrader.readthedocs.io/}.
+   
+   \subsection{Installation}
+   
+   The nbgrader was setup in two places,
+   
+   \begin{enumerate}
+       \item The pycav server (the local server, where the JupyterHub is hosted).
+       \item Within the Docker containers.
+   \end{enumerate}
+
+   The installation on the local server was for the utilisation of nbgrader's \textit{assign}, \textit{collect}, and \textit{formgrade} applications. These are to be run by the teaching staff, and will be discussed in a later chapter.
+   
+   The installation inside the Docker containers was for nbgrader's Jupyter extension, which calls nbgrader's \textit{fetch} and \textit{submit} applications. These will be run by the extension (and so not directly by students).
+   
+   Upon installation within a Docker image, a file called '.nbgrader.log' is created within the '/home/jovyan/work/' directory. As mentioned in the previous chapter, this \textit{must} have write access for the user or else the nbgrader functionality will not work.
+   
+   
+   \subsection{Directory Structure}
+   
+   One can posit that there are effectively two sides to nbgrader directories: course directories and the distribution directory. These are both present on the local server.
+   
+   Central to the automation of distribution is the \textit{exchange} folder. Typically this is stored in the directory '/srv/nbgrader/exchange', although one can specify alternative directories. The exchange directory \textbf{must} be world readable and writable.
+   
+   Although any folder can be specified as the exchange folder, when mounting it to a Docker container, it is simplest to mount it to the container directory such that it appears as '/srv/nbgrader/exchange'. The default behaviour of nbgrader is to check this directory, with further (possibly complicated) configuration required to change this.
+   
+   Course directories provide a structure for the courses that can be provided. They will be elaborated upon in the next chapter.
+   
+   \subsection{JupyterHub Integration}
+   
+   \subsection{Teaching System Integration}
+   
+   Currently a work in progress. There will be a module which allows nbgrader to interface with the TiS.

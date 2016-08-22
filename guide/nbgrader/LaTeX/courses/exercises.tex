@@ -1,0 +1,91 @@
+\section{Exercises}
+
+    \subsection{Creating Exercises}
+    
+    For a full guide on creating exercises: \url{http://nbgrader.readthedocs.io/en/stable/user_guide/creating_and_grading_assignments.html}.
+    
+    In short, exercises are Jupyter Notebooks which have been customised using the nbgrader Jupyter extension. This will affix metadata to the notebooks.
+    
+    Before creating an exercise, one must install the nbgrader Jupyter extension\footnote{\url{http://nbgrader.readthedocs.io/en/stable/user_guide/installation.html}}.
+    
+    Exercises contain four different types of cell,
+    
+    \begin{enumerate}
+        \item \textit{Manually Graded Cells}: This lets nbgrader know that a human will grade these cells. Points are allocated to these cells.
+        \item \textit{Read-only Cells}: (Ideally, although in practice it doesn't work) Cells which students can read but not write to, for example, the exercises themselves\footnote{Effectively the problem lies in the fact that there is no functionality within nbgrader to enforce this behaviour. There does, however, exist a Jupyter nbextension for enforcing read only cells using Javascript. It is installed using our Dockerfiles.}.
+        \item \textit{Autograded Answer Cells}: These cells do not get awarded points when creating an exercise. In the full guide on creating exercises, one can indicate certain tags which allow you to write an answer, which will be scrubbed from the notebook upon assignment.
+        \item \textit{Autograder Cells}: These cells are assigned points. Typically answers are tested by using python's assert (which will quietly pass tests). A failure is quantified by these cells by their throwing an error. Graphs are difficult to autograde and should probably be reserved for manual testing. These tests can be viewed and modified by students, but a checksum system will prevent them from submitting modified cells\footnote{There are two things to note here. One is that the checksum is actually distributed as a JSON field inside the notebooks. Therefore the cells are prone to an attack where the original checksum is substituted with that of a modified autograder cell. nbgrader will not throw an error in this case. I think that the way around this is to store the checksum with a the gradebook.db and throw an error (or at least, flag for manual marking). The second note is that visibile autograder tests may limit the type of functions that  could be tested. One could try to describe this as a system of 'working to an answer' rather than towards one. To get around this, it might be worth compiling autograder tests using Cython and importing the tests in these cells. }
+    \end{enumerate}
+    
+    It is critical to assign points correctly to cells. Failure to do so correctly will result in errors upon assignment, or autograding for students. 
+    
+    When finished, place your assignments in the folder folder \{course\}/source/\{assignment\_id\}. 
+    
+    Make sure that the assignment directory is recorded in the nbgrader\_config.py.
+    
+    \subsection{Assigning Exercises}
+    
+    To begin the process of sending out assignments (which contain the exercises), go to the \{course\} directory and execute the following command,
+    
+    \begin{lstlisting}[frame=single,language=Bash]
+    nbgrader assign {assignment_id}
+    \end{lstlisting}
+    
+    Where \{assignment\_id\} is the name of the exercise folder \{course\}/source/\{assignment\_id\}, containing the exercises to be assigned.
+    
+    This will create a folder \{release\} in the course directory. One could now, if they wished, distribute these files manually.
+    
+    Once this command has been run, the notebooks in the assignment directory are scrubbed of inputs as well as of answers if the correct specification has been used.
+    
+    The system we have developed for the Cavendish uses another step of the nbgrader system. In order to distribute the assignemnts using the JupyterHub, one should execute the next command,
+    
+    \begin{lstlisting}[frame=single,language=Bash]
+    nbgrader release {assignment_id}
+    \end{lstlisting}
+    
+    This will copy the assignment files from the release directory to `/srv/nbgrader/exchange/\{course\}/outbound/\{assignment\_id\}' folder. This directory is mirrored into docker containers and students can grab their assignments using the nbgrader extension. Students can submit multiple times, which will be stored in the corresponding 'inbound' directory, although only the most recent submission will be graded.
+    
+    \subsection{Collecting Exercises}
+    
+    When you want to collect the exercises, run the following command in the \{course\} directory,
+    
+    \begin{lstlisting}[frame=single,language=Bash]
+    nbgrader collect {assignment_id}
+    \end{lstlisting}
+    
+    This will copy the submitted notebooks from the inbound directory to the \{course\} directory.
+    
+    \subsection{Marking Exercises}
+    
+    There are two steps to marking exercises/assignments.
+    
+    The first is to run the autograder, this \textbf{must} be done first. It will check whether or not students are signed up for the course and it will print an error and skip students who it does not recognise.
+    
+    \begin{lstlisting}[frame=single,language=Bash]
+    nbgrader autograde {assignment_id}
+    \end{lstlisting}
+    
+    Once this is done, the formgrader, a web interface for grading notebooks can be run using,
+    
+    \begin{lstlisting}[frame=single,language=Bash]
+    nbgrader formgrade
+    \end{lstlisting}
+
+    This starts a tornado server which interfaces with the JupyterHub (for redirects \& authentication only, it does not run in a docker container).
+    
+    Exercises can then be marked and points awarded.
+    
+    Only those who are recorded as markers for a particular course are allowed to access the formgrader.
+    
+    \subsection{Giving Feedback}
+    
+    Once marked, the graded notebooks can be compiled into HTML files which can be sent back to students to give feedback.
+    
+    To do this, run in the \{course\} directory,
+    
+    \begin{lstlisting}[frame=single,language=Bash]
+    nbgrader feedback {assignment_id}
+    \end{lstlisting}
+    
+    This will store the feedback in the \{course\}/feedback directory. A script has been written which will copy these files into `/srv/nbgrader/feedback/' and the appropriate directory has been mirrored into the Docker containers (to stop students viewing each other's feedback).
+    

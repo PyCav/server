@@ -1,0 +1,9 @@
+A brief guide to the JupyterHub and nbgrader system setup by the PyCav team is presented. The advantages and pitfalls are also discussed. The structure of the server and how the various setups are tied together. A guide is also given as to how to setup and assess courses - however, this is presented like a framework, with the reader expected to get a feeling for the shape of the nbgrader system, rather than to illuminate it completely.
+
+Maintenance is expected to be simple - especially if the existing fleet of experienced *nix users remain with the Cavendish. Security aspects of nbgrader are also highlighted, and could be fixed by a future PyCav team if this isn't done within the current project.
+
+In terms of preventing students from tailoring answers to those given in autograder cells, it is my suggestion that Cython be used in order to provide a layer of obfuscation for autograder tests in the course fields. This would also be useful as it would make the testing cells more concise. In order to avoid creating autograder tests which are difficult for the students to interpret once their tests have failed, I recommend that methods should be given rather literal (and one might expect, quite long) names so as to not obstruct self-learning through knowledge of error.
+
+Conversion of the Part II Computational Exercises course would be an obvious place to start, with the exercise sheet being converted into notebooks.
+
+In summary, this system should be helpful for the Cavendish in any quest to streamline the teaching of computational resources (including, but not limited to assessment). I hope it finds some success in future.

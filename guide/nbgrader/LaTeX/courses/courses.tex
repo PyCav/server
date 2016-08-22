@@ -1,0 +1,37 @@
+\section{Courses}
+    
+    \subsection{Directory Structure}
+    
+    The primary folder of any course is the \{course\} directory folder. To create any course, you must start with one of these folders. It contains a few files (some of which are created when nbgrader is run for the first time),
+    
+    \begin{enumerate}
+        \item \{course\}/gradebook.db
+        \item \{course\}/nbgrader\_config.py
+    \end{enumerate}
+    
+    The gradebook stores information about the types of assignment which are pertinent to the course. The nbgrader\_config will be elaborated upon in a later section.
+    
+    nbgrader commands should be run from the \{course\} directory.
+    
+    Courses contain assignments, which contain exercises.
+    
+    In order to add assignments to a course, you should create a \{course\}/source directory, with folders corresponding to each assignment (each assignment can contain multiple notebooks).
+    
+    \subsection{The nbgrader Config}
+    
+    The nbgrader config file specifies the following information,
+    
+    \begin{enumerate}
+        \item The course id (used to lookup from the TiS).
+        \item The students who are taking the course.
+        \item The graders responsible for the course.
+        \item The Formgrader configurations (ip, port, JupyterHub integration)
+    \end{enumerate}
+    
+    A TiS plugin was/is being developed that would allow for the students and graders dictionaries to be populated. This stops unwanted individuals from being able to submit their work (which would waste grading time). Currently there are no developments which would allow for pushing autograded entries to the TiS. This might be desirable, but will of course have to be weighed up against the pros and cons. A positive is that it (pending sampling for error) would reduce the possibility of incorrect grades being communicated to the markbooks. However, automation of such a system could be quite 'blind' and could limit accountability.
+    
+    \clearpage
+    
+    \lstinputlisting[frame=single,language=Python]{courses/files/nbgrader_config.py}
+    
+    
